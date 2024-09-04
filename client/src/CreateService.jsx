@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import backgroundImage from './assets/Carwash-Prague-czech-adriatech-13.jpg';
 
 function CreateService () {
   const [service, setService] = useState()
@@ -22,7 +23,14 @@ function CreateService () {
   }
 
     return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-primary">
+      <div
+      className="d-flex vh-100 justify-content-center align-items-center"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="card p-4 shadow" style={{ width: '475px', borderRadius: '20px' }}>
         <form onSubmit={Submit}>
           <h2>Add Services</h2>
