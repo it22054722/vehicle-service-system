@@ -15,6 +15,21 @@ app.get('/', (req,res) => {
     .catch(err => res.json(err))
 })
 
+app.get('/getUser/:id', (req, res) =>{
+    const id = req.params.id;
+    UserModel.findById({_id:id})
+    .then(users => res.json(users))
+    .catch(err => res.json(err))
+})
+
+app.put('/updateUser/:id', (req,res) =>{
+    const id = req.params.id;
+    UserModel.findByIdAndUpdate({_id: id}, {name: req.body.name, date: req.body.date, nic: req.body.nic, contact: req.body.contact, email: req.body.email, position: req.body.position })
+    .then(users => res.json(users))
+    .catch(err => res.json(err))
+})
+
+
 app.post("/CreateUser", (req, res) =>{
     UserModel.create(req.body)
     .then(users => res.json(users))

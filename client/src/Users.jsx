@@ -41,7 +41,7 @@ function Users () {
                     <td>{user.email}</td>
                     <td>{user.position}</td>
                     
-                    <td><Link to="/update" className="btn btn-sm btn-primary">Update</Link> &nbsp;
+                    <td><Link to={`/update/${user._id}`}className="btn btn-sm btn-primary">Update</Link> &nbsp;
                     <button className="btn btn-sm btn-danger">Delete</button></td>
                     </tr>
                 })
