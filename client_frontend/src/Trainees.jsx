@@ -12,6 +12,14 @@ useEffect(() =>{
 
 },[]);
 
+const handleDelete = (id) =>{
+  axios.delete('http://localhost:3001/deleteTrainee/'+id)
+  .then(res => {console.log(res)
+    window.location.reload()
+  })
+  .catch(err => console.log(err))
+}
+
     return(
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
         <div className="w-75 bg-white rounded p-3">
@@ -45,7 +53,7 @@ useEffect(() =>{
                       <td>
                       <Link to={`/update/${Trainee._id}`} className='btn btn-sm btn-success'>Edit</Link>&nbsp;&nbsp;
                         
-                      <button className="btn btn-sm btn-danger">Delete</button></td>
+                      <button className="btn btn-sm btn-danger"onClick={(e) => handleDelete(Trainee._id)}>Delete</button></td>
                       </tr>
                   })
               }
