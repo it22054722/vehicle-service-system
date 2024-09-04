@@ -10,7 +10,7 @@ useEffect(() =>{
   .then(result =>setTrainee(result.data))
   .catch(err => console.log(err))
 
-},[])
+},[]);
 
     return(
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
@@ -43,7 +43,7 @@ useEffect(() =>{
                       <td>{Trainee.email}</td>
                       <td>{Trainee.phone_number}</td>
                       <td>
-                      <Link to="/update" className='btn btn-sm btn-success'>Edit</Link>&nbsp;&nbsp;
+                      <Link to={`/update/${Trainee._id}`} className='btn btn-sm btn-success'>Edit</Link>&nbsp;&nbsp;
                         
                       <button className="btn btn-sm btn-danger">Delete</button></td>
                       </tr>
