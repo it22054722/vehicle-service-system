@@ -1,0 +1,6 @@
+.background {
+    background-image: url('create.jpg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Make sure it covers the full height */
+}
