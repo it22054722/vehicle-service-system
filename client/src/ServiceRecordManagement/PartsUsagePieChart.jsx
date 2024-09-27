@@ -12,7 +12,7 @@ const PieChartPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/Services")
       .then((result) => setServiceData(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -89,7 +89,7 @@ const PieChartPage = () => {
       </div>
       <button
         className="btn"
-        onClick={() => navigate('/reports')}
+        onClick={() => navigate('/Servicereports')}
         style={{ backgroundColor: '#a1192d', color: '#fff', borderRadius: '0.5rem', marginLeft: '10px' }}
       >
         Reports
@@ -97,7 +97,7 @@ const PieChartPage = () => {
 
       <button
         className="btn"
-        onClick={() => navigate('/dashboard')}
+        onClick={() => navigate('/serviceDashboard')}
         style={{ backgroundColor: '#a1192d', color: '#fff', borderRadius: '0.5rem', marginLeft: '10px' }}
       >
         Dashboard

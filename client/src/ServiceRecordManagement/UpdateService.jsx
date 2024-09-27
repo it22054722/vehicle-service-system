@@ -61,7 +61,7 @@ function UpdateService() {
     })
     .then(result => {
       console.log(result);
-      navigate('/Services');
+      navigate('/serviceRecords');
     })
     .catch(err => console.log(err));
   };

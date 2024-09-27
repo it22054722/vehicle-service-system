@@ -16,7 +16,7 @@ function ServiceReports() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/Services")
       .then((result) => {
         setServices(result.data);
         setFilteredServices(result.data);
@@ -196,28 +196,28 @@ function ServiceReports() {
           </a>
           <button
             className="btn btn-danger "
-            onClick={() => navigate('/services')}
+            onClick={() => navigate('/serviceRecords')}
             style={{ borderRadius: '0.3rem', marginLeft: '10px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
           >
             Services
           </button>
           <button
             className="btn btn-success "
-            onClick={() => navigate('/qrCodes')}
+            onClick={() => navigate('/serviceeqrCodes')}
             style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '200px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
           >
             QR Codes
           </button>
           <button
             className="btn btn-success "
-            onClick={() => navigate('/parts-usage')}
+            onClick={() => navigate('/servicepartsusage')}
             style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '200px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
           >
             View Parts Usage
           </button>
           <button
             className="btn btn-success "
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/serviceDashboard')}
             style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '200px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
           >
             Dashboard

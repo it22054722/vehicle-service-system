@@ -11,7 +11,7 @@ mongoose.connect("mongodb+srv://paman:paman2001@cluster04.w0x6oir.mongodb.net")
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log('Error connecting to MongoDB:', err));
 
-app.get('/', (req,res) => {
+app.get('/Services', (req,res) => {
     ServiceModel.find({})
     .then(services => res.json(services))
     .catch(err => res.json(err))
