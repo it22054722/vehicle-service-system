@@ -64,7 +64,7 @@ function QRCodePage() {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', marginTop: '45px',fontSize: '2.5rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>QR Codes</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color:'#fff', marginTop: '45px',fontSize: '2.5rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>QR Codes</h2>
       
       <div className="mb-4" style={{ maxWidth: '650px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)' }}>

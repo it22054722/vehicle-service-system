@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css';
+import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation

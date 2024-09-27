@@ -204,7 +204,7 @@ function ServiceReports() {
           <button
             className="btn btn-success "
             onClick={() => navigate('/qrCodes')}
-            style={{ borderRadius: '0.3rem', marginLeft: '10px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
+            style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '200px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}
           >
             QR Codes
           </button>
