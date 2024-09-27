@@ -31,6 +31,7 @@ app.put('/updateService/:id',(req,res) => {
         vin:req.body.vin,
         price:req.body.price,
         parts:req.body.parts,
+        quantity: Number(req.body.quantity),
         notes:req.body.notes
     })
     .then(services => res.json(services))
@@ -55,3 +56,5 @@ app.post("/createService", (req,res) => {
 app.listen(3001, () => {
     console.log("server is running")
 })
+
+

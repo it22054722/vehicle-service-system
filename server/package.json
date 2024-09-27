@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "start": "nodemon indexlogin.js"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +14,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "jspdf": "^2.5.2",
     "mongeese": "^0.0.1",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "qrcode.react": "^4.0.1"
   }
 }

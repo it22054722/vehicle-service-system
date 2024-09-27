@@ -5,6 +5,7 @@ const UserShema = new mongoose.Schema({
     vin: String,
     price: Number,
     parts: String,
+    quantity: Number,
     notes: String
 })
 
