@@ -42,7 +42,7 @@ function App() {
           <Route path='reports' element={<ServiceReports />} />
           <Route path='qrCodes' element={<QRCodePage />} />
           <Route path="service/:vin" element={<ServiceDetails />} />
-          <Route path="parts-usage" element={<PartsUsagePieChart />} />111111
+          <Route path="parts-usage" element={<PartsUsagePieChart />} />
           <Route path="services" element={<Services />} />
           <Route path="SerDescription" element={<SerDescription />} />
           <Route path="serviceLogin" element={<ServiceLogin />} />
