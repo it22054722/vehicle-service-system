@@ -7,7 +7,7 @@ function Users() {
 
     useEffect(() => {
         axios.get('http://localhost:3001')
-            .then(result => setUsers(result.data))
+            .then(result => setUsers(result.data))  
             .catch(err => console.log(err));
     }, []);
 
