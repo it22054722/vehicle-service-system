@@ -48,7 +48,7 @@ function ServiceLogin() {
     // Check if the email and password match the predefined credentials
     if (email === 'akashdealwis@gmail.com' && password === '2002') {
       alert('Login successful'); // Show login successful message
-      navigate('/dashboard'); // Navigate to /dashboard page
+      navigate('/serviceDashboard'); // Navigate to /dashboard page
     } else {
       // Send a POST request to the backend if credentials don't match predefined ones
       fetch('http://localhost:3002/login', {

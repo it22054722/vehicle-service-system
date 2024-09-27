@@ -13,7 +13,7 @@ function QRCodePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001") // Adjust the URL as needed
+    axios.get("http://localhost:3001/Services") // Adjust the URL as needed
       .then((result) => {
         setServices(result.data);
       })
@@ -163,7 +163,7 @@ function QRCodePage() {
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
         <button
           className="btn"
-          onClick={() => navigate('/reports')}
+          onClick={() => navigate('/Servicereports')}
           style={{
             borderRadius: '0.5rem',
             padding: '10px 20px',
@@ -182,7 +182,7 @@ function QRCodePage() {
 
         <button
           className="btn"
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate('/serviceDashboard')}
           style={{
             borderRadius: '0.5rem',
             padding: '10px 20px',

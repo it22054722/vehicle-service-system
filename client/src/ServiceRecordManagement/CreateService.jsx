@@ -45,7 +45,7 @@ function CreateService() {
     })
     .then(result => { 
       console.log(result);
-      navigate('/Services');
+      navigate('/serviceRecords');
     })
     .catch(err => console.log(err));
   };
@@ -193,7 +193,7 @@ function CreateService() {
           </div>
           <br />
           <div align="right">
-          <Link to="/services" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+          <Link to="/serviceRecords" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
             Services
             </Link>
             <button type="submit" className="btn btn-success  mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>Submit</button>

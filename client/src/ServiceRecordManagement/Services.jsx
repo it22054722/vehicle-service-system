@@ -38,13 +38,13 @@ function Services() {
       <h2 style={{ textAlign: 'center', marginBottom: '0.5rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Services</h2>
       <h4 style={{ textAlign: 'left', marginBottom: '0.2rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Our Assetes..</h4>
         <div className="mb-3">
-          <Link to="/create" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+          <Link to="/servicecreate" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
             Add +
           </Link>
-          <Link to="/reports" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+          <Link to="/Servicereports" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
             Reports
           </Link>
-          <Link to="/dashboard" className="btn btn-danger mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+          <Link to="/serviceDashboard" className="btn btn-danger mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
             Dashboard
           </Link>
         </div>
@@ -75,7 +75,7 @@ function Services() {
                   <td>{service.quantity}</td>
                   <td>{service.notes}</td>
                   <td>
-                    <Link to={`/update/${service._id}`} className="btn mx-1">
+                    <Link to={`/serviceupdate/${service._id}`} className="btn mx-1">
                       <FaEdit style={{ ...iconStyle, color: '#a1192d' }} title="Edit" />
                     </Link>
                     <button className="btn mx-1" onClick={() => handleDelete(service._id)}>

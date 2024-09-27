@@ -8,7 +8,7 @@ import ServiceReports from './ServiceRecordManagement/serviceReports'
 import QRCodePage from './ServiceRecordManagement/QRCodePage'
 import ServiceDetails from './ServiceRecordManagement/ServiceDetails'
 import PartsUsagePieChart from './ServiceRecordManagement/PartsUsagePieChart'
-import Dashboard from './ServiceRecordManagement/Dashboard'
+import ServiceDashboard from './ServiceRecordManagement/ServiceDashboard'
 import SerDescription from './ServiceRecordManagement/SerDescription'
 import PackageHeader from './ServiceRecordManagement/PackageHeader'
 import Footer from './ServiceRecordManagement/Footer';
@@ -26,14 +26,14 @@ function App() {
       <PackageHeader/>
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/Dashboard' element={<Dashboard />}></Route>
-        <Route path='/create' element={<CreateService />}></Route>
-        <Route path='/update/:id' element={<UpdateService />}></Route>
-        <Route path='/reports' element={<ServiceReports />}></Route>
-        <Route path='/qrCodes' element={<QRCodePage />}></Route>
+        <Route path='/serviceDashboard' element={<ServiceDashboard />}></Route>
+        <Route path='/servicecreate' element={<CreateService />}></Route>
+        <Route path='/serviceupdate/:id' element={<UpdateService />}></Route>
+        <Route path='/Servicereports' element={<ServiceReports />}></Route>
+        <Route path='/serviceeqrCodes' element={<QRCodePage />}></Route>
         <Route path="/service/:vin" element={<ServiceDetails />} />
-        <Route path="/parts-usage" element={<PartsUsagePieChart />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/servicepartsusage" element={<PartsUsagePieChart />} />
+        <Route path="/serviceRecords" element={<Services />} />
         <Route path="/SerDescription" element={<SerDescription />} />
         <Route path="/serviceLogin" element={<ServiceLogin />} />
         <Route path="/PINPage" element={<PINPage />} />

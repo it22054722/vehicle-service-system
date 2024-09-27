@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from './assets/Carwash-Prague-czech-adriatech-13.jpg';
 
-const Dashboard = () => {
+const ServiceDashboard = () => {
   return (
     <div
       style={{
@@ -21,10 +21,10 @@ const Dashboard = () => {
       <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
         {/* Card Component */}
         {[
-          { title: "Manage Services", description: "View, Add, and Update service records.", link: "/Services" },
-          { title: "Service Reports", description: "Generate and download reports on vehicle services.", link: "/reports" },
-          { title: "Parts Usage", description: "View charts showing parts usage in services.", link: "/parts-usage" },
-          { title: "QR Code Records", description: "Generate QR codes for service records.", link: "/qrCodes" },
+          { title: "Manage Services", description: "View, Add, and Update service records.", link: "/serviceRecords" },
+          { title: "Service Reports", description: "Generate and download reports on vehicle services.", link: "/Servicereports" },
+          { title: "Parts Usage", description: "View charts showing parts usage in services.", link: "/servicepartsusage" },
+          { title: "QR Code Records", description: "Generate QR codes for service records.", link: "/serviceeqrCodes" },
         ].map((card, index) => (
           <div
             key={index}
@@ -101,4 +101,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ServiceDashboard;
