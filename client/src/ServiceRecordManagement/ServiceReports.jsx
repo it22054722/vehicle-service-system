@@ -16,7 +16,7 @@ function ServiceReports() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/Services")
       .then((result) => {
         setServices(result.data);
         setFilteredServices(result.data);

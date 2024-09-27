@@ -10,7 +10,7 @@ function Services() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/Services")
       .then((result) => setServices(result.data))
       .catch((err) => console.log(err));
   }, []);

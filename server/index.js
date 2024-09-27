@@ -9,7 +9,7 @@ app.use(express.json())
 
 mongoose.connect("mongodb://localhost:27017/Service_Records_Management")
 
-app.get('/', (req,res) => {
+app.get('/Services', (req,res) => {
     ServiceModel.find({})
     .then(services => res.json(services))
     .catch(err => res.json(err))
