@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CreateUser from './EmployeeManagement/CreateUser';
 import UpdateUser from './EmployeeManagement/UpdateUser';
 import Users from './EmployeeManagement/Users';
-import ServiceDashboard from './EmployeeManagement/Dashboard'; // Import the Dashboard component
+import EmpDashboard from './EmployeeManagement/Dashboard'; // Import the Dashboard component
 import Attendance from './EmployeeManagement/Attendance'; // Import Attendance component
 import Payments from './EmployeeManagement/Payments'; // Import Payments component
 import AttendanceRecords from './EmployeeManagement/AttendanceRecords'; // Import the new component
@@ -48,8 +48,8 @@ function App() {
         <Route path="/serviceLogin" element={<ServiceLogin />} />
         <Route path="/PINPage" element={<PINPage />} />
 
-        <Route path='/' element={<Login />} /> {/* Login page */}
-        <Route path='/dashboard' element={<Dashboard />} /> {/* Dashboard as the landing page */}
+        <Route path='/empLogin' element={<Login />} /> {/* Login page */}
+        <Route path='/dashboard' element={<EmpDashboard />} /> {/* Dashboard as the landing page */}
         <Route path='/users' element={<Users />} />
         <Route path='/create' element={<CreateUser />} />
         <Route path='/update/:id' element={<UpdateUser />} />
