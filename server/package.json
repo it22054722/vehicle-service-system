@@ -4,20 +4,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "start": "nodemon indexlogin.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "chart.js": "^4.4.4",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jspdf": "^2.5.2",
-    "mongoose": "^8.6.0",
+    "mongeese": "^0.0.1",
     "nodemon": "^3.1.4",
-    "react-chartjs-2": "^5.2.0",
-    "recharts": "^2.12.7"
+    "qrcode.react": "^4.0.1"
   }
 }

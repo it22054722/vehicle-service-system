@@ -1,3 +1,42 @@
+/* App.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background: url('/assets/veiw_page_image.jpg') no-repeat center center fixed;
+  background-color: #f8f9fa;
+  margin: 0;
+}
+
+.card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+h2 {
+  text-align: center;
+  color: #343a40;
+}
+
+.btn-success, .btn-primary, .btn-danger {
+  width: 100px;
+  font-weight: bold;
+}
+
+input.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+table.table {
+  background-color: white;
+  border-radius: 10px;
+}
+
+thead th {
+  background-color: #343a40;
+  color: white;
+}
+
 /* user login */
 body, html {
     height: 100%;
