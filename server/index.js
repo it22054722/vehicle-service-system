@@ -7,7 +7,9 @@ const app  = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb://localhost:27017/Service_Records_Management")
+mongoose.connect("mongodb+srv://paman:paman2001@cluster04.w0x6oir.mongodb.net")
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log('Error connecting to MongoDB:', err));
 
 app.get('/', (req,res) => {
     ServiceModel.find({})
@@ -53,26 +55,9 @@ app.post("/createService", (req,res) => {
     .catch(err => res.json(err))
 })
 
-app.listen(3001, () => {
-    console.log("server is running")
-})
 
-
-
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 const UserModel = require('./Models/Users');
 const Attendance = require('./Models/Attendance'); // Import Attendance model
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/Employee_Management")
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.log('Error connecting to MongoDB:', err));
 
 // Route to get all users
 app.get('/', (req, res) => {
