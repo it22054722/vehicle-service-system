@@ -7,7 +7,7 @@ body, html {
    
   .vh-100 {
     height: 100vh;
-    background-image: url('./assets/login_page.jpg'); /* Adjust the path based on your file structure */
+    background-image: url('EmployeeManagement/assets/login_page.jpg'); /* Adjust the path based on your file structure */
     background-size: cover;
     background-position: center;
   }
@@ -19,7 +19,7 @@ body, html {
    
 /* other */
 .background {
-    background-image: url('car.jpg'); /* Replace with the correct path */
+    background-image: url('EmployeeManagement/car.jpg'); /* Replace with the correct path */
     background-size: cover;
     background-position: center;
     height: 100vh; /* Make sure it covers the full height */

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CreateUser from './CreateUser';
-import UpdateUser from './UpdateUser';
-import Users from './Users';
-import Dashboard from './Dashboard'; // Import the Dashboard component
-import Attendance from './Attendance'; // Import Attendance component
-import Payments from './Payments'; // Import Payments component
-import AttendanceRecords from './AttendanceRecords'; // Import the new component
-import Login from './login';
+import CreateUser from './EmployeeManagement/CreateUser';
+import UpdateUser from './EmployeeManagement/UpdateUser';
+import Users from './EmployeeManagement/Users';
+import Dashboard from './EmployeeManagement/Dashboard'; // Import the Dashboard component
+import Attendance from './EmployeeManagement/Attendance'; // Import Attendance component
+import Payments from './EmployeeManagement/Payments'; // Import Payments component
+import AttendanceRecords from './EmployeeManagement/AttendanceRecords'; // Import the new component
+import Login from './EmployeeManagement/login';
 
 
 
