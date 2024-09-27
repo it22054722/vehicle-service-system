@@ -22,9 +22,12 @@ function Users() {
 
     return (
         <div className="background d-flex vh-100 justify-content-center align-items-center">
-            <div className="w-50 bg-white rounded p-3">
-                <Link to="/create" className='btn btn-success'>ADD +</Link>
-                <table className="table">
+            <div className="w-75 bg-white rounded p-3">
+                <div className="d-flex justify-content-between mb-3">
+                    <Link to="/create" className='btn btn-success'>ADD +</Link>
+                    <Link to="/dashboard" className='btn btn-success'>Dashboard</Link>
+                </div>
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th>Name</th>

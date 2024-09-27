@@ -1,48 +1,213 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const UserModel = require('./Models/Users')
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const UserModel = require('./Models/Users');
+const Attendance = require('./Models/Attendance'); // Import Attendance model
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
 
+// Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/Employee_Management")
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log('Error connecting to MongoDB:', err));
 
-app.get('/', (req,res) => {
+// Route to get all users
+app.get('/', (req, res) => {
     UserModel.find({})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
+        .then(users => res.json(users))
+        .catch(err => res.json(err));
+});
+
+// login with password and email address
+app.post("/login", (req, res) => {
+    const {email, password} = req.body;
+    UserModel.findOne()
+    .then(user => {
+        if(user){
+            if(user.password === password){
+                res.json("Login Successfully")
+            }
+            else {
+                res.json("The password is incorrect")
+            }
+        } else {
+
+            res.json("No recorded existed")
+        }
+    })
 })
 
-app.get('/getUser/:id', (req, res) =>{
+// Route to get a single user by ID
+app.get('/getUser/:id', (req, res) => {
     const id = req.params.id;
-    UserModel.findById({_id:id})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+    UserModel.findById({ _id: id })
+        .then(user => res.json(user))
+        .catch(err => res.json(err));
+});
 
-app.put('/updateUser/:id', (req,res) =>{
+// Route to update a user by ID
+app.put('/updateUser/:id', (req, res) => {
     const id = req.params.id;
-    UserModel.findByIdAndUpdate({_id: id}, {name: req.body.name, date: req.body.date, nic: req.body.nic, contact: req.body.contact, email: req.body.email, position: req.body.position })
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+    UserModel.findByIdAndUpdate(
+        { _id: id },
+        { name: req.body.name, date: req.body.date, nic: req.body.nic, contact: req.body.contact, email: req.body.email, position: req.body.position }
+    )
+        .then(user => res.json(user))
+        .catch(err => res.json(err));
+});
 
-app.delete('/deleteUser/:id', (req,res) =>{
+// Route to delete a user by ID with cascade delete for related records
+app.delete('/deleteUser/:id', async (req, res) => {
     const id = req.params.id;
-    UserModel.findByIdAndDelete({_id: id})
-    .then(res => res.json(res))
-    .catch(err => res.json(err))
-})
+
+    try {
+        // Delete user
+        const deletedUser = await UserModel.findByIdAndDelete({ _id: id });
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Cascade delete: Remove related attendance records for this user
+        await Attendance.deleteMany({ employeeId: id });
+
+        // You can add more schemas for cascading deletion if needed
+        // For example: await OtherModel.deleteMany({ employeeId: id });
+
+        res.json({ message: 'User and related records deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to delete user and related records' });
+    }
+});
+
+// Route to create a new user
+
+app.post("/CreateUser", async (req, res) => {
+  try {
+      const existingUser = await UserModel.findOne({ nic: req.body.nic });
+      
+      if (existingUser) {
+          return res.status(400).json({ message: 'NIC already exists. Please use a different NIC.' });
+      }
+      
+      const user = await UserModel.create(req.body);
+      res.json(user);
+  } catch (err) {
+      res.status(500).json(err);
+  }
+});
+
+// Route to mark attendance
+app.post('/markAttendance', async (req, res) => {
+    const { employeeId, date, status, overtimeHours } = req.body;
+
+    if (!employeeId || !date || !status) {
+        return res.status(400).json({ message: 'Missing required fields.' });
+    }
+
+    try {
+        // Check if attendance exists for this employee on the given date
+        let existingAttendance = await Attendance.findOne({ employeeId, date });
+
+        if (existingAttendance) {
+            // If attendance already exists, do not allow marking again
+            return res.status(400).json({ message: 'Attendance for this employee has already been marked for this date.' });
+        }
+
+        // Create a new attendance record
+        const newAttendance = new Attendance({
+            employeeId,
+            date,
+            status,
+            overtimeHours: overtimeHours || 0
+        });
+        await newAttendance.save();
+
+        res.status(200).json({ message: 'Attendance marked successfully.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to mark attendance.' });
+    }
+});
 
 
-app.post("/CreateUser", (req, res) =>{
-    UserModel.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
 
-app.listen(3001, () =>{
-    console.log("Server is Running")
-})
+
+// Route to mark attendance
+app.post('/markAttendance', async (req, res) => {
+    const { employeeId, date, status, overtimeHours } = req.body;
+
+    if (!employeeId || !date || !status) {
+        return res.status(400).json({ message: 'Missing required fields.' });
+    }
+
+    try {
+        // Check if attendance exists for this employee on the given date
+        let existingAttendance = await Attendance.findOne({ employeeId, date });
+
+        if (existingAttendance) {
+            // Update existing attendance with status and OT hours
+            existingAttendance.status = status;
+            existingAttendance.overtimeHours = overtimeHours || 0; // Update OT hours if provided
+            await existingAttendance.save();
+        } else {
+            // Create a new attendance record
+            const newAttendance = new Attendance({
+                employeeId,
+                date,
+                status,
+                overtimeHours: overtimeHours || 0
+            });
+            await newAttendance.save();
+        }
+
+        res.status(200).json({ message: 'Attendance marked successfully.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to mark attendance.' });
+    }
+});
+
+// Route to get attendance records (you can implement it if needed)
+app.get('/attendanceRecords', (req, res) => {
+    Attendance.find({})
+        .then(attendance => res.json(attendance))
+        .catch(err => res.json(err));
+});
+
+
+
+// Route to get attendance records by employee NIC
+app.get('/attendanceRecordsByNIC', async (req, res) => {
+    const { nic } = req.query;
+
+    if (!nic) {
+        return res.status(400).json({ message: 'NIC is required' });
+    }
+
+    try {
+        // Find the employee by NIC
+        const employee = await UserModel.findOne({ nic });
+
+        if (!employee) {
+            return res.status(404).json({ message: 'Employee not found' });
+        }
+
+        // Fetch attendance records for the employee
+        const attendanceRecords = await Attendance.find({ employeeId: employee._id });
+
+        res.json(attendanceRecords);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to retrieve attendance records' });
+    }
+});
+
+
+// Start the server
+app.listen(3001, () => {
+    console.log("Server is Running");
+});

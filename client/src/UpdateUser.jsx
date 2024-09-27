@@ -47,8 +47,19 @@ function UpdateUser() {
     }
 
     // Validate contact number length
-    if (contact.length !== 12) {
-      setError('Contact number must be exactly 12 digits.');
+    if (contact.length !== 10) {
+      setError('Contact number must be exactly 10 digits.');
+      return;
+    }
+
+    // Validate that a position has been selected
+  if (!position || position === "") {
+    setError('Please select a valid position.');
+    return;
+  }
+
+    if (birthYear < 1990 || birthYear > 2004) {
+      setError('Date of Birth must be between the years 1998 and 2004.');
       return;
     }
 
@@ -56,7 +67,7 @@ function UpdateUser() {
     axios.put("http://localhost:3001/updateUser/" + id, { name, date, nic, contact, email, position })
       .then(result => {
         console.log(result);
-        navigate('/');
+        navigate('/users');
       })
       .catch(err => console.log(err));
   }
@@ -128,17 +139,24 @@ function UpdateUser() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="position" className="form-label">Position</label>
-            <input
-              type="text"
-              className="form-control"
-              id="position"
-              placeholder="Enter Your Position"
-              autoComplete='off'
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
-            />
-          </div>
+  <label htmlFor="position" className="form-label">Position</label>
+  <select
+    className="form-select"
+    id="position"
+    onChange={(e) => setPosition(e.target.value)}
+  >
+    <option value="">Select Position</option>
+    <option value="Employee Manager">Employee Manager</option>
+    <option value="Inventory Manager">Inventory Manager</option>
+    <option value="System Manager">System Manager</option>
+    <option value="Trainee Coordinator">Trainee Coordinator</option>
+    <option value="Customer Affair Manager">Customer Affair Manager</option>
+    <option value="Data Entry Operator">Data Entry Operator</option>
+    <option value="Appointment Manager">Appointment Manager</option>
+    <option value="Supplier Manager">Supplier Manager</option>
+  </select>
+</div>
+
           <button type="submit" className="btn btn-success w-100">Update</button>
         </form>
       </div>
