@@ -253,21 +253,18 @@ app.get('/attendanceRecordsByNIC', async (req, res) => {
 });
 
 
-// Start the server
-app.listen(3001, () => {
-    console.log("Server is Running");
-});
 
 
-const UserModel = require('./models/Trainee');
+
+const TraineeModel = require('./models/Trainee');
 const ScheduleModel = require('./models/ScheduleModel'); // Import the schedule model
 const ProgressModel = require('./models/ProgressModel'); // Import the Progress model
 
 
 
 // GET all trainees
-app.get('/', (req, res) => {
-    UserModel.find({})
+app.get('/trainees', (req, res) => {
+    TraineeModel.find({})
         .then(trainees => res.json(trainees))
         .catch(err => res.json(err));
 });
@@ -275,7 +272,7 @@ app.get('/', (req, res) => {
 // GET a specific trainee by ID
 app.get('/getTrainee/:id', (req, res) => {
     const id = req.params.id;
-    UserModel.findById({ _id: id })
+    TraineeModel.findById({ _id: id })
         .then(trainees => res.json(trainees))
         .catch(err => res.json(err));
 });
@@ -283,7 +280,7 @@ app.get('/getTrainee/:id', (req, res) => {
 // UPDATE a trainee by ID
 app.put('/updateTrainee/:id', (req, res) => {
     const id = req.params.id;
-    UserModel.findByIdAndUpdate(
+    TraineeModel.findByIdAndUpdate(
         { _id: id },
         {
             trainee_id: req.body.trainee_id,
@@ -301,14 +298,14 @@ app.put('/updateTrainee/:id', (req, res) => {
 // DELETE a trainee by ID
 app.delete('/deleteTrainee/:id', (req, res) => {
     const id = req.params.id;
-    UserModel.findByIdAndDelete({ _id: id })
+    TraineeModel.findByIdAndDelete({ _id: id })
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
 
 // CREATE a new trainee
 app.post("/createTrainee", (req, res) => {
-    UserModel.create(req.body)
+    TraineeModel.create(req.body)
         .then(trainees => res.json(trainees))
         .catch(err => res.json(err));
 });

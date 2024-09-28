@@ -33,10 +33,9 @@ import Schedule from './TraineeManagement/Schedule'
 import Prograss from './TraineeManagement/Prograss'
 import Report from './TraineeManagement/Report'
 import Dashboard from './TraineeManagement/Dashboard'
-import PackageHeader from './TraineeManagement/PackageHeader'
-import Footer from './TraineeManagement/Footer'
-import Login from './TraineeManagement/TraineeLogin'
-import Home from './TraineeManagement/Home'
+
+import TraineeLogin from './TraineeManagement/TraineeLogin';
+
 
 
 function App() {
@@ -76,7 +75,7 @@ function App() {
         <Route path='/traineeschedule' element={<Schedule/>}></Route>
         <Route path='/traineeprogess' element={<Prograss/>}></Route>
         <Route path='/report' element={<Report/>}></Route>
-        <Route path='/traineelogin' element={<Login/>}></Route>
+        <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
         
       </Routes>
       <Footer/>

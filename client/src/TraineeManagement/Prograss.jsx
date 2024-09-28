@@ -24,7 +24,7 @@ function Progress() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/trainees")
       .then((response) => setTrainees(response.data))
       .catch((error) => console.log("Error fetching trainees:", error));
   }, []);

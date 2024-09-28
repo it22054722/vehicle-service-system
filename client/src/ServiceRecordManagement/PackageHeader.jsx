@@ -125,7 +125,7 @@ const PackageHeader = () => {
               <Link className="nav-link text-dark fw-bold" to="/all-packages" style={linkStyle}>Packages</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/about" style={linkStyle}>About Us</Link>
+              <Link className="nav-link text-dark fw-bold" to="/traineelogin" style={linkStyle}>About Us</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-dark fw-bold" to="/gallery" style={linkStyle}>FeedBacks</Link>

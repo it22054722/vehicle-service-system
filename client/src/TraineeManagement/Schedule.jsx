@@ -21,7 +21,7 @@ function Schedule() {
 
   // Fetch trainees and schedules on component mount
   useEffect(() => {
-    axios.get('http://localhost:3001/')
+    axios.get('http://localhost:3001/trainees')
       .then((res) => setTrainees(res.data))
       .catch((err) => console.log(err));
 

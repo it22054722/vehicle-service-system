@@ -1,31 +1,29 @@
-// src/components/PackageHeader.js
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import axios from 'axios'; // Import Axios for API calls
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+ 
 const PackageHeader = () => {
   const [role, setRole] = useState('user'); // Default to "user"
   const navigate = useNavigate(); // Hook for navigation
-
+ 
   useEffect(() => {
     // Example: Update role dynamically if needed
     setRole('admin'); // Set to 'admin' for admin view, or 'user' for user view
   }, []);
-
+ 
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
-
+ 
   const handleMouseEnter = () => setShowServicesDropdown(true);
   const handleMouseLeave = () => setShowServicesDropdown(false);
-
+ 
   const linkStyle = {
     fontSize: role === "user" ? '1.125rem' : '1rem',
     padding: role === "user" ? '0.75rem 1.5rem' : '0.5rem 1rem',
     marginRight: role === "user" ? '1.5rem' : '1rem',
   };
-
+ 
   const handleAddPackageClick = () => {
     if (role !== 'admin') {
       Swal.fire({
@@ -44,7 +42,7 @@ const PackageHeader = () => {
       });
     }
   };
-
+ 
   const showLoginPrompt = () => {
     Swal.fire({
       title: 'Admin Login',
@@ -65,7 +63,7 @@ const PackageHeader = () => {
       }
     });
   };
-
+ 
   const loginAdmin = async (email, password) => {
     try {
       const response = await axios.post('/api/admin/login', { email, password });
@@ -93,14 +91,14 @@ const PackageHeader = () => {
       });
     }
   };
-
+ 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand fs-4 fw-bold" to="/" style={{ color: '#3498db' }}>
           Levaggio
         </Link>
-
+ 
         <button
           className="navbar-toggler"
           type="button"
@@ -112,7 +110,7 @@ const PackageHeader = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
+ 
         <div className="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0 w-100 d-flex justify-content-center">
             <li className="nav-item">
@@ -120,27 +118,8 @@ const PackageHeader = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item dropdown">
-              <Link
-                className="nav-link dropdown-toggle text-dark fw-bold"
-                to="/services"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                style={linkStyle}
-              >
-                Services
-              </Link>
-              {showServicesDropdown && (
-                <ul className="dropdown-menu show" aria-labelledby="navbarDropdown">
-                  <li><Link className="dropdown-item" to="/services/washing-packages">Washing Packages</Link></li>
-                  <li><Link className="dropdown-item" to="/services/lubrication">Lubrication Services</Link></li>
-                  <li><Link className="dropdown-item" to="/services/treatment">Treatment Services</Link></li>
-                </ul>
-              )}
+            <li className="nav-item">
+              <Link className="nav-link text-dark fw-bold" to="/SerDescription" style={linkStyle}>Services</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-dark fw-bold" to="/all-packages" style={linkStyle}>Packages</Link>
@@ -149,9 +128,9 @@ const PackageHeader = () => {
               <Link className="nav-link text-dark fw-bold" to="/about" style={linkStyle}>About Us</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/gallery" style={linkStyle}>FeedBacks</Link>
+              <Link className="nav-link text-dark fw-bold" to="/traineelogin" style={linkStyle}>FeedBacks</Link>
             </li>
-
+ 
             {/* Conditionally show "Add Package" and "Package-List" for admin */}
             {role === "admin" && (
               <>
@@ -163,12 +142,12 @@ const PackageHeader = () => {
                 </li>
               </>
             )}
-
+ 
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/traineelogin" style={linkStyle}>Sign In</Link>
+              <Link className="nav-link text-dark fw-bold" to="/PINPage" style={linkStyle}>Sign In</Link>
             </li>
           </ul>
-
+ 
           {/* Search form */}
           <form className="d-flex ms-auto">
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
@@ -179,5 +158,6 @@ const PackageHeader = () => {
     </nav>
   );
 };
-
+ 
 export default PackageHeader;
+ 

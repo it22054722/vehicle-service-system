@@ -9,7 +9,7 @@ function Trainees() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001")
+      .get("http://localhost:3001/trainees")
       .then((result) => setTrainee(result.data))
       .catch((err) => console.log(err));
   }, []);

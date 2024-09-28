@@ -10,5 +10,5 @@ const UserSchema =  new mongoose.Schema({
     phone_number: String
 })
 
-const UserModel = mongoose.model("trainee_details",UserSchema)
-module.exports = UserModel
+const TraineeModel = mongoose.model("trainee_details",UserSchema)
+module.exports = TraineeModel
