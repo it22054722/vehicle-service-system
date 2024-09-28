@@ -35,6 +35,7 @@ function App() {
         <Route path='/traineeprogess' element={<Prograss/>}></Route>
         <Route path='/report' element={<Report/>}></Route>
         <Route path='/traineelogin' element={<Login/>}></Route>
+        
        
 
         
