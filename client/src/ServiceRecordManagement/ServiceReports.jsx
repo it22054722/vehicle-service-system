@@ -6,6 +6,7 @@ import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import backgroundImage from './assets/supercars.png';
+import Swal from 'sweetalert2';
 
 function ServiceReports() {
   const [services, setServices] = useState([]);
@@ -49,6 +50,15 @@ function ServiceReports() {
     ]);
     autoTable(doc, { head: [tableColumn], body: tableRows, startY: 20 });
     doc.save("service_reports.pdf");
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Downloaded!',
+      text: 'Service table PDF downloaded successfully.',
+      confirmButtonColor: '#b3202e',
+      background: '#fff',
+      color: '#333',
+    });
   };
 
   const generatePDFChart = () => {
@@ -58,6 +68,15 @@ function ServiceReports() {
     const imgData = chartCanvas.toDataURL("image/png");
     doc.addImage(imgData, "PNG", 15, 40, 180, 160);
     doc.save("service_chart.pdf");
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Downloaded!',
+      text: 'Service table PDF downloaded successfully.',
+      confirmButtonColor: '#b3202e',
+      background: '#fff',
+      color: '#333',
+    });
   };
 
   const serviceCounts = filteredServices.reduce((acc, service) => {
