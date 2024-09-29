@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa"; // Import the edit icon
 import { AiOutlineDelete } from "react-icons/ai"; // Import a different trash icon
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 function Trainees() {
   const [Trainees, setTrainee] = useState([]);
@@ -15,13 +16,38 @@ function Trainees() {
   }, []);
 
   const handleDelete = (id) => {
-    axios
-      .delete("http://localhost:3001/deleteTrainee/" + id)
-      .then((res) => {
-        console.log(res);
-        window.location.reload();
-      })
-      .catch((err) => console.log(err));
+    // Show confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#8B0000', // Dark red color
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the deletion if confirmed
+        axios
+          .delete("http://localhost:3001/deleteTrainee/" + id)
+          .then((res) => {
+            console.log(res);
+            // Optionally show a success message
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'The trainee has been deleted.',
+              icon: 'success',
+              timer: 3000, // Set the duration to 3000 milliseconds (3 seconds)
+              timerProgressBar: true, // Show progress bar
+              willClose: () => {
+                window.location.reload(); // Reload the page after the alert closes
+              }
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
 
   return (

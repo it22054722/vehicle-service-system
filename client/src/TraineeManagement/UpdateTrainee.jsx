@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 function UpdateTrainee() {
   const { id } = useParams();
@@ -31,7 +32,7 @@ function UpdateTrainee() {
       return "All fields are required.";
     }
     if (isNaN(age) || age <= 18) {
-      return "Age must be a greater than 18.";
+      return "Age must be greater than 18.";
     }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       return "Invalid email format.";
@@ -57,28 +58,37 @@ function UpdateTrainee() {
     axios.put("http://localhost:3001/updateTrainee/" + id, { trainee_id, name, age, trainee_periode, email, phone_number })
       .then(result => {
         console.log(result);
-        navigate('/trainee');
+        
+        // Show success message using SweetAlert2
+        Swal.fire({
+          title: 'Success!',
+          text: 'Trainee record successfully updated.',
+          icon: 'success',
+          confirmButtonText: false // No confirm button needed
+        }).then(() => {
+          navigate('/trainee');
+        });
       })
       .catch(err => console.log(err));
   };
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="card p-4 shadow" style={{ width: '400px', height: '600px', overflowY: 'auto', borderRadius: '20px', marginTop: '75px', backgroundColor: 'rgba(255, 255, 255, 0.8)'  }}>
+      <div className="card p-4 shadow" style={{ width: '400px', height: '600px', overflowY: 'auto', borderRadius: '20px', marginTop: '75px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <form onSubmit={Update}>
-        <h1
-          className="mb-5"
-          style={{
-            textAlign: "center",
-            marginBottom: "1.5rem",
-            fontSize: "2.5rem",
-            fontWeight: "bold",
-            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
-            color: "#000",
-          }}
-        >
-          Update Trainee 
-        </h1>
+          <h1
+            className="mb-5"
+            style={{
+              textAlign: "center",
+              marginBottom: "1.5rem",
+              fontSize: "2.5rem",
+              fontWeight: "bold",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+              color: "#000",
+            }}
+          >
+            Update Trainee
+          </h1>
           {error && <div className="alert alert-danger">{error}</div>}
 
           <div className="mb-3">
@@ -161,12 +171,12 @@ function UpdateTrainee() {
             />
           </div>
           <div align="center">
-            <button type="submit" className="btn btn-sm  w-20" style={{
+            <button type="submit" className="btn btn-sm w-20" style={{
               backgroundColor: "#8B0000", // Dark red color
               color: "#fff",
             }}>Update</button>
           </div>
-           
+
         </form>
       </div>
     </div>
