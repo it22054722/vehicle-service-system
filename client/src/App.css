@@ -1,0 +1,118 @@
+
+/* App.css */
+
+.d-flex {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .w-100 {
+    width: 100% !important;
+  }
+  
+  .overflow-auto {
+    overflow: auto;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: auto;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .background {
+    background-image: url('create.jpg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Make sure it covers the full height */
+}
+  
+  
+  
+
+
+
+.background {
+  background-color: #f8f9fa; /* Optional background color */
+}
+
+.w-100 {
+  width: 100%;
+  max-width: 1200px; /* Set a max width if needed */
+}
+
+.overflow-auto {
+  max-height: 400px; /* Set the max height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scroll */
+}
+
+.table-container {
+  max-height: 400px; /* Set the max height of the table container */
+  overflow-y: auto; /* Enable vertical scroll */
+  display: block; /* Ensure the table takes up the correct space */
+}
+
+.background {
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.card {
+  max-height: 78vh; /* Limit height of the card */
+  overflow-y: auto; /* Enable scrolling within the card */
+}
+
+
+body {
+  background-color: #f8f9fa;
+}
+
+.background {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table th {
+  background-color: #343a40;
+  color: white;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between; /* Ensures the buttons are on the same line and spaced evenly */
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+.btn-group .btn {
+  margin-right: 5px; /* Adds space between buttons */
+}
+
+.background {
+  background-image: url('create.jpg'); /* Replace with the correct path */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Make sure it covers the full height */
+}
+
