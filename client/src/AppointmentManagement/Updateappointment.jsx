@@ -106,7 +106,7 @@ function Updateappointment() {
           title: 'User Updated',
           text: 'The user has been updated successfully!',
         }).then(() => {
-          navigate("/users");
+          navigate("/AppTable");
         });
       })
       .catch(err => {

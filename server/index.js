@@ -396,7 +396,7 @@ app.post("/createProgress", (req, res) => {
 
 
 
-const appointmentModel = require('./Models/Users');
+const appointmentModel = require('./Models/appointment');
 const jsPDF = require('jspdf');
 const autoTable = require('jspdf-autotable');
 const path = require('path');
@@ -453,8 +453,8 @@ app.post("/Createappointment", (req, res) => {
           message: `Sorry, there are already 3 bookings for one of the selected services at ${appointmentTime}. Please select another time.` 
         });
       } else {
-        UserModel.create(req.body)
-          .then(user => res.json(user))
+        appointmentModel.create(req.body)
+          .then(appointment => res.json(appointment))
           .catch(err => res.status(500).json(err));
       }
     })
@@ -463,7 +463,7 @@ app.post("/Createappointment", (req, res) => {
 
 
 // Function to generate an invoice PDF
-const generateInvoice = (user) => {
+const generateInvoice = (appointment) => {
   const doc = new jsPDF();
 
   // Header
@@ -471,19 +471,19 @@ const generateInvoice = (user) => {
   doc.text("Vehicle Service Management", 20, 20);
 
   // User details
-  doc.text(`Customer Name: ${user.customerName}`, 20, 30);
-  doc.text(`Vehicle Model: ${user.vehicleModel}`, 20, 40);
-  doc.text(`Service Type: ${user.serviceType}`, 20, 50);
-  doc.text(`Appointment Date: ${user.appointmentDate}`, 20, 60);
-  doc.text(`Appointment Time: ${user.appointmentTime}`, 20, 70);
-  doc.text(`Phone Number: ${user.Phonenumber}`, 20, 80);
-  doc.text(`Email: ${user.email}`, 20, 90);
+  doc.text(`Customer Name: ${appointment.customerName}`, 20, 30);
+  doc.text(`Vehicle Model: ${appointment.vehicleModel}`, 20, 40);
+  doc.text(`Service Type: ${appointment.serviceType}`, 20, 50);
+  doc.text(`Appointment Date: ${appointment.appointmentDate}`, 20, 60);
+  doc.text(`Appointment Time: ${appointment.appointmentTime}`, 20, 70);
+  doc.text(`Phone Number: ${appointment.Phonenumber}`, 20, 80);
+  doc.text(`Email: ${appointment.email}`, 20, 90);
 
   // Auto table for services (you can add more rows for detailed services)
   autoTable(doc, {
     head: [['Service Type', 'Price']],
     body: [
-      [user.serviceType, "$100"], // Example price, adjust accordingly
+      [appointment.serviceType, "$100"], // Example price, adjust accordingly
     ],
   });
 
@@ -491,7 +491,7 @@ const generateInvoice = (user) => {
   doc.text(`Total: $100`, 20, 120); // Example total
 
   // Save the file
-  const filePath = path.join(__dirname, 'invoices', `invoice_${user._id}.pdf`);
+  const filePath = path.join(__dirname, 'invoices', `invoice_${appointment._id}.pdf`);
   doc.save(filePath);
   return filePath;
 };
@@ -501,13 +501,13 @@ app.get('/BookedTimes/:date/:serviceType', (req, res) => {
   const { date, serviceType } = req.params;
 
   // Find booked times for the given date and service type
-  UserModel.find({ appointmentDate: date, serviceType })
-    .then(users => {
+  appointmentModel.find({ appointmentDate: date, serviceType })
+    .then(appointment => {
       const bookedTimesCount = {};
 
       // Count occurrences of each time slot for the service
-      users.forEach(user => {
-        const time = user.appointmentTime;
+      appointment.forEach(appointment => {
+        const time =appointmentappointment.appointmentTime;
         if (!bookedTimesCount[time]) {
           bookedTimesCount[time] = 0;
         }
@@ -525,11 +525,11 @@ app.get('/BookedTimes/:date/:serviceType', (req, res) => {
 app.get('/appointments', (req, res) => {
   const now = new Date();
 
-  UserModel.find({})
-    .then(users => {
+  appointmentModel.find({})
+    .then(appointment => {
       // Filter users to exclude bookings made within the last hour
-      const availableAppointments = users.filter(user => {
-        const appointmentTime = new Date(user.appointmentDate + 'T' + user.appointmentTime); // Combine date and time
+      const availableAppointments = appointment.filter(appointment => {
+        const appointmentTime = new Date(appointment.appointmentDate + 'T' + appointment.appointmentTime); // Combine date and time
         const timeDifference = appointmentTime.getTime() - now.getTime();
         const hoursDifference = timeDifference / (1000 * 3600); // Convert time difference to hours
         return hoursDifference > 1; // Only show appointments if they are more than 1 hour away
@@ -540,8 +540,8 @@ app.get('/appointments', (req, res) => {
 });
 
 app.get('/appointments/:id', (req, res) => {
-  UserModel.findById(req.params.id)
-    .then(user => res.json(user))
+  appointmentModel.findById(req.params.id)
+    .then(appointment => res.json(appointment))
     .catch(err => res.json(err));
 });
 
@@ -551,10 +551,10 @@ app.put('/Updateappointments/:id', (req, res) => {
     return res.status(400).json({ message: validationErrors.join(", ") });
   }
 
-  UserModel.findById(req.params.id)
-    .then(user => {
+  appointmentModel.findById(req.params.id)
+    .then(appointment => {
       const now = new Date();
-      const createdAt = user.createdAt; // Assuming you have a createdAt field in your user model
+      const createdAt = appointment.createdAt; // Assuming you have a createdAt field in your user model
       const timeDifference = now - createdAt; // Time difference in milliseconds
       const hoursDifference = timeDifference / (1000 * 3600); // Convert to hours
 
@@ -563,20 +563,20 @@ app.put('/Updateappointments/:id', (req, res) => {
       }
 
       const updates = {};
-      if (user.customerName !== req.body.customerName) updates.customerName = req.body.customerName;
-      if (user.vehicleModel !== req.body.vehicleModel) updates.vehicleModel = req.body.vehicleModel;
-      if (JSON.stringify(user.serviceType) !== JSON.stringify(req.body.serviceType)) updates.serviceType = req.body.serviceType;
-      if (user.appointmentDate !== req.body.appointmentDate) updates.appointmentDate = req.body.appointmentDate;
-      if (user.appointmentTime !== req.body.appointmentTime) updates.appointmentTime = req.body.appointmentTime;
-      if (user.Phonenumber !== req.body.Phonenumber) updates.Phonenumber = req.body.Phonenumber;
-      if (user.email !== req.body.email) updates.email = req.body.email;
+      if (appointment.customerName !== req.body.customerName) updates.customerName = req.body.customerName;
+      if (appointment.vehicleModel !== req.body.vehicleModel) updates.vehicleModel = req.body.vehicleModel;
+      if (JSON.stringify(appointment.serviceType) !== JSON.stringify(req.body.serviceType)) updates.serviceType = req.body.serviceType;
+      if (appointment.appointmentDate !== req.body.appointmentDate) updates.appointmentDate = req.body.appointmentDate;
+      if (appointment.appointmentTime !== req.body.appointmentTime) updates.appointmentTime = req.body.appointmentTime;
+      if (appointment.Phonenumber !== req.body.Phonenumber) updates.Phonenumber = req.body.Phonenumber;
+      if (appointment.email !== req.body.email) updates.email = req.body.email;
 
       if (Object.keys(updates).length === 0) {
         return res.status(400).json({ message: 'No changes detected' });
       }
 
-      UserModel.findByIdAndUpdate(req.params.id, updates, { new: true })
-        .then(updatedUser => res.json(updatedUser))
+      appointmentModel.findByIdAndUpdate(req.params.id, updates, { new: true })
+        .then(updatedappointment => res.json(updatedappointment))
         .catch(err => res.status(500).json(err));
     })
     .catch(err => res.status(500).json(err));
@@ -585,10 +585,10 @@ app.put('/Updateappointments/:id', (req, res) => {
 
 
 app.delete('/Deleteappointments/:id', (req, res) => {
-  UserModel.findById(req.params.id)
-    .then(user => {
+  appointmentModel.findById(req.params.id)
+    .then(appointment => {
       const now = new Date();
-      const createdAt = user.createdAt; // Get the createdAt timestamp
+      const createdAt = appointment.createdAt; // Get the createdAt timestamp
       const timeDifference = now - createdAt; // Time difference in milliseconds
       const hoursDifference = timeDifference / (1000 * 3600); // Convert to hours
 
@@ -597,7 +597,7 @@ app.delete('/Deleteappointments/:id', (req, res) => {
       }
 
       // Return the promise directly after checking the time difference
-      return UserModel.findByIdAndDelete(req.params.id)
+      return appointmentModel.findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'User deleted successfully' }))
         .catch(err => res.status(500).json(err));
     })

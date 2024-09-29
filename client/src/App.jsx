@@ -34,7 +34,6 @@ import Schedule from './TraineeManagement/Schedule'
 import Prograss from './TraineeManagement/Prograss'
 import Report from './TraineeManagement/Report'
 import Dashboard from './TraineeManagement/Dashboard'
-
 import TraineeLogin from './TraineeManagement/TraineeLogin';
 
 
@@ -42,8 +41,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AppTable from './AppointmentManagement/AppTable';
 import Createappointment from './AppointmentManagement/Createappointment';
 import Updateappointment from './AppointmentManagement/Updateappointment';
-import PackageHeader from './AppointmentManagement/packageHeader'; // Match with the correct casing of the file name
-import Footer from './AppointmentManagement/Footer';
+
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -86,10 +85,9 @@ function App() {
         <Route path='/report' element={<Report/>}></Route>
         <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
         
-        <Route path="/" element={<Home />} />
-                    <Route path="/AppTable" element={<AppTable />} />
-                        <Route path="/Createappointment" element={<Createappointment />} />
-                        <Route path="/Updateappointment/:id" element={<Updateappointment />} />
+        <Route path="/AppTable" element={<AppTable />} />
+        <Route path="/Createappointment" element={<Createappointment />} />
+        <Route path="/Updateappointment/:id" element={<Updateappointment />} />
       </Routes>
       <Footer/>
       </BrowserRouter>
