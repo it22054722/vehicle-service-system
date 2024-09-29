@@ -11,11 +11,20 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.2",
-    "mongeese": "^0.0.1",
-    "nodemon": "^3.1.4",
-    "qrcode.react": "^4.0.1"
+    "jspdf-autotable": "^3.8.3",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.6.0",
+    "node-cron": "^3.0.3",
+    "react-router-dom": "^6.26.2",
+    "twilio": "^5.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
