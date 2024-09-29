@@ -1,17 +1,32 @@
-const { time } = require('console')
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-  customerName: String,
-  vehicleModel: String,
-  serviceType: [String], // Change to accept an array of strings
-  appointmentDate: String,
-  appointmentTime: String,
-  Phonenumber: String,
-  email: String,
-  createdAt: { type: Date, default: Date.now }, // Add this line
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  nic: {
+    type: String,
+    required: true,
+    unique: true // Ensure NIC is unique
+  },
+  contact: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  position: {
+    type: String,
+    required: true
+  }
 });
 
-const UserModel = mongoose.model("user_information", UserSchema);
+const UserModel = mongoose.model('User', userSchema);
 module.exports = UserModel;
-
