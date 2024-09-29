@@ -14,7 +14,7 @@ import Login from './EmployeeManagement/login';
 import Services from './ServiceRecordManagement/Services'
 import CreateService from './ServiceRecordManagement/CreateService'
 import UpdateService from './ServiceRecordManagement/UpdateService'
-import ServiceReports from './ServiceRecordManagement/serviceReports'
+import ServiceReports from './ServiceRecordManagement/ServiceReports';
 import QRCodePage from './ServiceRecordManagement/QRCodePage'
 import ServiceDetails from './ServiceRecordManagement/ServiceDetails'
 import PartsUsagePieChart from './ServiceRecordManagement/PartsUsagePieChart'
@@ -22,9 +22,10 @@ import ServiceDashboard from './ServiceRecordManagement/ServiceDashboard'
 import SerDescription from './ServiceRecordManagement/SerDescription'
 import PackageHeader from './ServiceRecordManagement/PackageHeader'
 import Footer from './ServiceRecordManagement/Footer';
-import ServiceLogin from './ServiceRecordManagement/serviceLogin'
+import ServiceLogin from './ServiceRecordManagement/ServiceLogin';
 import PINPage from './ServiceRecordManagement/PINPage'
 import Home from './ServiceRecordManagement/Home'
+import AboutUs from './ServiceRecordManagement/About';
 
 import CreateTrainee from './TraineeManagement/CreateTrainee'
 import UpdateTrainee from './TraineeManagement/UpdateTrainee'
@@ -58,6 +59,8 @@ function App() {
         <Route path="/SerDescription" element={<SerDescription />} />
         <Route path="/serviceLogin" element={<ServiceLogin />} />
         <Route path="/PINPage" element={<PINPage />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+
 
         <Route path='/empLogin' element={<Login />} /> {/* Login page */}
         <Route path='/dashboard' element={<EmpDashboard />} /> {/* Dashboard as the landing page */}
