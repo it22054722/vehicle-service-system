@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import backgroundImage from './assets/supercars.png';
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function CreateService() {
   const [service, setService] = useState('');
@@ -46,6 +47,14 @@ function CreateService() {
     .then(result => { 
       console.log(result);
       navigate('/serviceRecords');
+      Swal.fire({
+        icon: 'success',
+        title: 'successfull!',
+        text: 'Service record added successfully.',
+        confirmButtonColor: '#b3202e',
+        background: '#fff',
+        color: '#333',
+      });
     })
     .catch(err => console.log(err));
   };
