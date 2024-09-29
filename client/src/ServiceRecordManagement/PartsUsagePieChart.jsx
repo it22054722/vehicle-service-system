@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaGoogle } from 'react-icons/fa'; // Importing React Icons
 import backgroundImage from './assets/supercars.png';
 import logoImage from './assets/logo.png';
+import Swal from 'sweetalert2';
 
 const PieChartPage = () => {
   const [serviceData, setServiceData] = useState([]);
@@ -105,6 +106,15 @@ const PieChartPage = () => {
 
         // Save PDF
         pdf.save("PartsUsageChart.pdf");
+    });
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Downloaded!',
+      text: 'Service table PDF downloaded successfully.',
+      confirmButtonColor: '#b3202e',
+      background: '#fff',
+      color: '#333',
     });
 };
 
