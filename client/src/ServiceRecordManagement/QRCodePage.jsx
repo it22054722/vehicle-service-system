@@ -5,6 +5,7 @@ import { QRCode } from 'react-qr-code'; // Import QRCode from react-qr-code
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import backgroundImage from './assets/supercars.png';
+import Swal from 'sweetalert2';
 
 function QRCodePage() {
   const [services, setServices] = useState([]);
@@ -49,6 +50,15 @@ function QRCodePage() {
       }
 
       pdf.save('filtered-services.pdf');
+
+      Swal.fire({
+        icon: 'success',
+        title: 'successfull!',
+        text: 'Qr Code downloaded successfully.',
+        confirmButtonColor: '#b3202e',
+        background: '#fff',
+        color: '#333',
+      });
     });
   };
 
