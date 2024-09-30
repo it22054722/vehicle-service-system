@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function Users() {
     const [Users, setUsers] = useState([]);
@@ -11,14 +12,60 @@ function Users() {
             .catch(err => console.log(err));
     }, []);
 
+    //update users button notify 
+    const handleUpdate = (id) => {
+        Swal.fire({
+            title: 'Proceed to update?',
+            text: 'You are about to update user details.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update!',
+            cancelButtonText: 'No, cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Navigate to update page if confirmed
+                window.location.href = `/update/${id}`;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'User update was cancelled.',
+                    'error'
+                );
+            }
+        });
+    };
+
+    //want to added for delete button notifications
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3001/deleteUser/' + id)
-            .then(res => {
-                console.log(res);
-                window.location.reload();
-            })
-            .catch(err => console.log(err));
-    }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete('http://localhost:3001/deleteUser/' + id)
+                    .then(res => {
+                        console.log(res);
+                        Swal.fire(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        );
+                        window.location.reload();
+                    })
+                    .catch(err => console.log(err));
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'User deletion was cancelled.',
+                    'error'
+                );
+            }
+        });
+    };
 
     return (
         <div className="background d-flex vh-100 justify-content-center align-items-center">
@@ -50,7 +97,7 @@ function Users() {
                                     <td>{user.email}</td>
                                     <td>{user.position}</td>
                                     <td>
-                                        <Link to={`/update/${user._id}`} className="btn btn-sm btn-primary">Update</Link> &nbsp;
+                                    <button className="btn btn-sm btn-primary" onClick={() => handleUpdate(user._id)}>Update</button> &nbsp;
                                         <button className="btn btn-sm btn-danger" onClick={() => handleDelete(user._id)}>Delete</button>
                                     </td>
                                 </tr>
