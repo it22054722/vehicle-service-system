@@ -96,7 +96,7 @@ function Dashboard() {
       {/* Logout Button in the bottom corner */}
       <button
         className="logout-button"
-        onClick={() => navigate('/traineelogin')}
+        onClick={() => navigate('/serviceLogin')}
         style={{
           position: 'fixed',
           bottom: '20px',
