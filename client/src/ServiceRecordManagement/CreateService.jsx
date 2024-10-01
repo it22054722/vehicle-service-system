@@ -18,11 +18,16 @@ function CreateService() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // Regular expression to ensure no symbols in VIN and Price
+  const noSymbolRegex = /^[a-zA-Z0-9\s]*$/;
+
   const validateForm = () => {
     const newErrors = {};
     if (!service) newErrors.service = "Service is required.";
     if (!vin) newErrors.vin = "Vehicle Number is required.";
+    else if (!noSymbolRegex.test(vin)) newErrors.vin = "Vehicle Number cannot contain symbols.";
     if (!price) newErrors.price = "Price is required.";
+    else if (!noSymbolRegex.test(price)) newErrors.price = "Price cannot contain symbols.";
     if (!parts) newErrors.parts = "Parts Used is required.";
     if (!notes) newErrors.notes = "Technician's Note is required.";
     return newErrors;
@@ -35,12 +40,13 @@ function CreateService() {
       setErrors(formErrors);
       return;
     }
+
     axios.post("http://localhost:3001/createService", {
-      service, 
+      service,
       date: date.toISOString().split('T')[0],
-      vin, 
-      price, 
-      parts, 
+      vin,
+      price,
+      parts,
       quantity: Number(quantity),
       notes
     })
@@ -49,7 +55,7 @@ function CreateService() {
       navigate('/serviceRecords');
       Swal.fire({
         icon: 'success',
-        title: 'successfull!',
+        title: 'Success!',
         text: 'Service record added successfully.',
         confirmButtonColor: '#b3202e',
         background: '#fff',
@@ -68,11 +74,9 @@ function CreateService() {
         backgroundPosition: "center",
       }}
     >
-      
-      <div className="card p-4 shadow" style={{ width: '520px', borderRadius: '20px',backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-      
+      <div className="card p-4 shadow" style={{ width: '520px', borderRadius: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <form onSubmit={Submit}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Service Records Section</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Service Records Section</h2>
           <h5 style={{ textAlign: 'left', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Car’s Story Starts Here: Add Service Records!</h5>
           
           <br />
@@ -122,7 +126,7 @@ function CreateService() {
                 className="form-control"
                 id="vin"
                 placeholder="Enter the Number of the vehicle"
-                autoComplete='off'
+                autoComplete="off"
                 onChange={(e) => { setVin(e.target.value); setErrors({ ...errors, vin: undefined }); }}
               />
               {errors.vin && <div className="text-danger">{errors.vin}</div>}
@@ -135,7 +139,7 @@ function CreateService() {
                 className="form-control"
                 id="price"
                 placeholder="Price issued in invoice"
-                autoComplete='off'
+                autoComplete="off"
                 onChange={(e) => { setPrice(e.target.value); setErrors({ ...errors, price: undefined }); }}
               />
               {errors.price && <div className="text-danger">{errors.price}</div>}
@@ -151,6 +155,8 @@ function CreateService() {
                 value={parts}
                 onChange={(e) => { setParts(e.target.value); setErrors({ ...errors, parts: undefined }); }}
               >
+                <option value="">Select Parts</option>
+                <option value="Oil Filters">Oil Filters</option>
                 <option value="">Select Parts</option>
                 <option value="Oil Filters">Oil Filters</option>
                 <option value="Air Filters">Air Filters</option>
@@ -171,6 +177,7 @@ function CreateService() {
                 <option value="Seats and Seat Belts">Seats and Seat Belts</option>
                 <option value="Windshields and Windows">Windshields and Windows</option>
                 <option value="Bumpers">Bumpers</option>
+
               </select>
               {errors.parts && <div className="text-danger">{errors.parts}</div>}
             </div>
@@ -195,17 +202,17 @@ function CreateService() {
               className="form-control"
               id="notes"
               placeholder="The technician's opinion"
-              autoComplete='off'
+              autoComplete="off"
               onChange={(e) => { setNotes(e.target.value); setErrors({ ...errors, notes: undefined }); }}
             />
             {errors.notes && <div className="text-danger">{errors.notes}</div>}
           </div>
           <br />
           <div align="right">
-          <Link to="/serviceRecords" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
-            Services
+            <Link to="/serviceRecords" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Services
             </Link>
-            <button type="submit" className="btn btn-success  mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>Submit</button>
+            <button type="submit" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>Submit</button>
           </div> 
         </form>
       </div>

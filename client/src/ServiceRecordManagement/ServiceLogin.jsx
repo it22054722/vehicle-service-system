@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; 
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Removed logout icon as it is not used
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import backgroundImage from './assets/supercars.png';
 
@@ -47,6 +47,7 @@ function ServiceLogin() {
       'dimuth@gmail.com': { password: '2002', page: '/supplier' },
     };
 
+    // Check hardcoded credentials first
     if (userCredentials[email] && userCredentials[email].password === password) {
       Swal.fire({ // SweetAlert for successful login
         title: 'Success!',
@@ -57,6 +58,7 @@ function ServiceLogin() {
         navigate(userCredentials[email].page);
       });
     } else {
+      // If credentials are incorrect, check the backend
       fetch('http://localhost:3002/login', {
         method: 'POST',
         headers: {
@@ -64,17 +66,41 @@ function ServiceLogin() {
         },
         body: JSON.stringify({ email, password }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Login failed');
+          }
+          return response.json();
+        })
         .then((data) => {
-          Swal.fire({ // Show response message in SweetAlert
-            title: 'Login Failed',
-            text: data.message || 'Invalid credentials',
-            icon: 'error',
-            confirmButtonText: 'OK',
-          });
+          // Check if backend response indicates invalid credentials
+          if (data.success === false) {
+            Swal.fire({ // Show error message in SweetAlert
+              title: 'Login Failed',
+              text: data.message || 'Invalid credentials',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+          } else {
+            // Handle successful login from the backend
+            Swal.fire({
+              title: 'Success!',
+              text: 'Login successful',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              navigate(data.page); // Assuming your backend sends a page property
+            });
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
+          Swal.fire({ // Show generic error in case of fetch failure
+            title: 'Error',
+            text: 'An error occurred during login. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
         });
     }
   };
