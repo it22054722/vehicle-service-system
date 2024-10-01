@@ -604,6 +604,110 @@ app.delete('/Deleteappointments/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+
+
+
+//feedback  backend 
+
+const Feed  =require('./Models/feed.model')
+const Mass =require('./Models/massage.model')
+
+// Add new items
+app.post('/Fcreate', async (req, res, next) => {
+  const { name, phone, email, vehicalid, rating, descrip } = req.body;
+
+  const newFeed = new Feed({
+    name,
+    phone,
+    email,
+    vehicalid,
+    rating,
+    descrip
+  });
+
+  try {
+    const savedFeed = await newFeed.save();
+    res.status(201).json(savedFeed);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+});
+
+// Get all items
+app.get('/FgetAll', async (req, res, next) => {
+  try {
+    const items = await Feed.find();
+
+    if (items.length > 0) {
+      res.json({ message: "Feed details retrieved successfully", items });
+    } else {
+      return res.status(404).json("Not found");
+    }
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+});
+
+// Update item
+app.put('/Fupdate/:feeId', async (req, res, next) => {
+  try {
+    const updatedFeed = await Feed.findByIdAndUpdate(
+      req.params.feeId,
+      {
+        $set: {
+          name: req.body.name,
+          phone: req.body.phone,
+          email: req.body.email,
+          vehicalid: req.body.vehicalid,
+          rating: req.body.rating,
+          descrip: req.body.descrip
+        }
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedFeed);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Remove an item
+app.delete('/Fdelete/:feedId', async (req, res, next) => {
+  try {
+    await Feed.findByIdAndDelete(req.params.feedId);
+    res.status(200).json("The feed has been deleted");
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+app.post('/Mcreate', async (req, res, next) => {
+  const { descrip } = req.body;
+
+  const newMass = new Mass({ descrip });
+
+  try {
+    const savedMass = await newMass.save();
+    res.status(201).json(savedMass);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 app.listen(3001, () => {
   console.log("Server is Running");
 });
