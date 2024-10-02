@@ -14,7 +14,17 @@
   /* No need for backgroundTransition animation as we're using JS for this */
   
   /* Ensure other styles remain the same */
-  
+  body {
+    font-family: 'Roboto', sans-serif; /* Apply the imported font */
+    height: 100%; /* Ensure the body and html take up the full height of the viewport */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    background-image: url('./assets/images/carrapaire.jpg');
+    background-size: cover; /* Ensure the image covers the whole page */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-attachment: fixed; /* Ensure the image stays fixed while scrolling */
+  }
   
   
   
