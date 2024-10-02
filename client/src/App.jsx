@@ -44,6 +44,19 @@ import Updateappointment from './AppointmentManagement/Updateappointment';
 
 
 
+import AddFeed from "./FeedbackManagment/Addfeedback";
+import Managefeedback from "./FeedbackManagment/Managefeedback";
+import DashboardLayout from "./FeedbackManagment/Dashboard";
+import Update from "./FeedbackManagment/updatefeed";
+import Allfeedback from "./FeedbackManagment/Allfeedback";
+import Massage from "./FeedbackManagment/massage";
+import Mangerview from "./FeedbackManagment/Mangerview";
+import FeedbackSummery from "./FeedbackManagment/FeedbackSummery";
+
+
+
+
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -88,7 +101,35 @@ function App() {
         <Route path="/AppTable" element={<AppTable />} />
         <Route path="/Createappointment" element={<Createappointment />} />
         <Route path="/Updateappointment/:id" element={<Updateappointment />} />
+
+
+
+        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="AddFeed" element={<AddFeed />} />
+          <Route path="allfeed" element={<Allfeedback />} />
+          <Route path="manage" element={<Managefeedback />} />
+          <Route path="massage" element={<Massage />} />
+          <Route path="feedupdate/:Id" element={<Update />} />
+          
+          </Route>
+          <Route path="/Mangeview" element={<Mangerview />} />
+          <Route path="/pages/FeedbackSummery" element={<FeedbackSummery />} />
+          <Route path="/feed" element={<Allfeedback />} />
+          
+
+
+
+
+
       </Routes>
+
+
+
+     
+
+
+
+
       <Footer/>
       </BrowserRouter>
     </div>
