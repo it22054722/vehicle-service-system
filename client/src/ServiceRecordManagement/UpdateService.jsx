@@ -36,11 +36,23 @@ function UpdateService() {
 
   const validateForm = () => {
     const newErrors = {};
+    const alphanumericPattern = /^[a-zA-Z0-9\s]+$/;
+    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; // allows only numbers with up to two decimals
+
     if (!service) newErrors.service = "Service is required.";
-    if (!vin) newErrors.vin = "Vehicle Number is required.";
-    if (!price) newErrors.price = "Price is required.";
+    if (!vin) {
+      newErrors.vin = "Vehicle Number is required.";
+    } else if (!alphanumericPattern.test(vin)) {
+      newErrors.vin = "Vehicle Number cannot contain special characters.";
+    }
+    if (!price) {
+      newErrors.price = "Price is required.";
+    } else if (!pricePattern.test(price)) {
+      newErrors.price = "Price must be a valid number and cannot contain symbols.";
+    }
     if (!parts) newErrors.parts = "Parts Used is required.";
     if (!notes) newErrors.notes = "Technician's Note is required.";
+
     return newErrors;
   };
 
