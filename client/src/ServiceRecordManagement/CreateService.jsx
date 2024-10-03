@@ -20,11 +20,23 @@ function CreateService() {
 
   const validateForm = () => {
     const newErrors = {};
+    const alphanumericPattern = /^[a-zA-Z0-9\s]+$/;
+    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; // allows only numbers with up to two decimals
+
     if (!service) newErrors.service = "Service is required.";
-    if (!vin) newErrors.vin = "Vehicle Number is required.";
-    if (!price) newErrors.price = "Price is required.";
+    if (!vin) {
+      newErrors.vin = "Vehicle Number is required.";
+    } else if (!alphanumericPattern.test(vin)) {
+      newErrors.vin = "Vehicle Number cannot contain special characters.";
+    }
+    if (!price) {
+      newErrors.price = "Price is required.";
+    } else if (!pricePattern.test(price)) {
+      newErrors.price = "Price must be a valid number and cannot contain symbols.";
+    }
     if (!parts) newErrors.parts = "Parts Used is required.";
     if (!notes) newErrors.notes = "Technician's Note is required.";
+
     return newErrors;
   };
 
@@ -49,7 +61,7 @@ function CreateService() {
       navigate('/serviceRecords');
       Swal.fire({
         icon: 'success',
-        title: 'successfull!',
+        title: 'Success!',
         text: 'Service record added successfully.',
         confirmButtonColor: '#b3202e',
         background: '#fff',
@@ -68,12 +80,14 @@ function CreateService() {
         backgroundPosition: "center",
       }}
     >
-      
-      <div className="card p-4 shadow" style={{ width: '520px', borderRadius: '20px',backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-      
+      <div className="card p-4 shadow" style={{ width: '520px', borderRadius: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <form onSubmit={Submit}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Service Records Section</h2>
-          <h5 style={{ textAlign: 'left', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Car’s Story Starts Here: Add Service Records!</h5>
+          <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>
+            Service Records Section
+          </h2>
+          <h5 style={{ textAlign: 'left', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>
+            Car’s Story Starts Here: Add Service Records!
+          </h5>
           
           <br />
           <div className="row">
@@ -97,6 +111,7 @@ function CreateService() {
                 <option value="Air Conditioning/Heating Repair">Air Conditioning/Heating Repair</option>
                 <option value="Pre-purchase Inspections">Pre-purchase Inspections</option>
                 <option value="Hybrid/Electric Vehicle Services">Hybrid/Electric Vehicle Services</option>
+                {/* Add more options as required */}
               </select>
               {errors.service && <div className="text-danger">{errors.service}</div>}
             </div>
@@ -152,6 +167,10 @@ function CreateService() {
                 onChange={(e) => { setParts(e.target.value); setErrors({ ...errors, parts: undefined }); }}
               >
                 <option value="">Select Parts</option>
+                {/* Add your parts options here */}
+                <option value="Oil Filters">Oil Filters</option>
+                <option value="Oil Filters">Oil Filters</option>
+                <option value="">Select Parts</option>
                 <option value="Oil Filters">Oil Filters</option>
                 <option value="Air Filters">Air Filters</option>
                 <option value="Spark Plugs">Spark Plugs</option>
@@ -202,11 +221,13 @@ function CreateService() {
           </div>
           <br />
           <div align="right">
-          <Link to="/serviceRecords" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
-            Services
+            <Link to="/serviceRecords" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Services
             </Link>
-            <button type="submit" className="btn btn-success  mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>Submit</button>
-          </div> 
+            <button type="submit" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

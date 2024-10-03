@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Use useNavigate for navigation
 import { FaEdit } from 'react-icons/fa'; 
 import { MdDelete } from 'react-icons/md'; 
+import { FiLogOut } from 'react-icons/fi';  // Import logout icon
 import backgroundImage from './assets/supercars.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Swal from 'sweetalert2';  // Import SweetAlert2
-import withReactContent from 'sweetalert2-react-content'; // Import React wrapper for SweetAlert2
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
 function Services() {
   const [Services, setServices] = useState([]);
+  const navigate = useNavigate();  // Initialize useNavigate for redirection
 
   useEffect(() => {
     axios
@@ -33,27 +35,25 @@ function Services() {
       cancelButtonText: 'No, keep it',
     }).then((result) => {
       if (result.isConfirmed) {
-        // If confirmed, delete the service
         axios
           .delete('http://localhost:3001/deleteService/' + id)
           .then((res) => {
-            console.log(res);
             toast.success("Service record deleted successfully!");
             setServices((prevServices) => prevServices.filter(service => service._id !== id));
           })
           .catch((err) => {
-            console.log(err);
             toast.error("Failed to delete the service record.");
           });
 
-        // Show a SweetAlert success message after deletion
-        MySwal.fire(
-          'Deleted!',
-          'Your service record has been deleted.',
-          'success'
-        );
+        MySwal.fire('Deleted!', 'Your service record has been deleted.', 'success');
       }
     });
+  };
+
+  // Handle Logout Click
+  const handleLogout = () => {
+    navigate("/");  
+    toast.info("Logged out successfully!");  
   };
 
   return (
@@ -68,16 +68,22 @@ function Services() {
       <div className="w-90 rounded p-4 shadow" style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
         <h2 style={{ textAlign: 'center', marginBottom: '0.5rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Services</h2>
         <h4 style={{ textAlign: 'left', marginBottom: '0.2rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Our Assets..</h4>
-        <div className="mb-3">
-          <Link to="/servicecreate" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
-            Add +
-          </Link>
-          <Link to="/Servicereports" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
-            Reports
-          </Link>
-          <Link to="/serviceDashboard" className="btn btn-danger mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
-            Dashboard
-          </Link>
+        <div className="mb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <Link to="/servicecreate" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Add +
+            </Link>
+            <Link to="/Servicereports" className="btn btn-success mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Reports
+            </Link>
+            <Link to="/serviceDashboard" className="btn btn-danger mx-1" style={{ borderRadius: '0.3rem', marginLeft: '10px', width: '100px', backgroundColor: '#b3202e', borderColor: '#b3202e' }}>
+              Dashboard
+            </Link>
+          </div>
+          {/* Logout Icon */}
+          <button onClick={handleLogout} className="btn mx-1">
+            <FiLogOut style={{ fontSize: '1.5rem', color: '#a1192d', cursor: 'pointer' }} title="Logout" />
+          </button>
         </div>
 
         <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
@@ -118,7 +124,7 @@ function Services() {
           </table>
         </div>
       </div>
-      <ToastContainer /> {/* Add ToastContainer for displaying toast messages */}
+      <ToastContainer />
     </div>
   );
 }
