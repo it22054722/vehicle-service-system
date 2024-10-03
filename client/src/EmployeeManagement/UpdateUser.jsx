@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function UpdateUser() {
   const { id } = useParams();
@@ -67,8 +68,19 @@ function UpdateUser() {
     axios.put("http://localhost:3001/updateUser/" + id, { name, date, nic, contact, email, position })
       .then(result => {
         console.log(result);
-        navigate('/users');
-      })
+         // Show success notification using SweetAlert2
+      Swal.fire({
+        title: 'Success!',
+        text: 'Successfully Updated!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/users'); // Navigate after confirmation
+      });
+    })
+
+
+
       .catch(err => console.log(err));
   }
 
@@ -80,17 +92,19 @@ function UpdateUser() {
           {error && <div className="alert alert-danger">{error}</div>}
           {/* Form Fields */}
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Enter Name"
-              autoComplete='off'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+  <label htmlFor="name" className="form-label">Name</label>
+  <input
+    type="text"
+    className="form-control"
+    id="name"
+    placeholder="Enter Name"
+    autoComplete='off'
+    value={name}
+    onInput={(e) => e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '')} // Only allows letters and spaces
+    onChange={(e) => setName(e.target.value)}
+  />
+</div>
+
           <div className="mb-3">
             <label htmlFor="date" className="form-label">Date Of Birth</label>
             <input
@@ -115,17 +129,19 @@ function UpdateUser() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="contact" className="form-label">Contact</label>
-            <input
-              type="text"
-              className="form-control"
-              id="contact"
-              placeholder="Enter Contact Number"
-              autoComplete='off'
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
-            />
-          </div>
+  <label htmlFor="contact" className="form-label">Contact</label>
+  <input
+    type="text"
+    className="form-control"
+    id="contact"
+    placeholder="Enter Contact Number"
+    autoComplete='off'
+    value={contact}
+    onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')} // Only allows numbers
+    onChange={(e) => setContact(e.target.value)}
+  />
+</div>
+
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input

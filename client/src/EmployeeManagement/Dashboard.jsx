@@ -56,7 +56,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '120vh',
-    backgroundImage: 'url("https://i.pinimg.com/564x/9f/73/23/9f7323561e6afd468a3b94f85168c9e1.jpg")', // Add your background image URL
+    backgroundImage: 'url("https://img.freepik.com/premium-photo/car-repair-maintenance-service-center-blurred-background_293060-2976.jpg")', // Add your background image URL
     backgroundSize: 'cover', // Make sure the image covers the entire background
     backgroundPosition: 'center', // Center the image
     backgroundRepeat: 'no-repeat', // Prevent repeating the background image

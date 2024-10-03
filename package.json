@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "moment": "^2.30.1",
+    "react-bootstrap": "^2.10.5",
+    "react-simple-chatbot": "^0.6.1",
+    "styled-components": "^6.1.13"
+  }
+}

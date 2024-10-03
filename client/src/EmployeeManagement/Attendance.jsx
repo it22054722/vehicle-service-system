@@ -6,7 +6,7 @@ function Attendance() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [attendance, setAttendance] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [date] = useState(new Date().toISOString().split('T')[0]); 
   const [overtimeHours, setOvertimeHours] = useState(0);
   const [message, setMessage] = useState('');
   const [hasMarkedAttendance, setHasMarkedAttendance] = useState(false);
@@ -184,16 +184,8 @@ function Attendance() {
           </div>
 
           <div style={formGroupStyles}>
-            <label htmlFor="date">Date</label>
-            <input 
-              type="date" 
-              id="date" 
-              value={date} 
-              onChange={(e) => setDate(e.target.value)} 
-              min={new Date().toISOString().split('T')[0]} 
-              max={new Date().toISOString().split('T')[0]} 
-              style={formControlStyles}
-            />
+            <label>Date</label>
+            <p>{date}</p> 
           </div>
 
           {attendance === 'Present' && (
