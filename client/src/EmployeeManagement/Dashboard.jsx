@@ -15,17 +15,17 @@ function Dashboard() {
         <div style={styles.imageContainer}>
           <Link to="/users">
             <img
-              src="https://thumbs.dreamstime.com/b/word-writing-register-now-business-concept-online-sale-join-membership-written-price-tag-paper-black-vintage-background-110895714.jpg"
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGVtcGxveWVlfGVufDB8fDB8fHww"
               alt="Go to Users"
               style={styles.iconImage}
               className="icon-image" // Added class name for event listeners
             />
-            <div style={styles.label}>Register</div>
+            <div style={styles.label}>Employee Register</div>
           </Link>
 
           <Link to="/attendance">
             <img
-              src="https://t3.ftcdn.net/jpg/02/55/44/78/360_F_255447888_MeZjWc2j4rcQPaXWeDBNMGLIrfQ0LmzY.jpg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdjg9Z1RQupDWChCyIhrTRafv-tvFb0m8itw&s"
               alt="Go to Attendance"
               style={styles.iconImage}
               className="icon-image" // Added class name for event listeners
@@ -35,7 +35,7 @@ function Dashboard() {
 
           <Link to="/payments">
             <img
-              src="https://media.istockphoto.com/id/2078490118/photo/businessman-using-laptop-to-online-payment-banking-and-online-shopping-financial-transaction.webp?b=1&s=612x612&w=0&k=20&c=8LGWUELmhR8_4M1OQPElcC4njmGEzxNnKpMh3Tu3ft8="
+              src="https://images.squarespace-cdn.com/content/v1/58fbfecf725e25a3d1966494/1617226270371-JFRCRYD8LRFAB7XG7B04/image-asset.jpeg?format=500w"
               alt="Go to Payments"
               style={styles.iconImage}
               className="icon-image" // Added class name for event listeners
@@ -81,7 +81,7 @@ const styles = {
   },
   iconImage: {
     width: '300px',
-    height: '200px',
+    height: '500px',
     borderRadius: '15px',
     boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
     transition: 'transform 0.3s, box-shadow 0.3s',
