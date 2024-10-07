@@ -1,0 +1,241 @@
+/* App.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background: url('/assets/veiw_page_image.jpg') no-repeat center center fixed;
+  background-color: #f8f9fa;
+  margin: 0;
+}
+
+.card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+h2 {
+  text-align: center;
+  color: #343a40;
+}
+
+.btn-success, .btn-primary, .btn-danger {
+  width: 100px;
+  font-weight: bold;
+}
+
+input.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+table.table {
+  background-color: white;
+  border-radius: 10px;
+}
+
+thead th {
+  background-color: #343a40;
+  color: white;
+}
+
+/* user login */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+   
+  .vh-100 {
+    height: 100vh;
+    background-image: url('EmployeeManagement/assets/login_page.jpg'); /* Adjust the path based on your file structure */
+    background-size: cover;
+    background-position: center;
+  }
+   
+  .card {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    border-radius: 10px;
+  }
+   
+/* other */
+.background {
+    background-image: url('EmployeeManagement/car.jpg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Make sure it covers the full height */
+}
+
+.icon-image {
+    cursor: pointer;
+    border-radius: 10px;
+    width: 300px;  /* Increase the width */
+    height: auto;  /* Maintain aspect ratio */
+    transition: transform 0.3s ease;  /* Add smooth scaling on hover */
+}
+
+.icon-image:hover {
+    transform: scale(1.1);  /* Slightly increase the size when hovered */
+}
+.background {
+  background-image: url('TraineeManagement/newbk.jpg'); /* Replace with the correct path */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Make sure it covers the full height */
+}
+
+.w-75 {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  overflow: auto;
+  max-height: 100vh;
+}
+
+body {
+  overflow: auto; /* Prevents scrollbar on the body */
+}
+
+.report-content {
+  overflow: auto; /* Allow inner content to scroll if necessary */
+  max-height: 80vh; /* Set a max height to allow for scrolling if content exceeds this */
+  padding-right: 15px; /* Add padding to avoid content being too close to the scrollbar */
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.custom-border {
+  border-color: rgba(161, 25, 45, 1) !important; /* Customize border color */
+}
+/* Schedule.css */
+.custom-select {
+  transition: background-color 0.3s;
+}
+
+.custom-select:hover {
+  background-color: red !important; /* Change hover color to red */
+}
+
+
+/* App.css */
+
+.d-flex {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .w-100 {
+    width: 100% !important;
+  }
+  
+  .overflow-auto {
+    overflow: auto;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: auto;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .background {
+    background-image: url('create.jpg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Make sure it covers the full height */
+}
+  
+  
+  
+
+
+
+.background {
+  background-color: #f8f9fa; /* Optional background color */
+}
+
+.w-100 {
+  width: 100%;
+  max-width: 1200px; /* Set a max width if needed */
+}
+
+.overflow-auto {
+  max-height: 400px; /* Set the max height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scroll */
+}
+
+.table-container {
+  max-height: 400px; /* Set the max height of the table container */
+  overflow-y: auto; /* Enable vertical scroll */
+  display: block; /* Ensure the table takes up the correct space */
+}
+
+.background {
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.card {
+  max-height: 78vh; /* Limit height of the card */
+  overflow-y: auto; /* Enable scrolling within the card */
+}
+
+
+body {
+  background-color: #f8f9fa;
+}
+
+.background {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table th {
+  background-color: #343a40;
+  color: white;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between; /* Ensures the buttons are on the same line and spaced evenly */
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+.btn-group .btn {
+  margin-right: 5px; /* Adds space between buttons */
+}
+
+.background {
+  background-image: url('create.jpg'); /* Replace with the correct path */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Make sure it covers the full height */
+}
+
