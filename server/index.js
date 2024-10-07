@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const ServiceModel = require("./models/Services");
-const InventoryModel = require("./models/Inventory");
+const ServiceModel = require("./Models/Services");
+const InventoryModel = require("./Models/Inventory");
 
 const app = express();
 app.use(cors());
@@ -169,12 +169,10 @@ app.post("/markAttendance", async (req, res) => {
 
     if (existingAttendance) {
       // If attendance already exists, do not allow marking again
-      return res
-        .status(400)
-        .json({
-          message:
-            "Attendance for this employee has already been marked for this date.",
-        });
+      return res.status(400).json({
+        message:
+          "Attendance for this employee has already been marked for this date.",
+      });
     }
 
     // Create a new attendance record
