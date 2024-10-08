@@ -164,24 +164,7 @@ const ViewAllPackages = () => {
 
   const handleProceedToPayment = async () => {
 
-    try {
-      // Create the booking data object
-      const bookingData = {
-        packageName: selectedPackage.packageName,
-        price: selectedPackage.price,
-      // In this case, it's a single package, so price = total
-        appointmentDate: selectedDate, // Use the date selected from DatePicker
-      };
-  
-      // Make a POST request to your backend to save the booking
-      const response = await axios.post('http://localhost:3001/bookings/add', bookingData);
-      if (response.status === 200) {
-        console.log('Booking saved successfully:', response.data);
-        // You can redirect to a success page or show a success message here
-      }
-    } catch (error) {
-      console.error('Error while processing payment and saving booking:', error);
-    }
+    
 
 
     const token = localStorage.getItem('authToken');
@@ -256,10 +239,6 @@ const ViewAllPackages = () => {
             }
         };
 
-        // API call to save booking
-        await axios.post(`http://localhost:3001/api/bookings/`, bookingData, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
 
         // Update maxCustomers by decreasing it by 1
         const updatedMaxCustomers = selectedPackage.maxCustomers - 1;
