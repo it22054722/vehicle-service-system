@@ -36,13 +36,13 @@ function AttendanceRecords() {
 
   const getEmployeeDetails = (employeeId) => {
     const employee = employees.find(emp => emp._id === employeeId);
-    return employee ? { name: employee.name, nic: employee.nic } : { name: 'Unknown', nic: 'Unknown' };
+    return employee ? { name: employee.name, nic: employee.nic, position: employee.position } : { name: 'Unknown', nic: 'Unknown', position: 'Unknown' };
   };
 
   // Inline styles
   const styles = {
     container: {
-      backgroundImage: "url('https://images.unsplash.com/photo-1636761358774-6c14f281d5c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')", // Add your background image path here
+      backgroundImage: "url('https://images.unsplash.com/photo-1636761358774-6c14f281d5c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '30px',
@@ -120,6 +120,7 @@ function AttendanceRecords() {
             <tr>
               <th style={styles.th}>Employee Name</th>
               <th style={styles.th}>Employee NIC</th>
+              <th style={styles.th}>Position</th> {/* Add Position header */}
               <th style={styles.th}>Date</th>
               <th style={styles.th}>Status</th>
               <th style={styles.th}>Overtime Hours</th>
@@ -127,12 +128,13 @@ function AttendanceRecords() {
           </thead>
           <tbody>
             {records.map((record, index) => {
-              const { name, nic } = getEmployeeDetails(record.employeeId);
+              const { name, nic, position } = getEmployeeDetails(record.employeeId);
               const rowStyle = index % 2 === 0 ? styles.evenRow : {}; // Alternating row color
               return (
                 <tr key={record._id} style={rowStyle}>
                   <td style={styles.td}>{name}</td>
                   <td style={styles.td}>{nic}</td>
+                  <td style={styles.td}>{position}</td> {/* Display Position */}
                   <td style={styles.td}>{record.date}</td>
                   <td style={styles.td}>{record.status}</td>
                   <td style={styles.td}>{record.overtimeHours}</td>
