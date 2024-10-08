@@ -123,6 +123,8 @@ function traineereport() {
       // Add chart image below report content with reduced size
       pdf.addImage(chartImgData, "PNG", 10, 10 + imgHeightReport * 0.8 + 10, imgWidth * 0.8, imgHeightChart * 0.8); // 90% of the original size
   
+      
+
       pdf.save(`Trainee_Report_${traineeId}.pdf`);
   
       // Show buttons again after PDF generation
@@ -151,8 +153,8 @@ function traineereport() {
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="w-75  shadow-lg rounded p-5 d-flex" style={{  backgroundColor: 'rgba(255, 255, 255, 0.8)', marginTop:"50px"}}>
-        <div className="col-md-6 pe-4 report-content" id="reportContent">
+      <div className="w-75  shadow-lg rounded p-5 d-flex" style={{  backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
+        <div className="col-md-6 pe-4 report-content" id="reportContent" style={{marginTop:"50px"}}>
           <h3
             className="mb-3" style={{color: "#8B0000", fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'}}
           >
@@ -220,7 +222,7 @@ function traineereport() {
           )}
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-6" style={{marginTop:"50px"}}>
           <div className="d-flex justify-content-between align-items-center mb-3">
             <button
               id="downloadButton"

@@ -35,6 +35,8 @@ import Prograss from './TraineeManagement/Prograss'
 import Report from './TraineeManagement/Report'
 import Dashboard from './TraineeManagement/Dashboard'
 import TraineeLogin from './TraineeManagement/TraineeLogin';
+import TaskProgress from './TraineeManagement/TaskProgress';
+
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -52,8 +54,6 @@ import Allfeedback from "./FeedbackManagment/Allfeedback";
 import Massage from "./FeedbackManagment/massage";
 import Mangerview from "./FeedbackManagment/Mangerview";
 import FeedbackSummery from "./FeedbackManagment/FeedbackSummery";
-
-
 
 
 
@@ -97,6 +97,7 @@ function App() {
         <Route path='/traineeprogess' element={<Prograss/>}></Route>
         <Route path='/report' element={<Report/>}></Route>
         <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
+        <Route path='/TaskProgress' element={<TaskProgress/>}></Route>
         
         <Route path="/AppTable" element={<AppTable />} />
         <Route path="/Createappointment" element={<Createappointment />} />

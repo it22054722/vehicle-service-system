@@ -184,8 +184,36 @@ function Progress() {
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="w-75 shadow-lg rounded p-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-        
+      <div className="w-75 shadow-lg rounded p-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', marginBottom:"30px" }}>
+      
+{/* Task Progress Button */}
+<div className="mb-3 d-flex justify-content-center">
+  <button
+    className="btn w-100"
+    style={{
+      backgroundColor: "#ffffff",
+      color: "#000000",
+      border: "1px solid black",
+      fontWeight: "bold",
+      padding: "10px",
+      height:"38px"
+    }}
+    onMouseOver={(e) => {
+      e.target.style.backgroundColor = "#8B0000";
+      e.target.style.color = "#ffffff";
+    }}
+    onMouseOut={(e) => {
+      e.target.style.backgroundColor = "#ffffff";
+      e.target.style.color = "#000000";
+    }}
+    onClick={() => navigate("/TaskProgress")} // Navigate to the task page on click
+  >
+    Task Progress
+  </button>
+</div>
+
+      
+
         <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', marginTop: '65px', fontSize: '2.5rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>
           Select Trainee to View Progress
         </h3>
@@ -202,8 +230,10 @@ function Progress() {
             </option>
           ))}
         </select>
+
         {errors.trainee && <p className="text-danger">{errors.trainee}</p>}
 
+      
         {selectedTrainee && traineeDetails && (
           <div className="mt-3">
             <h5 className="mb-3" style={{color: "#8B0000"}}>Progress for Trainee ID: {traineeDetails.trainee_id}</h5>

@@ -394,8 +394,6 @@ app.post("/createProgress", (req, res) => {
   });
 
 
-
-
 const appointmentModel = require('./Models/appointment');
 const jsPDF = require('jspdf');
 const autoTable = require('jspdf-autotable');

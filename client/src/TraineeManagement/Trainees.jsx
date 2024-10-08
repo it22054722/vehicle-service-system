@@ -76,10 +76,25 @@ function Trainees() {
             style={{
               backgroundColor: "#8B0000", // Dark red color
               color: "#fff",
+              fontSize: "1rem",
+              width:"70px"
             }}
           >
             Add +
           </Link>
+          {/* Display trainee count */}
+          <span
+            className="badge"
+            style={{
+              backgroundColor: "#8B0000", // Dark red color for the badge
+              color: "#fff",
+              fontSize: "1rem",
+              padding: "10px",
+              borderRadius: "8px",
+            }}
+          >
+            Current Trainees: {Trainees.length}
+          </span>
         </div>
 
         <table className="table">
