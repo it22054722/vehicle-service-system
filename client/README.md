@@ -9,3 +9,5 @@ Currently, two official plugins are available:
 
 #updated inventory manager
 #12
+
+#updated
