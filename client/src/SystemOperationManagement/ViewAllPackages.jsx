@@ -608,7 +608,7 @@ const ViewAllPackages = () => {
   variant="primary" 
   onClick={handleProceedToPayment}
   style={{
-    width: '100%', // Adjust width as needed
+    width: '40%', // Adjust width as needed
     padding: '10px 20px', // Increase padding for a more comfortable look
     fontSize: '16px', // Larger font for better readability
     borderRadius: '8px', // Rounded corners for a softer look
