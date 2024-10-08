@@ -26,6 +26,10 @@ import ServiceLogin from './ServiceRecordManagement/ServiceLogin';
 import PINPage from './ServiceRecordManagement/PINPage'
 import Home from './ServiceRecordManagement/Home'
 import AboutUs from './ServiceRecordManagement/About';
+import ServiceInfographic from './ServiceRecordManagement/ServiceInfographic';
+import RevenueAreaChart from './ServiceRecordManagement/RevenueAreaChart';
+import PartsUsageTable from './ServiceRecordManagement/PartsUsageTable';
+import PartDetails from './ServiceRecordManagement/PartDetails';
 
 import CreateTrainee from './TraineeManagement/CreateTrainee'
 import UpdateTrainee from './TraineeManagement/UpdateTrainee'
@@ -78,6 +82,10 @@ function App() {
         <Route path="/serviceLogin" element={<ServiceLogin />} />
         <Route path="/PINPage" element={<PINPage />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/ServiceInfographic" element={<ServiceInfographic />} />
+        <Route path="/RevenueAreaChart" element={<RevenueAreaChart />} />
+        <Route path="/PartsUsageTable" element={<PartsUsageTable />} />
+        <Route path="/PartDetails" element={<PartDetails />} />
 
 
         <Route path='/empLogin' element={<Login />} /> {/* Login page */}

@@ -24,21 +24,40 @@ app.get('/getService/:id',(req, res) => {
     .catch(err => res.json(err))
 })
 
+app.get('/checkServiceId/:serviceId', async (req, res) => {
+  const serviceId = req.params.serviceId;
+  const exists = await ServiceModel.findOne({ serviceId }); // Modify this to match your schema
+  res.json({ exists: !!exists });
+});
 
-app.put('/updateService/:id',(req,res) => {
-    const id = req.params.id;
-    ServiceModel.findByIdAndUpdate({_id: id}, {
-        service: req.body.service, 
-        date: req.body.date,
-        vin:req.body.vin,
-        price:req.body.price,
-        parts:req.body.parts,
-        quantity: Number(req.body.quantity),
-        notes:req.body.notes
-    })
-    .then(services => res.json(services))
-    .catch(err => res.json(err))
-})
+app.put('/updateService/:id', async (req, res) => {
+  const id = req.params.id;
+  const { serviceId } = req.body;
+
+  // Check if the new serviceId already exists in a different record
+  const existingService = await ServiceModel.findOne({ serviceId, _id: { $ne: id } });
+
+  if (existingService) {
+    return res.status(400).json({ error: 'Service ID already exists. Please use a different ID.' });
+  }
+
+  ServiceModel.findByIdAndUpdate({ _id: id }, {
+    serviceId: req.body.serviceId,
+    service: req.body.service,
+    date: req.body.date,
+    vin: req.body.vin,
+    price: req.body.price,
+    parts: req.body.parts,
+    quantity: Number(req.body.quantity),
+    notes: req.body.notes,
+    status: req.body.status,
+  })
+  .then(services => res.json(services))
+  .catch(err => res.json(err));
+});
+
+
+
 
 
 app.delete('/deleteService/:id',(req,res) => {

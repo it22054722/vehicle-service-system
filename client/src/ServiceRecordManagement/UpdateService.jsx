@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 
 function UpdateService() {
   const { id } = useParams();
+  const [serviceId, setServiceId] = useState('');
   const [service, setService] = useState('');
   const [date, setDate] = useState(new Date());
   const [vin, setVin] = useState('');
@@ -16,6 +17,7 @@ function UpdateService() {
   const [parts, setParts] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState('');
+  const [status, setStatus] = useState('in-progress');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -23,12 +25,14 @@ function UpdateService() {
     axios.get(`http://localhost:3001/getService/${id}`)
       .then(response => {
         const serviceData = response.data;
+        setServiceId(serviceData.serviceId);
         setService(serviceData.service);
         setDate(new Date(serviceData.date));
         setVin(serviceData.vin);
         setPrice(serviceData.price);
         setParts(serviceData.parts);
         setQuantity(serviceData.quantity);
+        setStatus(serviceData.status);
         setNotes(serviceData.notes);
       })
       .catch(err => console.log(err));
@@ -36,15 +40,19 @@ function UpdateService() {
 
   const validateForm = () => {
     const newErrors = {};
-    const alphanumericPattern = /^[a-zA-Z0-9\s]+$/;
-    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; // allows only numbers with up to two decimals
+    const alphanumericPattern = /^[a-zA-Z0-9-\s]+$/;
+    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; 
+    const vinPattern = /^(?:[A-Z]{2,3}-\d{4}|[A-Z]{2,3}\d{4})$/;
 
+    if (!serviceId) newErrors.serviceId = "Service ID is required.";
     if (!service) newErrors.service = "Service is required.";
     if (!vin) {
       newErrors.vin = "Vehicle Number is required.";
-    } else if (!alphanumericPattern.test(vin)) {
+    } else if (!vinPattern.test(vin)) {
+      newErrors.vin = "Vehicle Number must follow the format AA-1234 or ABC-1234.";
+    }else if (!alphanumericPattern.test(vin)) {
       newErrors.vin = "Vehicle Number cannot contain special characters.";
-    }
+    } 
     if (!price) {
       newErrors.price = "Price is required.";
     } else if (!pricePattern.test(price)) {
@@ -63,30 +71,48 @@ function UpdateService() {
       setErrors(formErrors);
       return;
     }
+  
     axios.put(`http://localhost:3001/updateService/${id}`, {
-      service, 
+      serviceId,
+      service,
       date: date.toISOString().split('T')[0],
-      vin, 
-      price, 
-      parts, 
+      vin,
+      price,
+      parts,
       quantity: Number(quantity),
-      notes
+      notes,
+      status
     })
     .then(result => {
       console.log(result);
       navigate('/serviceRecords');
-
+  
       Swal.fire({
         icon: 'success',
-        title: 'successfull!',
-        text: 'Service record added successfully.',
+        title: 'Success!',
+        text: 'Service record updated successfully.',
         confirmButtonColor: '#b3202e',
         background: '#fff',
         color: '#333',
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      // If the error is due to a duplicate service ID
+      if (err.response && err.response.status === 400) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: err.response.data.error,
+          confirmButtonColor: '#b3202e',
+          background: '#fff',
+          color: '#333',
+        });
+      } else {
+        console.log(err);
+      }
+    });
   };
+  
 
   return (
     <div
@@ -97,11 +123,24 @@ function UpdateService() {
         backgroundPosition: "center",
       }}
     >
-      <div className="card p-4 shadow" style={{  width: '520px', borderRadius: '20px',backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
+      <div className="scard p-4 shadow" style={{  width: '520px', borderRadius: '20px',backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
         <form onSubmit={Submit}>
           <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Service Records Section</h2>
           <h5 style={{ textAlign: 'left', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>Car’s Story Starts Here: Update Service Records!</h5>
           <br />
+          <div className="mb-3">
+            <label htmlFor="serviceId" className="form-label">Service ID</label>
+            <input
+              type="text"
+              className="form-control"
+              id="serviceId"
+              placeholder="Enter Service ID"
+              autoComplete='off'
+              value={serviceId}
+              onChange={(e) => { setServiceId(e.target.value); setErrors({ ...errors, serviceId: undefined }); }}
+            />
+            {errors.serviceId && <div className="text-danger">{errors.serviceId}</div>}
+          </div>
           <div className="row">
             <div className="col-md-6 mb-3">
               <label htmlFor="service" className="form-label">Service</label>
@@ -213,6 +252,24 @@ function UpdateService() {
                 onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
                 min="1"
               />
+            </div>
+          </div>
+
+          <div className="row mb-3">
+            <div className="col-md-6 mb-3">
+              <label htmlFor="status" className="form-label">Service Status</label>
+              <div className="form-check form-switch">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="status"
+                  checked={status === 'completed'}
+                  onChange={() => setStatus(status === 'completed' ? 'in-progress' : 'completed')}
+                />
+                <label className="form-check-label" htmlFor="status">
+                  {status === 'completed' ? 'Completed' : 'In Progress'}
+                </label>
+              </div>
             </div>
           </div>
 
