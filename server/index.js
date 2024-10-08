@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const ServiceModel = require("./Models/Services");
 const InventoryModel = require("./Models/Inventory");
+const http = require("http");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -771,6 +774,35 @@ app.delete("/inventory/:id", (req, res) => {
     .then(() => res.status(204).send())
     .catch((err) => res.status(500).json({ error: err.message }));
 });
+
+//System Operation Manager
+// Import and use routes
+const packageRouter = require("./routes/packages");
+const authRoutes = require("./routes/auth");
+const supplierRoutes = require("./routes/Suppliers"); // Import supplier routes
+//const bookingRoutes = require('./routes/bookingRoutes');
+// Route setup
+app.use("/package", packageRouter);
+app.use("/api/auth", authRoutes); // Authentication routes
+app.use("/supplier", supplierRoutes);
+
+//app.use('/bookings', bookingRoutes);
+
+// Error handling for non-existing routes
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Not Found" });
+});
+
+// Socket.IO connection
+//io.on('connection', (socket) => {
+//console.log('A user connected');
+
+//socket.on('disconnect', () => {
+// console.log('User disconnected');
+//});
+//});
+const server = http.createServer(app);
+
 
 app.listen(3001, () => {
   console.log("Server is Running");

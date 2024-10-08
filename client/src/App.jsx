@@ -64,7 +64,33 @@ import InventoryDashboard from "./InventoryManagement/InventoryDashboard";
 import CreateItem from "./InventoryManagement/CreateItem";
 import LowInventory from "./InventoryManagement/LowInventory";
 
+/* System Operation Manager Components */
+import AddPackage from "./SystemOperationManagement/AddPackage";
+import AllPackages from "./SystemOperationManagement/AllPackages";
+import UpdatePackage from "./SystemOperationManagement/UpdatePackage";
+import DeletePackage from "./SystemOperationManagement/DeletePackage";
+import ViewPackage from "./SystemOperationManagement/ViewPackage";
+import ViewAllPackages from "./SystemOperationManagement/ViewAllPackages";
+import Register from "./Authentications/Register";
+import AdminLogin from "./SystemOperationManagement/Adminauth/AdminLogin";
+import AdminRegister from "./SystemOperationManagement/Adminauth/AdminRegister";
+import Dashboard from "./SystemOperationManagement/Dashboard";
+import AdminDashboard from "./SystemOperationManagement/AdminDashboard";
+import AllUsers from "./SystemOperationManagement/AllUsers";
+import Payment from "./SystemOperationManagement/Payment";
+import ServicePage from "./SystemOperationManagement/ServicePage";
+import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
+import Profile from "./SystemOperationManagement/Profile";
+import BookingPackages from "./SystemOperationManagement/BookingPackages";
+//import Booking from './components/Booking';
+// import Home from "./SystemOperationManagement/Pages/Home";
+import Login2 from "./Authentications/Login2";
 
+/* Supplier Manager Components */
+import AddSupplier from "./SupplierManagement/AddSupplier";
+import AllSuppliers from "./SupplierManagement/AllSuppliers";
+import UpdateSupplier from "./SupplierManagement/UpdateSupplier ";
+import DeleteSupplier from "./SupplierManagement/DeleteSupplier";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -136,6 +162,36 @@ function App() {
           <Route path="/inventoryDashboard" element={<InventoryDashboard />} />
           <Route path="/inventoryCreate" element={<CreateItem />} />
           <Route path="/low-inventory" element={<LowInventory />} />
+
+          {/* System Operation Manager Routes */}
+          <Route path="/view-packages" element={<AllPackages />} />
+          <Route path="/add-package" element={<AddPackage />} />
+          <Route path="/update-package/:id" element={<UpdatePackage />} />
+          <Route path="/delete-package/:id" element={<DeletePackage />} />
+          <Route path="/view-package/:id" element={<ViewPackage />} />
+          <Route path="/all-packages" element={<ViewAllPackages />} />
+          <Route path="/login" element={<Login2 />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-register" element={<AdminRegister />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/users2" element={<AllUsers />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/service" element={<ServicePage />} />
+          <Route path="/feedback" element={<FeedbackPage />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/bookings" element={<BookingPackages />} />
+          <Route path="/package/delete/:id" element={<DeletePackage />} />
+
+          {/* Supplier Manager Routes */}
+          <Route path="/supplier/add" element={<AddSupplier />} />{" "}
+          <Route path="/supplier/all" element={<AllSuppliers />} />{" "}
+          <Route path="/supplier/delete/:id" element={<DeleteSupplier />} />
+          <Route
+            path="/supplier/update/:id"
+            element={<UpdateSupplier />}
+          />{" "}
         </Routes>
         <Footer />
       </BrowserRouter>
