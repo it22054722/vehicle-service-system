@@ -98,23 +98,37 @@ export default function ManageFeedback() {
   return (
     <Container fluid className="h-100 position-relative">
       <img
-  src="https://i.pinimg.com/originals/5b/43/2d/5b432d5fb6bfd23190f34488cbcd6d0a.jpg"
-  alt=""
-  className="position-fixed"
-  style={{
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    zIndex: -1, // Ensure it's behind other content
-  }}
-/>
-
+        src="https://i.pinimg.com/originals/5b/43/2d/5b432d5fb6bfd23190f34488cbcd6d0a.jpg"
+        alt=""
+        className="position-fixed"
+        style={{
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1, // Ensure it's behind other content
+        }}
+      />
       <Row className="justify-content-center align-items-center h-100 position-relative z-1" style={{marginTop:"100px"}}>
         <Col xs={12} md={10} lg={8}>
           <Card className="bg-light rounded shadow-lg my-4">
             <Card.Body>
+              <Link to="/ManagerDashboard">
+                <Button
+                  variant="outline-secondary"
+                  className="mb-3"
+                  style={{
+                    borderRadius: "25px",
+                    transition: "all 0.3s ease",
+                    fontWeight: "bold",
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.borderColor = "#6c757d")}
+                  onMouseOut={(e) => (e.currentTarget.style.borderColor = "secondary")}
+                >
+                  Back to Manager Dashboard
+                </Button>
+              </Link>
               <h1 className="text-center text-uppercase text-dark mb-4">Feedback</h1>
               <Form className="mb-3">
                 <Form.Group controlId="search">

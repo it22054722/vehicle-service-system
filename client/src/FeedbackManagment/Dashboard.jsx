@@ -66,33 +66,15 @@ export default function DashboardLayout() {
             <Nav.Item className="mb-3">
               <Nav.Link
                 as={Link}
-                to="/dashboard/manage"
-                className="text-danger fw-bold"
-              >
-                <i className="bi bi-person-fill me-2"></i>
-                My Feedback
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="mb-3">
-              <Nav.Link
-                as={Link}
                 to="/dashboard/massage"
                 className="text-danger fw-bold"
               >
+               
                 <i className="bi bi-envelope-fill me-2"></i>
                 Send Message
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="mb-3">
-              <Nav.Link
-                as={Link}
-                to="/pages/FeedbackSummery"
-                className="text-danger fw-bold"
-              >
-                <i className="bi bi-graph-up-arrow me-2"></i>
-                Feedback Summary
-              </Nav.Link>
-            </Nav.Item>
+            
           </Nav>
 
           <Button

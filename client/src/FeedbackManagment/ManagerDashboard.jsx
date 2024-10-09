@@ -1,15 +1,15 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const ManageDashboard = () => {
-  const history = useHistory();
+const ManagerDashboard = () => {
+  const navigate = useNavigate();
 
   const handleManageFeedback = () => {
-    history.push('/Manageview');
+    navigate('/Mangeview');
   };
 
   const handleViewSummary = () => {
-    history.push('/FeedbackSummery');
+    navigate('/pages/FeedbackSummery');
   };
 
   const styles = {
@@ -61,4 +61,4 @@ const ManageDashboard = () => {
   );
 };
 
-export default ManageDashboard;
+export default ManagerDashboard;

@@ -120,7 +120,7 @@ export default function AddFeedback() {
       if (res.ok) {
         setPublishError(null);
         alert("Submission successful");
-        navigate("/dashboard/manage");
+        navigate("/dashboard/allfeed");
       }
     } catch (error) {
       setPublishError("An unexpected error occurred. Please try again.");

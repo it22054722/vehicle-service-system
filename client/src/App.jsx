@@ -52,7 +52,8 @@ import Allfeedback from "./FeedbackManagment/Allfeedback";
 import Massage from "./FeedbackManagment/massage";
 import Mangerview from "./FeedbackManagment/Mangerview";
 import FeedbackSummery from "./FeedbackManagment/FeedbackSummery";
-
+import ManagerDashboard from './FeedbackManagment/ManagerDashboard';
+import Feedbacksort from './FeedbackManagment/Feedbacksort';
 
 
 
@@ -110,6 +111,7 @@ function App() {
           <Route path="manage" element={<Managefeedback />} />
           <Route path="massage" element={<Massage />} />
           <Route path="feedupdate/:Id" element={<Update />} />
+        
           
           </Route>
           <Route path="/Mangeview" element={<Mangerview />} />
@@ -117,7 +119,8 @@ function App() {
           <Route path="/feed" element={<Allfeedback />} />
           
 
-
+          <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          <Route path="/Feedbacksort" element={<Feedbacksort />} />
 
 
 
