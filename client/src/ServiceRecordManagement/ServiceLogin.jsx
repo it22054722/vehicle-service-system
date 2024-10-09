@@ -42,7 +42,7 @@ function ServiceLogin() {
       'paman@gmail.com': { password: '2001', page: '/Dashboard' },
       'amanda@gmail.com': { password: '2001', page: '/Dashboard' },
       'lashan@gmail.com': { password: '2002', page: '/inventory' },
-      'pasindu@gmail.com': { password: '2002', page: '/pakages' },
+      'pasindu@gmail.com': { password: '2002', page: '/packageDashboard' },
       'imal@gmail.com': { password: '2002', page: '/appointment' },
       'dimuth@gmail.com': { password: '2002', page: '/supplier' },
     };
