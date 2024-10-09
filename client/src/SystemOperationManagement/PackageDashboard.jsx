@@ -21,10 +21,10 @@ const PackageDashboard = () => {
       <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
         {/* Card Component */}
         {[
-          { title: "All Packages", description: "View a list of all available packages.", link: "/allPackages" },
-          { title: "All Users", description: "Manage users subscribed to packages.", link: "/allUsers" },
-          { title: "Add Package", description: "Create a new service package.", link: "/addPackage" },
-          { title: "Update Package", description: "Modify existing packages.", link: "/updatePackage" },
+          { title: "All Packages", description: "View a list of all available packages.", link: "/view-packages" },
+          { title: "All Users", description: "Manage users subscribed to packages.", link: "/users2" },
+          { title: "Add Package", description: "Create a new service package.", link: "/add-package" },
+          { title: "Update Package", description: "Modify existing packages.", link: "/update-package/:id" },
         ].map((card, index) => (
           <div
             key={index}
