@@ -41,7 +41,7 @@ function ServiceLogin() {
       'madora@gmail.com': { password: '2001', page: '/traineedashboard' },
       'paman@gmail.com': { password: '2001', page: '/Dashboard' },
       'amanda@gmail.com': { password: '2001', page: '/Dashboard' },
-      'lashan@gmail.com': { password: '2002', page: '/inventory' },
+      'lashan@gmail.com': { password: '2002', page: '/inventoryDashboard' },
       'pasindu@gmail.com': { password: '2002', page: '/pakages' },
       'imal@gmail.com': { password: '2002', page: '/appointment' },
       'dimuth@gmail.com': { password: '2002', page: '/supplier' },
