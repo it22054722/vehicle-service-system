@@ -117,7 +117,7 @@ function Users() {
                                     </div>
                                 </div>
                                 {openUserId === user._id && (
-                                    <div className="mt-2 animated">
+                                    <div className="mt-2 animated user-details"> {/* Add user-details class here */}
                                         <p><FaCalendarAlt className="me-2" /> <strong>Date:</strong> {user.date}</p>
                                         <p><FaIdCard className="me-2" /> <strong>NIC:</strong> {user.nic}</p>
                                         <p><FaPhone className="me-2" /> <strong>Contact:</strong> {user.contact}</p>
@@ -134,10 +134,18 @@ function Users() {
 
                 {/* Internal CSS */}
                 <style>{`
+                    .user-details {
+                        background-color: #8B0000; /* Red background for user details */
+                        color: white; /* Change text color to white for contrast */
+                        padding: 10px; /* Optional: add some padding */
+                        border-radius: 5px; /* Optional: round the corners */
+                    }
                     .btn-wide {
                         width: 150px; /* Set a fixed width for all buttons */
                     }
                     .creative-btn {
+                        background-color: #8B0000; /* Set button background color to #8B0000 */
+                        color: white; /* Keep text color white for contrast */
                         position: relative;
                         padding: 10px 20px;
                         border: none;
@@ -145,10 +153,12 @@ function Users() {
                         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
                         transition: transform 0.3s, box-shadow 0.3s;
                     }
+
                     .creative-btn:hover {
                         transform: translateY(-3px);
                         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
                     }
+
                     .creative-btn .fa {
                         font-size: 1.2rem;
                     }

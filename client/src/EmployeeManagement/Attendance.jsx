@@ -111,7 +111,7 @@ function Attendance() {
   };
 
   const buttonStylesPrimary = {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#8B0000',
     color: '#fff',
     border: 'none',
     padding: '10px 15px',
