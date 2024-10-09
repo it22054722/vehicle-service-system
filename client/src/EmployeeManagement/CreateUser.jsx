@@ -130,7 +130,7 @@ function CreateUser() {
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="email"
               placeholder="Enter Email"
