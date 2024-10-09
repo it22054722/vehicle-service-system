@@ -198,7 +198,7 @@ function ServiceReports() {
           <div className="card" style={{ cursor: 'pointer' }}>
             {/* New card for Parts Used for Services */}
             <div className="card parts-used-card">
-              <h5>Parts Used for Services</h5>
+              <h5>Parts Used for filterd Service</h5>
               <ul className="parts-list">
                 {filteredServices.map(service => (
                   <li key={service._id}>
@@ -212,7 +212,7 @@ function ServiceReports() {
           <div className="card" style={{ cursor: 'pointer' }}>
             {/* New card for Total Price of Filtered Services */}
             <div className="card total-price-card">
-              <h5>Total Price of Filtered Services (LKR)</h5>
+              <h5>Total Price Gained from the Filtered Service (LKR)</h5>
               <p>Rs. {filteredTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             </div>
           </div>

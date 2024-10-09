@@ -92,27 +92,9 @@ function PartsUsageTable() {
 
   return (
     <div className="parts-usage-container">
-      <h2 className="parts-usage-header">
+      <h2 className="parts-usage-header" style={{marginTop:'40px'}}>
         Most Commonly Used Parts
       </h2>
-
-      <FontAwesomeIcon
-        icon={faEllipsisV}
-        className="dropdown-icon"
-        onClick={toggleDropdown}
-      />
-
-      {dropdownOpen && (
-        <div className="dropdown-menu">
-          <nav>
-            <ul>
-              <li><a href="/serviceDashboard">Dashboard</a></li>
-              <li><a href="/serviceRecords">Services</a></li>
-              <li><a href="/Servicereports">Service Reports</a></li>
-            </ul>
-          </nav>
-        </div>
-      )}
 
       <div className="date-picker-container">
         <input 
