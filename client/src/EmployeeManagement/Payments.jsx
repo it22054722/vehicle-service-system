@@ -15,6 +15,9 @@ function Payments() {
   const [salarySummary, setSalarySummary] = useState([]);
   const [totalSalary, setTotalSalary] = useState(0);
   const [report, setReport] = useState('');
+  const [statusFilter, setStatusFilter] = useState(''); // New state for status filter
+  const [monthFilter, setMonthFilter] = useState(''); // New state for month filter
+  const [yearFilter, setYearFilter] = useState(''); // New state for year filter
 
   useEffect(() => {
     const fetchAttendanceRecords = async () => {
@@ -38,22 +41,97 @@ function Payments() {
     fetchAttendanceRecords();
     fetchEmployees();
   }, []);
+  
 
   useEffect(() => {
     const filterRecords = () => {
+      let filtered = records;
+  
       if (searchNic) {
-        const filtered = records.filter(record => {
+        filtered = filtered.filter(record => {
           const employee = employees.find(emp => emp._id === record.employeeId);
           return employee && employee.nic.toLowerCase().includes(searchNic.toLowerCase());
         });
-        setFilteredRecords(filtered);
-      } else {
-        setFilteredRecords(records);
       }
+  
+      if (statusFilter) {
+        filtered = filtered.filter(record => record.status === statusFilter);
+      }
+  
+      if (monthFilter) {
+        filtered = filtered.filter(record => {
+          const recordDate = new Date(record.date);
+          const recordMonth = recordDate.getMonth() + 1;
+          return recordMonth === parseInt(monthFilter);
+        });
+      }
+  
+      if (yearFilter) {
+        filtered = filtered.filter(record => {
+          const recordDate = new Date(record.date);
+          const recordYear = recordDate.getFullYear(); // Get the full year
+          return recordYear === parseInt(yearFilter);
+        });
+      }
+  
+      setFilteredRecords(filtered);
+    };
+  
+    filterRecords();
+  }, [searchNic, records, employees, statusFilter, monthFilter, yearFilter]); // Add yearFilter to dependencies
+  
+
+
+  useEffect(() => {
+    const filterRecords = () => {
+      let filtered = records;
+  
+      if (searchNic) {
+        filtered = filtered.filter(record => {
+          const employee = employees.find(emp => emp._id === record.employeeId);
+          return employee && employee.nic.toLowerCase().includes(searchNic.toLowerCase());
+        });
+      }
+  
+      if (statusFilter) {
+        filtered = filtered.filter(record => record.status === statusFilter);
+      }
+  
+      if (monthFilter) {
+        filtered = filtered.filter(record => {
+          const recordDate = new Date(record.date);
+          const recordMonth = recordDate.getMonth() + 1; // getMonth() returns 0-based index
+          return recordMonth === parseInt(monthFilter);
+        });
+      }
+  
+      setFilteredRecords(filtered);
+    };
+  
+    filterRecords();
+  }, [searchNic, records, employees, statusFilter, monthFilter]); // Add monthFilter to dependencies
+  
+
+  useEffect(() => {
+    const filterRecords = () => {
+      let filtered = records;
+
+      if (searchNic) {
+        filtered = filtered.filter(record => {
+          const employee = employees.find(emp => emp._id === record.employeeId);
+          return employee && employee.nic.toLowerCase().includes(searchNic.toLowerCase());
+        });
+      }
+
+      if (statusFilter) {
+        filtered = filtered.filter(record => record.status === statusFilter);
+      }
+
+      setFilteredRecords(filtered);
     };
 
     filterRecords();
-  }, [searchNic, records, employees]);
+  }, [searchNic, records, employees, statusFilter]); // Add statusFilter to dependencies
 
   const getEmployeeDetails = (employeeId) => {
     const employee = employees.find(emp => emp._id === employeeId);
@@ -72,30 +150,26 @@ function Payments() {
     const salaryData = filteredRecords.reduce((acc, record) => {
       const employee = getEmployeeDetails(record.employeeId);
 
-      // Check if employee already exists in the salaryData
       const existingEmployee = acc.find(item => item.nic === employee.nic);
       
       if (existingEmployee) {
-        // Update overtime hours and work days for existing employee
         if (record.status === 'Present') {
           existingEmployee.workDays += 1;
         }
         existingEmployee.overtimeHours += record.overtimeHours;
       } else {
-        // Add a new employee with initial values
         acc.push({
           name: employee.name,
           nic: employee.nic,
           workDays: record.status === 'Present' ? 1 : 0,
           overtimeHours: record.overtimeHours,
-          totalSalary: 0, // Will be calculated later
+          totalSalary: 0,
         });
       }
 
       return acc;
     }, []);
 
-    // Calculate total salary for each employee
     salaryData.forEach(item => {
       item.totalSalary = (item.workDays * dailySalary + item.overtimeHours * overtimeRate).toFixed(2);
     });
@@ -144,7 +218,6 @@ function Payments() {
     doc.save('salary_summary_report.pdf');
   };
 
-  // Bar Chart Data
   const barChartData = {
     labels: filteredRecords.map(record => getEmployeeDetails(record.employeeId).name),
     datasets: [
@@ -176,13 +249,10 @@ function Payments() {
     <div style={styles.container}>
       <h2 style={styles.title}>Attendance Records - Payment View</h2>
       <br/>
-      
 
       <div style={styles.filterContainer}>
         <label htmlFor="nicFilter" style={styles.label}>
           Filter by Employee NIC
-          <br/>
-          
         </label>
         <input
           type="text"
@@ -191,14 +261,76 @@ function Payments() {
           value={searchNic}
           onChange={(e) => setSearchNic(e.target.value)}
           placeholder="Enter NIC to filter"
-          
         />
       </div>
 
+      <div style={styles.filterContainer}>
+        <label htmlFor="statusFilter" style={styles.label}>
+          Filter by Status
+        </label>
+        <select
+          id="statusFilter"
+          style={styles.input}
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">All</option>
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+        </select>
+      </div>
+
+      <div style={styles.filterContainer}>
+  <label htmlFor="monthFilter" style={styles.label}>
+    Filter by Month
+  </label>
+  <select
+    id="monthFilter"
+    style={styles.input}
+    value={monthFilter}
+    onChange={(e) => setMonthFilter(e.target.value)}
+  >
+    <option value="">All</option>
+    <option value="1">January</option>
+    <option value="2">February</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+  </select>
+</div>
+
+
+<div style={styles.filterContainer}>
+  <label htmlFor="yearFilter" style={styles.label}>
+    Filter by Year
+  </label>
+  <select
+    id="yearFilter"
+    style={styles.input}
+    value={yearFilter}
+    onChange={(e) => setYearFilter(e.target.value)}
+  >
+    <option value="">All</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+    {/* Add more years as necessary */}
+  </select>
+</div>
+
+
+
       <table style={styles.table}>
         <thead>
-        <br/>
-        
           <tr style={styles.tableHeader}>
             <th>Employee Name</th>
             <th>Employee NIC</th>
@@ -230,11 +362,9 @@ function Payments() {
         <p>Total Present: {totalPresent}</p>
         <p>Total Absent: {totalAbsent}</p>
         <br/>
-
       </div>
 
       <div style={styles.buttonContainer}>
-        
         <Link to="/dashboard" style={styles.linkButton}>
           Go to Dashboard
         </Link>
@@ -300,13 +430,13 @@ const styles = {
     margin: '0 auto',
     padding: '20px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#fff', // White background
-    color: '#000', // Black text
+    backgroundColor: '#fff',
+    color: '#000',
   },
   title: {
     fontSize: '34px',
     marginBottom: '20px',
-    color: '#000000', // Red title
+    color: '#000000',
   },
   filterContainer: {
     marginBottom: '20px',
@@ -314,15 +444,15 @@ const styles = {
   label: {
     display: 'block',
     marginBottom: '5px',
-    color: '#000', // Black label text
+    color: '#000',
   },
   input: {
     width: '100%',
     padding: '10px',
     borderRadius: '5px',
-    border: '1px solid #dc3545', // Red border
-    backgroundColor: '#fff', // White input background
-    color: '#000', // Black input text
+    border: '1px solid #dc3545',
+    backgroundColor: '#fff',
+    color: '#000',
   },
   table: {
     width: '100%',
@@ -330,12 +460,12 @@ const styles = {
     marginBottom: '20px',
   },
   tableHeader: {
-    backgroundColor: '#a1192d', // Red table header
-    color: '#fff', // White header text
+    backgroundColor: '#a1192d',
+    color: '#fff',
     textAlign: 'left',
   },
   tableRow: {
-    borderBottom: '1px solid #000000', // Black table row borders
+    borderBottom: '1px solid #000000',
   },
   summaryContainer: {
     marginBottom: '20px',
@@ -343,7 +473,7 @@ const styles = {
   summaryTitle: {
     fontSize: '18px',
     fontWeight: 'bold',
-    color: '#dc3545', // Red summary title
+    color: '#dc3545',
   },
   buttonContainer: {
     display: 'flex',
@@ -352,41 +482,44 @@ const styles = {
   },
   linkButton: {
     textDecoration: 'none',
-    backgroundColor: '#a1192d', // Red button
+    backgroundColor: '#a1192d',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '5px',
   },
   calculateButton: {
-    backgroundColor: '#a1192d', // Keep as green for calculation
+    backgroundColor: '#a1192d',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '5px',
   },
   reportButton: {
-    backgroundColor: '#a1192d', // Keep as yellow for report
+    backgroundColor: '#a1192d',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '5px',
   },
   pdfButton: {
-    backgroundColor: '#a1192d', // Red for PDF button
+    backgroundColor: '#a1192d',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '5px',
   },
   salarySummary: {
     marginTop: '30px',
-    color: '#000', // Black text
+    color: '#000',
   },
-  totalSalaryContainer: {
+  totalSalary: {
     marginTop: '20px',
-    color: '#000000', // Red text for total salary
+    color: '#000000',
   },
-  reportSummary: {
+  reportSection: {
     marginTop: '20px',
     whiteSpace: 'pre-wrap',
-    color: '#000', // Black text for the report
+    color: '#000',
+  },
+  chartContainer: {
+    marginTop: '30px',
   },
 };
 
