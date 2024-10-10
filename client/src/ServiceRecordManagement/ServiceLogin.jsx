@@ -40,7 +40,7 @@ function ServiceLogin() {
       'akash@gmail.com': { password: '2002', page: '/serviceDashboard' },
       'madora@gmail.com': { password: '2001', page: '/traineedashboard' },
       'paman@gmail.com': { password: '2001', page: '/Dashboard' },
-      'amanda@gmail.com': { password: '2001', page: '/Dashboard' },
+      'amanda@gmail.com': { password: '2001', page: '/managerView' },
       'lashan@gmail.com': { password: '2002', page: '/inventory' },
       'pasindu@gmail.com': { password: '2002', page: '/pakages' },
       'imal@gmail.com': { password: '2002', page: '/appointment' },
@@ -114,7 +114,7 @@ function ServiceLogin() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="card p-4 shadow" style={{ width: '400px', borderRadius: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+      <div className="lcard p-4 shadow" style={{ width: '400px', borderRadius: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <h1
           className="mb-5"
           style={{

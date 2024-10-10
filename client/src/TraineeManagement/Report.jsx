@@ -154,7 +154,7 @@ function traineereport() {
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
       <div className="w-75  shadow-lg rounded p-5 d-flex" style={{  backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
-        <div className="col-md-6 pe-4 report-content" id="reportContent" style={{marginTop:"50px"}}>
+        <div className="col-md-6 pe-4 report-content" id="reportContent" style={{marginTop:"50px",marginLeft:"10px"}}>
           <h3
             className="mb-3" style={{color: "#8B0000", fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'}}
           >
@@ -247,7 +247,8 @@ function traineereport() {
                 borderRadius: "20px",
                 padding: "10px 20px",
                 backgroundColor: "#8B0000", // Dark red color
-              color: "#fff"
+              color: "#fff",
+              marginRight:"20px"
               }}
             >
               Send Report

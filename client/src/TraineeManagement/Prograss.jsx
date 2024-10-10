@@ -315,7 +315,7 @@ function Progress() {
               backgroundColor: "black", // Black color for the button
               color: "#fff"
             }}
-            onClick={() => navigate("/traineedashboard")} // Navigate to dashboard on click
+            onClick={() => navigate("/Tdashboard")} // Navigate to dashboard on click
           >
             Back to Dashboard
           </button>

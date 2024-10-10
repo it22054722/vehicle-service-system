@@ -220,12 +220,12 @@ function Schedule() {
           <hr />
           
                  {/* Filter Section */}
-        <h3 className="mb-1" style={{ color: "#8B0000", fontSize: '14px' }}>Filter Unavailable Time Slots</h3>
+        <h3 className="mb-1" style={{ color: "#8B0000", fontSize: '17px', fontWeight:"bold" }}>Filter Unavailable Time Slots</h3>
           <div className="mb-1">
             <label className="form-label" style={{ fontSize: '12px' }}>Filter by Date</label>
             <div className="input-group input-group-sm">
-              <input type="date" className="form-control" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
-              <button className="btn btn-outline-dark btn-sm" style={{ fontSize: '12px' }} onClick={handleFilter}>Filter</button>
+              <input type="date" className="form-control"  value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
+              <button className="btn btn-outline-dark btn-sm" style={{ fontSize: '12px',height:"30px" }} onClick={handleFilter}>Filter</button>
             </div>
           </div>
           <ul className="list-group mb-2" style={{ fontSize: '12px' }}>
@@ -276,7 +276,7 @@ function Schedule() {
               </tbody>
             </table>
               {/* Back Button */}
-    <button className="btn btn-secondary btn-sm w-20 mt-2" onClick={() => navigate('/traineedashboard')}>Back to Dashboard</button>
+    <button className="btn btn-secondary btn-sm  mt-2" style={{width:"150px", height:"40px"}} onClick={() => navigate('/Tdashboard')}>Back to Dashboard</button>
           </div>
         </div>
       </div>

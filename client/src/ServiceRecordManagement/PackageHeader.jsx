@@ -10,7 +10,7 @@ const PackageHeader = () => {
 
   useEffect(() => {
     // Example: Update role dynamically if needed
-    setRole('admin'); // Set to 'admin' for admin view, or 'user' for user view
+    setRole('user'); // Set to 'admin' for admin view, or 'user' for user view
   }, []);
 
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
@@ -144,7 +144,7 @@ const PackageHeader = () => {
             )}
 
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/PINPage" style={linkStyle}>Sign In</Link>
+              <Link className="nav-link text-dark fw-bold" to="/login" style={linkStyle}>Sign In</Link>
             </li>
           </ul>
 

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 function CreateService() {
+  const [serviceId, setServiceId] = useState('');
   const [service, setService] = useState('');
   const [date, setDate] = useState(new Date());
   const [vin, setVin] = useState('');
@@ -15,18 +16,26 @@ function CreateService() {
   const [parts, setParts] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState('');
+  const [status, setStatus] = useState('in-progress');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+
+  
+
   const validateForm = () => {
     const newErrors = {};
-    const alphanumericPattern = /^[a-zA-Z0-9\s]+$/;
-    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; // allows only numbers with up to two decimals
+    const alphanumericPattern = /^[a-zA-Z0-9-\s]+$/;
+    const pricePattern = /^[0-9]+(\.[0-9]{1,2})?$/; 
+    const vinPattern = /^(?:[A-Z]{2,3}-\d{4}|[A-Z]{2,3}\d{4})$/;
 
+    if (!serviceId) newErrors.serviceId = "Service ID is required.";
     if (!service) newErrors.service = "Service is required.";
     if (!vin) {
       newErrors.vin = "Vehicle Number is required.";
-    } else if (!alphanumericPattern.test(vin)) {
+    }else if (!vinPattern.test(vin)) {
+      newErrors.vin = "Vehicle Number must follow the format AA-1234 or ABC-1234.";
+    }else if (!alphanumericPattern.test(vin)) {
       newErrors.vin = "Vehicle Number cannot contain special characters.";
     }
     if (!price) {
@@ -40,21 +49,47 @@ function CreateService() {
     return newErrors;
   };
 
-  const Submit = (e) => {
+  const checkServiceIdExists = async (serviceId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/checkServiceId/${serviceId}`);
+      return response.data.exists; // Assuming your backend returns { exists: true/false }
+    } catch (error) {
+      console.error("Error checking Service ID:", error);
+      return false;
+    }
+  };
+
+  const Submit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length) {
       setErrors(formErrors);
       return;
     }
+
+    const exists = await checkServiceIdExists(serviceId);
+    if (exists) {
+      setErrors({ ...formErrors, serviceId: "Service ID already exists." });
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Service ID already exists.',
+        confirmButtonColor: '#b3202e',
+        background: '#fff',
+        color: '#333',
+      });
+      return;
+    }
     axios.post("http://localhost:3001/createService", {
+      serviceId,
       service, 
       date: date.toISOString().split('T')[0],
       vin, 
       price, 
       parts, 
       quantity: Number(quantity),
-      notes
+      notes,
+      status 
     })
     .then(result => { 
       console.log(result);
@@ -80,7 +115,14 @@ function CreateService() {
         backgroundPosition: "center",
       }}
     >
-      <div className="card p-4 shadow" style={{ width: '520px', borderRadius: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+      <div className="scard p-4 shadow" style={{
+          marginTop: '50px', 
+          width: '520px', 
+          borderRadius: '20px', 
+          backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+          maxHeight: '90vh', 
+          overflowY: 'auto' 
+        }}>
         <form onSubmit={Submit}>
           <h2 style={{ textAlign: 'center', marginBottom: '1rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>
             Service Records Section
@@ -90,6 +132,20 @@ function CreateService() {
           </h5>
           
           <br />
+          <div className="mb-3">
+            <label htmlFor="serviceId" className="form-label">Service ID</label>
+            <input
+              type="text"
+              className="form-control"
+              id="serviceId"
+              placeholder="Enter Service ID"
+              autoComplete='off'
+              value={serviceId}
+              onChange={(e) => { setServiceId(e.target.value); setErrors({ ...errors, serviceId: undefined }); }}
+            />
+            {errors.serviceId && <div className="text-danger">{errors.serviceId}</div>}
+          </div>
+          
           <div className="row">
             <div className="col-md-6 mb-3">
               <label htmlFor="service" className="form-label">Service</label>
@@ -204,6 +260,24 @@ function CreateService() {
                 onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
                 min="1"
               />
+            </div>
+          </div>
+
+          <div className="row mb-3">
+            <div className="col-md-6 mb-3">
+              <label htmlFor="status" className="form-label">Service Status</label>
+              <div className="form-check form-switch">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="status"
+                  checked={status === 'completed'}
+                  onChange={() => setStatus(status === 'completed' ? 'in-progress' : 'completed')}
+                />
+                <label className="form-check-label" htmlFor="status">
+                  {status === 'completed' ? 'Completed' : 'In Progress'}
+                </label>
+              </div>
             </div>
           </div>
 
