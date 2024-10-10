@@ -144,7 +144,7 @@ const PackageHeader = () => {
             )}
 
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/PINPage" style={linkStyle}>Sign In</Link>
+              <Link className="nav-link text-dark fw-bold" to="/login" style={linkStyle}>Sign In</Link>
             </li>
           </ul>
 
