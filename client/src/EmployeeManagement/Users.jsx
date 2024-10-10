@@ -135,7 +135,7 @@ function Users() {
                 {/* Internal CSS */}
                 <style>{`
                     .user-details {
-                        background-color: #8B0000; /* Red background for user details */
+                        background-color: #ed5959; /* Red background for user details */
                         color: white; /* Change text color to white for contrast */
                         padding: 10px; /* Optional: add some padding */
                         border-radius: 5px; /* Optional: round the corners */

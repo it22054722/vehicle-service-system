@@ -247,8 +247,12 @@ function Payments() {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Attendance Records - Payment View</h2>
       <br/>
+      <br/>
+      <br/>
+      <h2 style={styles.title}><b>Attendance Records - Payment View</b></h2>
+      <br/>
+
 
       <div style={styles.filterContainer}>
         <label htmlFor="nicFilter" style={styles.label}>
@@ -327,7 +331,8 @@ function Payments() {
   </select>
 </div>
 
-
+<br/>
+<br/>
 
       <table style={styles.table}>
         <thead>
@@ -356,7 +361,10 @@ function Payments() {
       </table>
 
       <div style={styles.summaryContainer}>
+      <br/>
+      <br/>
         <h4 style={styles.summaryTitle}>Summary</h4>
+        <br/>
         <p>Total Records: {totalRecords}</p>
         <p>Total Overtime Hours: {totalOvertimeHours}</p>
         <p>Total Present: {totalPresent}</p>
@@ -382,7 +390,9 @@ function Payments() {
       {salarySummary.length > 0 && (
         <div style={styles.salarySummary}>
           <br />
+          <br/>
           <h2 style={styles.summaryTitle}>Salary Summary</h2>
+          <br/>
           <table style={styles.table}>
             <thead>
               <tr style={styles.tableHeader}>
@@ -402,9 +412,11 @@ function Payments() {
                   <td>{summary.overtimeHours}</td>
                   <td>{summary.totalSalary}</td>
                 </tr>
+                
               ))}
             </tbody>
           </table>
+          
           <h3 style={styles.totalSalary}>Total Salary for All Employees: {totalSalary} Rupees</h3>
           <br/>
         </div>
@@ -417,6 +429,7 @@ function Payments() {
 
       {/* Render Bar Chart */}
       <div style={styles.chartContainer}>
+      <br/>
         <Bar data={barChartData} options={barChartOptions} />
       </div>
     </div>
