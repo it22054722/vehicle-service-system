@@ -462,6 +462,10 @@ const ViewAllPackages = () => {
                         onClick={() => handleBookClick(pkg)} 
                         className="btn btn-primary me-2"
                         disabled={ pkg.maxCustomers === 0}
+                        style={{
+                          backgroundColor: "green",
+                          borderColor: "green",
+                        }}
                       >
                         <i className="bi bi-calendar-plus me-1"></i> Book
                       </button>
