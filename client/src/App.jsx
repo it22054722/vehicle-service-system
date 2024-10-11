@@ -41,6 +41,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AppTable from './AppointmentManagement/AppTable';
 import Createappointment from './AppointmentManagement/Createappointment';
 import Updateappointment from './AppointmentManagement/Updateappointment';
+import AppointmentChart from './AppointmentManagement/AppointmentChart';
 
 
 
@@ -101,6 +102,7 @@ function App() {
         <Route path="/AppTable" element={<AppTable />} />
         <Route path="/Createappointment" element={<Createappointment />} />
         <Route path="/Updateappointment/:id" element={<Updateappointment />} />
+        <Route path="/AppointmentChart" element={<AppointmentChart />} />
 
 
 

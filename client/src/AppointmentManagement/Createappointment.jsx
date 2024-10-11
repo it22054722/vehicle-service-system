@@ -57,7 +57,7 @@ function Createappointment() {
     if (appointmentDate) {
       axios.get(`http://localhost:3001/BookedTimes/${appointmentDate}`)
         .then((result) => {
-          setBookedTimes(result.data); // Assuming backend returns an array of booked times
+          setBookedTimes(result.data);
         })
         .catch((err) => console.log(err));
     }
@@ -83,66 +83,51 @@ function Createappointment() {
     Phone Number: ${Phonenumber}
     Email: ${email}`;
 
-    const whatsappNumber = "+94705225121"; // Example phone number
-    const whatsappURL = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
     
-    window.open(whatsappURL, "_blank");
   };
 
   const Submit = (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Clear previous errors
-  
-    // Validate the form fields (customerName, vehicleModel, etc.)
+    setErrorMessage("");
     if (!validate()) return;
-  
-    // Ensure appointment time is in the correct format
-    const formattedAppointmentTime = appointmentTime.padStart(5, "0"); // Ensure it's in 09:00 format
-  
-    // Check if the selected time is already booked
-    const isTimeBooked = bookedTimes.some((time) => time === formattedAppointmentTime);
-    if (isTimeBooked) {
-      setErrorMessage("The selected appointment time is already booked. Please choose a different time.");
-      return; // Stop form submission if the time is booked
-    }
-  
-    // If time is not booked, submit the form
+
     const selectedServices = Object.keys(serviceTypes).filter((service) => serviceTypes[service]);
     const totalPrice = selectedServices.reduce((total, service) => total + servicePrices[service], 0);
-  
-    axios.post("http://localhost:3001/Createappointment", {
-      customerName,
-      vehicleModel,
-      serviceType: selectedServices,
-      appointmentDate,
-      appointmentTime: formattedAppointmentTime, // Ensure formatted time
-      Phonenumber,
-      email,
-      servicePrice: totalPrice,
-    })
+
+    axios
+      .post("http://localhost:3001/Createappointment", {
+        customerName,
+        vehicleModel,
+        serviceType: selectedServices,
+        appointmentDate,
+        appointmentTime,
+        Phonenumber,
+        email,
+        servicePrice: totalPrice,
+      })
       .then((result) => {
         handleWhatsAppMessage(); // Call the function to send the WhatsApp message
-        navigate("/AppTable");   // Redirect after successful booking
+        navigate("/");
       })
       .catch((err) => {
         if (err.response && err.response.data && err.response.data.message) {
-          setErrorMessage(err.response.data.message); // Display any error from the backend
+          setErrorMessage(err.response.data.message);
         } else {
           setErrorMessage("An error occurred while creating the appointment.");
         }
       });
-  };
+  };   
 
   const renderAvailableTimes = () => {
     const times = [];
     for (let hour = 9; hour <= 17; hour++) {
-      const time = `${hour.toString().padStart(2, "0")}:00`; // 09:00, 10:00, etc.
+      const time = `${hour.toString().padStart(2, "0")}:00`;
       times.push(time);
     }
-  
+
     return times.map((time) => (
       <option key={time} value={time} disabled={bookedTimes.includes(time)}>
-        {time} {bookedTimes.includes(time) ? "(Booked)" : ""}
+        {time}
       </option>
     ));
   };
@@ -151,10 +136,11 @@ function Createappointment() {
     <div className="background d-flex vh-100 justify-content-center align-items-center">
       <div className="card create-user-card">
         <form onSubmit={Submit}>
-          <h2 className="text-center mb-4 appointment-heading">Create Appointment</h2>
+        <h2 className="text-center mb-4 appointment-heading">Create Appointment</h2>
 
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
+          
+          {/* Customer Name Input */}
           <div className="form-group mb-3">
             <label htmlFor="customerName" className="form-label">Customer Name</label>
             <input
@@ -167,6 +153,7 @@ function Createappointment() {
             {validationErrors.customerName && <div className="text-danger">{validationErrors.customerName}</div>}
           </div>
 
+          {/* Vehicle Model Dropdown */}
           <div className="form-group mb-3">
             <label htmlFor="vehicleModel" className="form-label">Vehicle Model</label>
             <select
@@ -185,6 +172,7 @@ function Createappointment() {
             {validationErrors.vehicleModel && <div className="text-danger">{validationErrors.vehicleModel}</div>}
           </div>
 
+          {/* Service Types Checkboxes */}
           <div className="form-group mb-3">
             <label className="form-label">Service Type</label>
             <div className="service-types">
@@ -210,6 +198,7 @@ function Createappointment() {
             </div>
           </div>
 
+          {/* Appointment Date and Time */}
           <div className="form-group mb-3">
             <label htmlFor="appointmentDate" className="form-label">Appointment Date</label>
             <input
@@ -236,6 +225,7 @@ function Createappointment() {
             {validationErrors.appointmentTime && <div className="text-danger">{validationErrors.appointmentTime}</div>}
           </div>
 
+          {/* Phone Number and Email */}
           <div className="form-group mb-3">
             <label htmlFor="Phonenumber" className="form-label">Phone Number</label>
             <input
@@ -260,9 +250,10 @@ function Createappointment() {
             {validationErrors.email && <div className="text-danger">{validationErrors.email}</div>}
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
-            Submit
-          </button>
+          {/* Submit Button */}
+          <div className="text-center">
+            <button type="submit" className="btn btn-success w-40 mt-3">Submit</button>
+          </div>
         </form>
       </div>
     </div>

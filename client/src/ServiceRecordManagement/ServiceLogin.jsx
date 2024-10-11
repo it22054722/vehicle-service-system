@@ -45,6 +45,7 @@ function ServiceLogin() {
       'pasindu@gmail.com': { password: '2002', page: '/pakages' },
       'imal@gmail.com': { password: '2002', page: '/appointment' },
       'dimuth@gmail.com': { password: '2002', page: '/supplier' },
+      'imal@gmail.com': { password: '2002', page: '/AppTable' },
     };
 
     // Check hardcoded credentials first

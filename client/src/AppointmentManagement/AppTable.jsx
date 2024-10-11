@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../app.css'; // Ensure this file includes the styles below
+import '../app.css'; 
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2'; 
+import AppointmentChart from './AppointmentChart';
 
 function AppTable() {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,6 @@ function AppTable() {
     axios.get("http://localhost:3001/appointments")
       .then(result => {
         setUsers(result.data);
-        checkForReminders(result.data); // Check for reminders on load (Assuming you have a function for this)
       })
       .catch(err => console.log(err));
   }, []);
@@ -31,7 +31,6 @@ function AppTable() {
       return;
     }
 
-    // SweetAlert confirmation before deleting
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -45,11 +44,7 @@ function AppTable() {
         axios.delete(`http://localhost:3001/Deleteappointments/${id}`)
           .then(response => {
             setUsers(users.filter(user => user._id !== id));
-            Swal.fire(
-              'Deleted!',
-              'User has been deleted successfully.',
-              'success'
-            );
+            Swal.fire('Deleted!', 'User has been deleted successfully.', 'success');
           })
           .catch(err => {
             if (err.response && err.response.data && err.response.data.message) {
@@ -97,20 +92,18 @@ function AppTable() {
     const Phonenumber = "Phonenumber"; // Example phone number
     const message = 'Select the appointment details';
     const whatsappURl = `https://web.whatsapp.com/send?phone=${Phonenumber}&text=${encodeURIComponent(message)}`;
-
-    // Open the WhatsApp chat in a new window
     window.open(whatsappURl, "_blank");
   };
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="container p-4 bg-white rounded shadow">
-      <Link 
-  to="/Createappointment" 
-  className='btn mb-2' 
-  style={{ backgroundColor: '#808080', color: 'white', border: 'none' }}>
-  Create Appointment
-</Link>
+      <div className="container p-4 bg-light rounded shadow">
+        <br />
+        <br />
+        <br />
+        
+        <h2 className="text-center mb-4" style={{ color: '#8B0000', fontFamily: 'Arial, sans-serif' }}><b>Appointment Management</b></h2>
+        
 
         <input
           type="text"
@@ -118,19 +111,20 @@ function AppTable() {
           placeholder="Search by Customer Name or Vehicle Model"
           value={searchQuery}
           onChange={handleSearch}
+          style={{ padding: '12px', fontSize: '16px' }} // Increased padding and font size
         />
-        <button 
-  className="btn mb-3" 
-  style={{ backgroundColor: '#8B0000', color: 'white', border: 'none' }} 
-  onClick={generateReport}
->
-  Download Report
-</button>
-
         
+        <button 
+          className="btn mb-3" 
+          style={{ backgroundColor: '#8B0000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px' }} 
+          onClick={generateReport}
+        >
+          Download Report
+        </button>
+
         <div className="table-responsive">
           <table className="table table-bordered table-hover">
-            <thead>
+            <thead className="table-dark">
               <tr>
                 <th>Customer Name</th>
                 <th>Vehicle Model</th>
@@ -154,27 +148,27 @@ function AppTable() {
                   <td>{user.email}</td>
                   <td>
                     <div className="btn-group" role="group">
-                    <Link 
-  to={`/Updateappointment/${user._id}`} 
-  className="btn mb-2" 
-  style={{ backgroundColor: '#808080', color: 'white', border: 'none' }}>
-  Update
-</Link>
+                      <Link 
+                        to={`/Updateappointment/${user._id}`} 
+                        className="btn mb-2" 
+                        style={{ backgroundColor: '#808080', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px' }}>
+                        Update
+                      </Link>
 
-<button 
-  onClick={() => deleteUser(user._id)} 
-  className="btn btn-sm" 
-  style={{ backgroundColor: '#8B0000', color: 'white', border: 'none' }}
->
-  Delete
-</button>
-
+                      <button 
+                        onClick={() => deleteUser(user._id)} 
+                        className="btn btn-sm" 
+                        style={{ backgroundColor: '#8B0000', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px' }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <AppointmentChart users={filteredUsers} />
         </div>
       </div>
     </div>
