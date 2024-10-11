@@ -94,8 +94,10 @@ export default function Massage() {
           return `You typed: "${previousValue}". How else can I assist you?`;
         }
       },
-      trigger: '2',
+      trigger: '2', // Direct to the next step without returning to '2'
     },
+  
+   
   ];
 
   // Optional: Customize chatbot's appearance (Theme)
@@ -139,7 +141,7 @@ export default function Massage() {
         className="position-absolute inset-0 d-flex align-items-center justify-content-center"
         style={{ height: '100%', overflow: 'hidden' }} // Ensure it occupies full height without scrolling
       >
-        <div style={{  marginLeft:"320px", marginBottom:"200px",maxHeight: '80%', width: '100%', overflowY: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}> {/* Center the chatbot */}
+        <div style={{ marginLeft: "320px", marginBottom: "200px", maxHeight: '80%', width: '100%', overflowY: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}> {/* Center the chatbot */}
           <ThemeProvider theme={theme}>
             <ChatBot steps={steps} />
           </ThemeProvider>
