@@ -3,6 +3,8 @@ import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { useNavigate } from "react-router-dom"; // For navigation
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // For generating table in PDF
 
 function TaskProgress() {
   const [tasks] = useState([
@@ -99,6 +101,64 @@ function TaskProgress() {
   // Sort trainees by progress in descending order
   const sortedTrainees = [...traineeProgress].sort((a, b) => b.progress - a.progress);
 
+  // Function to download the content (styled PDF report)
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(22);
+    doc.setTextColor("#8B0000");
+    doc.text("Trainee Progress Report", 20, 20);
+
+    // Add subtitle with the task name
+    doc.setFontSize(16);
+    doc.setTextColor("#404040");
+    doc.text(`Task: ${selectedTask.replace(/([A-Z])/g, " $1")}`, 20, 30);
+
+    // Table headers
+    const headers = [["Trainee Name", "Progress (%)"]];
+
+    // Data for table
+    const data = sortedTrainees.map((entry) => [
+      entry.trainee.name,
+      `${entry.progress || 0} %`
+    ]);
+
+    // Generate table with headers and data
+    doc.autoTable({
+      startY: 40,
+      head: headers,
+      body: data,
+      theme: "grid",
+      styles: {
+        fontSize: 12,
+        halign: "center",
+        valign: "middle",
+        lineColor: "#8B0000",
+        lineWidth: 0.3
+      },
+      headStyles: {
+        fillColor: "#c74545",
+        textColor: "#fff"
+      },
+      alternateRowStyles: {
+        fillColor: "#f5f5f5"
+      }
+    });
+
+    // Add footer
+    doc.setFontSize(10);
+    doc.text(
+      `Report generated on ${new Date().toLocaleString()}`,
+      20,
+      doc.internal.pageSize.height - 10
+    );
+
+    // Save the PDF
+    doc.save(`Trainee_Progress_Report_${selectedTask}.pdf`);
+  };
+
+
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center" style={{ backgroundColor: "#f5f5f5" }}>
       <div className="w-75 shadow-lg rounded p-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', border: '1px solid #8B0000' }}>
@@ -191,6 +251,25 @@ function TaskProgress() {
           >
             Back to Dashboard
           </button>
+        </div>
+
+        <div className="mt-4 d-flex justify-content-center">
+          {/* Download Button */}
+        {showChart && (
+          <button
+            onClick={handleDownloadPDF}
+            className="btn btn-danger mt-4"
+            style={{
+              backgroundColor: "black",
+              color: "#fff",
+              marginTop: "70px",
+              border: '1px solid #8B0000',
+              width:"160px"
+            }}
+          >
+            Download Report
+          </button>
+        )}
         </div>
       </div>
 
