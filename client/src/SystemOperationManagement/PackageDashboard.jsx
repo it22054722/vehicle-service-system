@@ -1,8 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import backgroundImage from './assets/view-car-running-high-speed (2).jpg';
+import backgroundImage from '../assets/view-car-running-high-speed (2).jpg';
+import axios from "axios";
+import PeopleIcon from '@mui/icons-material/People'; // Import icon for users
+import PackageIcon from '@mui/icons-material/Assignment'; // Import icon for packages
+import AddIcon from '@mui/icons-material/AddCircle'; // Import icon for adding a package
+import UpdateIcon from '@mui/icons-material/Update'; // Import icon for updating a package
+import BookIcon from '@mui/icons-material/Book'; // Import icon for booking a package
+import { Box, Typography } from "@mui/material"; // Import Box and Typography from Material-UI
 
 const PackageDashboard = () => {
+  const [packageCount, setPackageCount] = useState(0);
+  const [userCount, setUserCount] = useState(0); // State to hold user count
+  const [bookingCount, setBookingCount] = useState(0); // State to hold booking count
+
+  useEffect(() => {
+    fetchPackageCount();
+    fetchUserCount();
+    fetchBookingCount();
+  }, []);
+
+  const fetchPackageCount = async () => {
+    try {
+      const response = await axios.get("http://localhost:8070/package/");
+      setPackageCount(response.data.length);
+    } catch (error) {
+      console.error("Error fetching package count:", error);
+    }
+  };
+
+  const fetchUserCount = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await axios.get("http://localhost:8070/api/auth/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserCount(response.data.length);
+    } catch (error) {
+      console.error("Error fetching user count:", error);
+      if (error.response && error.response.status === 401) {
+        alert("Unauthorized access! Please log in.");
+      }
+    }
+  };
+
+  const fetchBookingCount = async () => {
+    try {
+      const storedReceipts = JSON.parse(localStorage.getItem('receipts')) || [];
+      setBookingCount(storedReceipts.length);
+    } catch (error) {
+      console.error("Error fetching booking count:", error);
+    }
+  };
+
   return (
     <div
       style={{
@@ -19,16 +71,16 @@ const PackageDashboard = () => {
       </h1>
 
       <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
-        {/* Card Component */}
         {[
-          { title: "All Packages", description: "View a list of all available packages.", link: "/view-packages" },
-          { title: "All Users", description: "Manage users subscribed to packages.", link: "/users2" },
-          { title: "Add Package", description: "Create a new service package.", link: "/add-package" },
-          { title: "Update Package", description: "Modify existing packages.", link: "/update-package/:id" },
+          { title: `All Packages ${packageCount}`, description: " all available packages.", link: "/view-packages", icon: <PackageIcon fontSize="large" /> },
+          { title: `All Users ${userCount}`, description: "Manage users .", link: "/users2", icon: <PeopleIcon fontSize="large" /> },
+          { title: `Booking Packages ${bookingCount}`, description: "View all booked packages.", link: "/receipt-table", icon: <BookIcon fontSize="large" /> },
+          { title: "Add Package", description: "Create a new service package.", link: "/add-package", icon: <AddIcon fontSize="large" /> },
+          { title: "Update Package", description: "Modify existing packages.", link: "/update-package/:id", icon: <UpdateIcon fontSize="large" /> },
         ].map((card, index) => (
-          <div
+          <Box
             key={index}
-            style={{
+            sx={{
               backgroundColor: "rgba(0, 0, 0, 0.5)",
               width: "320px",
               borderRadius: "20px",
@@ -43,8 +95,15 @@ const PackageDashboard = () => {
             onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
             onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
-            <h3 style={{ color: "#ffc857", fontSize: "1.7rem", marginBottom: "20px" }}>{card.title}</h3>
-            <p style={{ fontSize: "1rem", marginBottom: "20px", color: "#f7f7f7" }}>{card.description}</p>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
+              {card.icon}
+            </Box>
+            <Typography variant="h5" sx={{ color: "#ffc857", marginBottom: "10px" }}>
+              {card.title}
+            </Typography>
+            <Typography variant="body1" sx={{ marginBottom: "20px", color: "#f7f7f7" }}>
+              {card.description}
+            </Typography>
             <Link
               to={card.link}
               style={{
@@ -68,7 +127,7 @@ const PackageDashboard = () => {
             >
               Go to {card.title.split(" ")[0]}
             </Link>
-          </div>
+          </Box>
         ))}
       </div>
     </div>

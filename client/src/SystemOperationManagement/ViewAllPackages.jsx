@@ -161,55 +161,50 @@ const ViewAllPackages = () => {
       setSelectedDate(date);
     }
   };
-
   const handleProceedToPayment = async () => {
-
-    
-
-
     const token = localStorage.getItem('authToken');
     if (!token) {
         // Handle not logged in
         Swal.fire({
-          icon: 'warning',
-          title: 'Not Logged In',
-          text: 'Please log in to proceed with payment.',
-          confirmButtonText: 'Login',
+            icon: 'warning',
+            title: 'Not Logged In',
+            text: 'Please log in to proceed with payment.',
+            confirmButtonText: 'Login',
         }).then(() => {
-          navigate('/login');
+            navigate('/login');
         });
         return;
     }
 
     // Existing validations
     if (!cardNumber || !cvv || !expiryDate || !selectedBank) {
-      Swal.fire('Validation Error', 'Please fill out all payment details.', 'warning');
-      return;
+        Swal.fire('Validation Error', 'Please fill out all payment details.', 'warning');
+        return;
     }
 
     // CVV should be exactly 3 digits
     if (!/^\d{3}$/.test(cvv)) {
-      Swal.fire('Validation Error', 'Invalid CVV number.', 'warning');
-      return;
+        Swal.fire('Validation Error', 'Invalid CVV number.', 'warning');
+        return;
     }
 
     // Validate card number and expiry date
     if (cardNumber.replace(/\s+/g, '').length !== 16) {
-      Swal.fire('Validation Error', 'Invalid card number.', 'warning');
-      return;
+        Swal.fire('Validation Error', 'Invalid card number.', 'warning');
+        return;
     }
 
     const today = new Date();
     const [expiryMonth, expiryYear] = expiryDate.split('/');
     if (
-      !expiryMonth || 
-      !expiryYear || 
-      expiryMonth < 1 || 
-      expiryMonth > 12 || 
-      parseInt(expiryYear) < parseInt(today.getFullYear().toString().slice(-2))
+        !expiryMonth ||
+        !expiryYear ||
+        expiryMonth < 1 ||
+        expiryMonth > 12 ||
+        parseInt(expiryYear) < parseInt(today.getFullYear().toString().slice(-2))
     ) {
-      Swal.fire('Validation Error', 'Please enter a valid expiry date.', 'warning');
-      return;
+        Swal.fire('Validation Error', 'Please enter a valid expiry date.', 'warning');
+        return;
     }
 
     try {
@@ -236,30 +231,47 @@ const ViewAllPackages = () => {
                 cvv: cvv,
                 expiryDate: expiryDate,
                 receiptId: generateReceiptId(), // Function to generate a unique receipt ID
-            }
+            },
         };
-
 
         // Update maxCustomers by decreasing it by 1
         const updatedMaxCustomers = selectedPackage.maxCustomers - 1;
         const updatedAvailability = updatedMaxCustomers > 0;
 
         // API call to update the package's maxCustomers and availability
-        await axios.put(`http://localhost:3001/package/update/${selectedPackage._id}`, {
-          maxCustomers: updatedMaxCustomers,
-          availability: updatedAvailability,
+        await axios.put(`http://localhost:8070/package/update/${selectedPackage._id}`, {
+            maxCustomers: updatedMaxCustomers,
+            availability: updatedAvailability,
         }, {
-          headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
         });
 
         // Update the package in the local state
-        setPackages(prevPackages => prevPackages.map(pkg => 
-          pkg._id === selectedPackage._id 
-            ? { ...pkg, maxCustomers: updatedMaxCustomers, availability: updatedAvailability }
-            : pkg
+        setPackages(prevPackages => prevPackages.map(pkg =>
+            pkg._id === selectedPackage._id
+                ? { ...pkg, maxCustomers: updatedMaxCustomers, availability: updatedAvailability }
+                : pkg
         ));
 
-        // Generate receipt
+        // Generate receipt data object
+        const receiptData = {
+            receiptId: bookingData.payment.receiptId,
+            packageName: selectedPackage.packageName,
+            originalPrice: originalPrice.toFixed(2),
+            discount: discount,
+            discountAmount: discountAmount.toFixed(2),
+            totalPrice: totalPrice.toFixed(2),
+            bookingDate: selectedDate.toLocaleDateString(),
+            paymentMethod: selectedBank,
+          
+        };
+
+        // Save receipt data to local storage
+        const existingReceipts = JSON.parse(localStorage.getItem('receipts')) || [];
+        existingReceipts.push(receiptData);
+        localStorage.setItem('receipts', JSON.stringify(existingReceipts));
+
+        // Generate the receipt element
         const receiptElement = document.createElement('div');
         receiptElement.style.padding = '20px';
         receiptElement.style.border = '1px solid #4CAF50'; // Green border for a fresh look
@@ -306,14 +318,14 @@ const ViewAllPackages = () => {
             text: `Your payment of $${totalPrice.toFixed(2)} has been processed successfully. An e-receipt has been downloaded.`,
         }).then(() => {
             handleCloseModal();
-            navigate('/login');
+            navigate('/'); // Navigate to the receipt table page
         });
     } catch (error) {
         console.error("Error processing payment and booking:", error);
         Swal.fire('Error!', error.response ? error.response.data.message : 'An error occurred during payment.', 'error');
     }
-  };
-
+};
+ 
   // Helper function to extract userId from JWT token
   const getUserIdFromToken = (token) => {
     try {
