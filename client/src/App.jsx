@@ -86,6 +86,8 @@ import ServicePage from "./SystemOperationManagement/ServicePage";
 import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
 import Profile from "./SystemOperationManagement/Profile";
 import BookingPackages from "./SystemOperationManagement/BookingPackages";
+import PackageDashboard from "./SystemOperationManagement/PackageDashboard";
+import ReceiptTable from "./components/ReceiptTable";
 //import Booking from './components/Booking';
 // import Home from "./SystemOperationManagement/Pages/Home";
 import Login2 from "./Authentications/Login2";
@@ -165,6 +167,7 @@ function App() {
           <Route path="/low-inventory" element={<LowInventory />} />
 
           {/* System Operation Manager Routes */}
+          <Route path="/packageDashboard" element={<PackageDashboard />} />
           <Route path="/view-packages" element={<AllPackages />} />
           <Route path="/add-package" element={<AddPackage />} />
           <Route path="/update-package/:id" element={<UpdatePackage />} />
@@ -184,6 +187,7 @@ function App() {
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/bookings" element={<BookingPackages />} />
           <Route path="/package/delete/:id" element={<DeletePackage />} />
+          <Route path="/receipt-table" element={<ReceiptTable />} />
 
           {/* Supplier Manager Routes */}
           <Route path="/supplier/add" element={<AddSupplier />} />{" "}
