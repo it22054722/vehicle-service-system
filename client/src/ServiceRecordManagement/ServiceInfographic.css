@@ -80,12 +80,9 @@
   color: #333; /* Link color */
 }
 
-/* Chart container styles */
-.chart-container {
-  position: relative; /* Position relative for better control */
-  width: 100%; /* Full width */
-  height: 400px; /* Fixed height for the chart */
-  margin-top: 20px; /* Space above the chart */
+/* Data representation styles */
+.data-representation {
+  margin-top: 20px; /* Space above the data representation */
 }
 
 /* Button styles */

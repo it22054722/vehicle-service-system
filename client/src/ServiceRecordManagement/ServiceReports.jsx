@@ -15,6 +15,7 @@ function ServiceReports() {
   const [filteredServices, setFilteredServices] = useState([]);
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [serviceFilter, setServiceFilter] = useState('');
+  const [serviceStatusFilter, setServiceStatusFilter] = useState(''); // New state for service status filter
 
   const navigate = useNavigate();
 
@@ -86,11 +87,19 @@ function ServiceReports() {
       filtered = filtered.filter(service => service.service.toLowerCase().includes(serviceFilter.toLowerCase()));
     }
 
+    // Filter by service status
+    if (serviceStatusFilter) {
+      filtered = filtered.filter(service => service.status.toLowerCase() === serviceStatusFilter.toLowerCase());
+    }
+
     setFilteredServices(filtered);
-  }, [dateRange, serviceFilter, services]);
+  }, [dateRange, serviceFilter, serviceStatusFilter, services]); // Added serviceStatusFilter to dependencies
 
   // Create a unique list of services for the dropdown
   const uniqueServices = [...new Set(services.map(service => service.service))];
+
+  // Create a unique list of statuses for the status dropdown
+  const uniqueStatuses = [...new Set(services.map(service => service.status))]; // Unique service statuses
 
   // Calculate total price of filtered services
   const filteredTotalPrice = filteredServices.reduce((acc, service) => acc + service.price, 0);
@@ -109,20 +118,32 @@ function ServiceReports() {
       const pageHeight = 295; // A4 height in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
-
+    
       let position = 0;
-
+    
+      // Get the current date and time
+      const currentDateTime = new Date().toLocaleString();
+    
+      // Add the image to the first page
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      
+      // Add the date and time to the bottom of the first page
+      pdf.text(`Generated on: ${currentDateTime}`, 10, pageHeight - 10); // Positioning near bottom (10mm from bottom)
+      
       heightLeft -= pageHeight;
-
+    
       while (heightLeft >= 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        
+        // Add the date and time to the bottom of each new page
+        pdf.text(`Generated on: ${currentDateTime}`, 10, pageHeight - 10); // Position near bottom
         heightLeft -= pageHeight;
       }
-
+    
       pdf.save("service-report.pdf");
+    
 
       // Show the download button again
       downloadButton.style.display = 'block';
@@ -159,6 +180,18 @@ function ServiceReports() {
             <option value="">Filter by Service</option>
             {uniqueServices.map((service) => (
               <option key={service} value={service}>{service}</option>
+            ))}
+          </select>
+
+          {/* New dropdown for service status filter */}
+          <select
+            className="filter-select"
+            value={serviceStatusFilter}
+            onChange={(e) => setServiceStatusFilter(e.target.value)}
+          >
+            <option value="">Filter by Status</option>
+            {uniqueStatuses.map((status) => (
+              <option key={status} value={status}>{status}</option>
             ))}
           </select>
         </div>
@@ -209,7 +242,7 @@ function ServiceReports() {
               </ul>
             </div>
           </div>
-
+          
           <div className="pcard" style={{ cursor: 'pointer' }}>
             {/* New card for Total Price of Filtered Services */}
             <div className="pcard total-price-card">
@@ -223,7 +256,8 @@ function ServiceReports() {
           Download PDF
         </button>
 
-        {/* Display filtered services */}
+
+        {/* Service Records Table */}
         <div className="filtered-services">
           <h4>Filtered Services</h4>
           <ul className="list-unstyled">
@@ -235,6 +269,7 @@ function ServiceReports() {
           </ul>
         </div>
       </div>
+
       <ToastContainer />
     </div>
   );

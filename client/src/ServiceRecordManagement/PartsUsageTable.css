@@ -239,3 +239,28 @@ body {
 .date-picker-container input:hover {
   border-color: #b3202e; /* Border color on hover */
 }
+
+
+.email-button {
+  background-color: #b3202e; /* Dark red background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding around the text */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  margin-top: 10px; /* Space above the button */
+}
+
+.email-button:hover {
+  background-color: #a61d2a; /* Darker red on hover */
+}
+
+.email-button:focus {
+  outline: none; /* Remove outline on focus */
+}
+
+.email-button:active {
+  transform: scale(0.95); /* Slightly shrink button when clicked */
+}

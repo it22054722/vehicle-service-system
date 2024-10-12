@@ -68,6 +68,22 @@ function PartsUsageTable() {
     doc.save("parts-usage-report.pdf");
   };
 
+  const formatEmailBody = () => {
+    const emailBody = `
+      Most Commonly Used Parts:\n\n
+      ${filteredPartsUsage.map(part => {
+        return `${part.part}:\n${part.dates.map(d => `${d.date}: ${d.quantity}`).join('\n')}\n`;
+      }).join('\n')}
+    `;
+    return encodeURIComponent(emailBody);
+  };
+
+  const sendEmail = () => {
+    const subject = encodeURIComponent("Parts Usage Report");
+    const body = formatEmailBody();
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(prevState => !prevState);
   };
@@ -92,7 +108,7 @@ function PartsUsageTable() {
 
   return (
     <div className="parts-usage-container">
-      <h2 className="parts-usage-header" style={{marginTop:'40px'}}>
+      <h2 className="parts-usage-header" style={{marginTop:'90px'}}>
         Most Commonly Used Parts
       </h2>
 
@@ -139,6 +155,9 @@ function PartsUsageTable() {
       </div>
       <button className="download-button" onClick={downloadPDF}>
         Download as PDF
+      </button>
+      <button className="email-button" onClick={sendEmail}>
+        Send the Details
       </button>
     </div>
   );
