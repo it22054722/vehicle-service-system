@@ -87,7 +87,7 @@ import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
 import Profile from "./SystemOperationManagement/Profile";
 import BookingPackages from "./SystemOperationManagement/BookingPackages";
 import PackageDashboard from "./SystemOperationManagement/PackageDashboard";
-import ReceiptTable from "./components/ReceiptTable";
+import ReceiptTable from "./SystemOperationManagement/ReceiptTable";
 //import Booking from './components/Booking';
 // import Home from "./SystemOperationManagement/Pages/Home";
 import Login2 from "./Authentications/Login2";

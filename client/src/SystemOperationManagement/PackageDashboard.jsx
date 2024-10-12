@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import backgroundImage from '../assets/view-car-running-high-speed (2).jpg';
+import backgroundImage from './assets/view-car-running-high-speed (2).jpg';
 import axios from "axios";
 import PeopleIcon from '@mui/icons-material/People'; // Import icon for users
 import PackageIcon from '@mui/icons-material/Assignment'; // Import icon for packages
@@ -22,7 +22,7 @@ const PackageDashboard = () => {
 
   const fetchPackageCount = async () => {
     try {
-      const response = await axios.get("http://localhost:8070/package/");
+      const response = await axios.get("http://localhost:3001/package/");
       setPackageCount(response.data.length);
     } catch (error) {
       console.error("Error fetching package count:", error);
@@ -32,7 +32,7 @@ const PackageDashboard = () => {
   const fetchUserCount = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.get("http://localhost:8070/api/auth/users", {
+      const response = await axios.get("http://localhost:3001/api/auth/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
