@@ -149,13 +149,23 @@ const Login = () => {
               </div>
             </>
           )}
-          <button type="submit" className="btn btn-primary w-100 rounded-pill" disabled={loading}>
-            {loading ? (
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ) : (
-              'Login'
-            )}
-          </button>
+          <button
+  type="submit"
+  className="btn w-100 rounded-pill"
+  style={{ backgroundColor: '#8B0000', color: '#fff' , fontWeight:"bold"}}
+  disabled={loading}
+>
+  {loading ? (
+    <span
+      className="spinner-border spinner-border-sm"
+      role="status"
+      aria-hidden="true"
+    ></span>
+  ) : (
+    'Login'
+  )}
+</button>
+
         </form>
       </div>
     </div>
