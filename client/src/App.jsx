@@ -13,35 +13,39 @@ import Payments from "./EmployeeManagement/Payments";
 import AttendanceRecords from "./EmployeeManagement/AttendanceRecords";
 import Login from "./EmployeeManagement/login";
 
-/* Service Record Management Imports */
-import Services from "./ServiceRecordManagement/Services";
-import CreateService from "./ServiceRecordManagement/CreateService";
-import UpdateService from "./ServiceRecordManagement/UpdateService";
-import ServiceReports from "./ServiceRecordManagement/ServiceReports";
-import QRCodePage from "./ServiceRecordManagement/QRCodePage";
-import ServiceDetails from "./ServiceRecordManagement/ServiceDetails";
-import PartsUsagePieChart from "./ServiceRecordManagement/PartsUsagePieChart";
-import ServiceDashboard from "./ServiceRecordManagement/ServiceDashboard";
-import SerDescription from "./ServiceRecordManagement/SerDescription";
-import ServiceLogin from "./ServiceRecordManagement/ServiceLogin";
-import PINPage from "./ServiceRecordManagement/PINPage";
-import Home from "./ServiceRecordManagement/Home";
-import AboutUs from "./ServiceRecordManagement/About";
+import Services from './ServiceRecordManagement/Services'
+import CreateService from './ServiceRecordManagement/CreateService'
+import UpdateService from './ServiceRecordManagement/UpdateService'
+import ServiceReports from './ServiceRecordManagement/ServiceReports';
+import QRCodePage from './ServiceRecordManagement/QRCodePage'
+import ServiceDetails from './ServiceRecordManagement/ServiceDetails'
+import PartsUsagePieChart from './ServiceRecordManagement/PartsUsagePieChart'
+import ServiceDashboard from './ServiceRecordManagement/ServiceDashboard'
+import SerDescription from './ServiceRecordManagement/SerDescription'
+import ServiceLogin from './ServiceRecordManagement/ServiceLogin';
+import PINPage from './ServiceRecordManagement/PINPage'
+import Home from './ServiceRecordManagement/Home'
+import AboutUs from './ServiceRecordManagement/About';
+import ServiceInfographic from './ServiceRecordManagement/ServiceInfographic';
+import RevenueAreaChart from './ServiceRecordManagement/RevenueAreaChart';
+import PartsUsageTable from './ServiceRecordManagement/PartsUsageTable';
+import PartDetails from './ServiceRecordManagement/PartDetails';
 
 /* Trainee Management Imports */
 import CreateTrainee from "./TraineeManagement/CreateTrainee";
 import UpdateTrainee from "./TraineeManagement/UpdateTrainee";
 import Trainees from "./TraineeManagement/Trainees";
 import Schedule from "./TraineeManagement/Schedule";
-import Progress from "./TraineeManagement/Prograss";
+import Prograss from "./TraineeManagement/Prograss"
 import Report from "./TraineeManagement/Report";
-import TraineeDashboard from "./TraineeManagement/Dashboard";
+import Tdashboard from "./TraineeManagement/tDashboard";
 import TraineeLogin from "./TraineeManagement/TraineeLogin";
+import TaskProgress from './TraineeManagement/TaskProgress';
 
 /* Appointment Management Imports */
 import AppTable from "./AppointmentManagement/AppTable";
-import CreateAppointment from "./AppointmentManagement/Createappointment";
-import UpdateAppointment from "./AppointmentManagement/Updateappointment";
+import Createappointment from "./AppointmentManagement/Createappointment";
+import Updateappointment from "./AppointmentManagement/Updateappointment";
 
 /* Feedback Management Imports */
 import AddFeed from "./FeedbackManagment/Addfeedback";
@@ -82,6 +86,8 @@ import ServicePage from "./SystemOperationManagement/ServicePage";
 import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
 import Profile from "./SystemOperationManagement/Profile";
 import BookingPackages from "./SystemOperationManagement/BookingPackages";
+import PackageDashboard from "./SystemOperationManagement/PackageDashboard";
+import ReceiptTable from "./components/ReceiptTable";
 //import Booking from './components/Booking';
 // import Home from "./SystemOperationManagement/Pages/Home";
 import Login2 from "./Authentications/Login2";
@@ -97,52 +103,49 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <PackageHeader />
-        <Routes>
-          {/* Home Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
+      <PackageHeader/>
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/serviceDashboard' element={<ServiceDashboard />}></Route>
+        <Route path='/servicecreate' element={<CreateService />}></Route>
+        <Route path='/serviceupdate/:id' element={<UpdateService />}></Route>
+        <Route path='/Servicereports' element={<ServiceReports />}></Route>
+        <Route path='/serviceeqrCodes' element={<QRCodePage />}></Route>
+        <Route path="/service/:vin" element={<ServiceDetails />} />
+        <Route path="/servicepartsusage" element={<PartsUsagePieChart />} />
+        <Route path="/serviceRecords" element={<Services />} />
+        <Route path="/SerDescription" element={<SerDescription />} />
+        <Route path="/serviceLogin" element={<ServiceLogin />} />
+        <Route path="/PINPage" element={<PINPage />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/ServiceInfographic" element={<ServiceInfographic />} />
+        <Route path="/RevenueAreaChart" element={<RevenueAreaChart />} />
+        <Route path="/PartsUsageTable" element={<PartsUsageTable />} />
+        <Route path="/PartDetails" element={<PartDetails />} />
 
-          {/* Service Record Management Routes */}
-          <Route path="/serviceDashboard" element={<ServiceDashboard />} />
-          <Route path="/servicecreate" element={<CreateService />} />
-          <Route path="/serviceupdate/:id" element={<UpdateService />} />
-          <Route path="/serviceReports" element={<ServiceReports />} />
-          <Route path="/serviceQrCodes" element={<QRCodePage />} />
-          <Route path="/service/:vin" element={<ServiceDetails />} />
-          <Route path="/servicePartsUsage" element={<PartsUsagePieChart />} />
-          <Route path="/serviceRecords" element={<Services />} />
-          <Route path="/SerDescription" element={<SerDescription />} />
-          <Route path="/serviceLogin" element={<ServiceLogin />} />
-          <Route path="/PINPage" element={<PINPage />} />
 
-          {/* Employee Management Routes */}
-          <Route path="/empLogin" element={<Login />} />
-          <Route path="/dashboard" element={<EmpDashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/create" element={<CreateUser />} />
-          <Route path="/update/:id" element={<UpdateUser />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/attendanceRecords" element={<AttendanceRecords />} />
+        <Route path='/empLogin' element={<Login />} /> {/* Login page */}
+        <Route path='/dashboard' element={<EmpDashboard />} /> {/* Dashboard as the landing page */}
+        <Route path='/users' element={<Users />} />
+        <Route path='/create' element={<CreateUser />} />
+        <Route path='/update/:id' element={<UpdateUser />} />
+        <Route path='/attendance' element={<Attendance />} />
+        <Route path='/payments' element={<Payments />} />
+        <Route path='/attendanceRecords' element={<AttendanceRecords />} /> {/* New route */}
 
-          {/* Trainee Management Routes */}
-          <Route path="/traineeDashboard" element={<TraineeDashboard />} />
-          <Route path="/trainee" element={<Trainees />} />
-          <Route path="/traineeCreate" element={<CreateTrainee />} />
-          <Route path="/traineeUpdate/:id" element={<UpdateTrainee />} />
-          <Route path="/traineeSchedule" element={<Schedule />} />
-          <Route path="/traineeProgress" element={<Progress />} />
-          <Route path="/report" element={<Report />} />
-          <Route path="/traineeLogin" element={<TraineeLogin />} />
-
-          {/* Appointment Management Routes */}
-          <Route path="/AppTable" element={<AppTable />} />
-          <Route path="/createAppointment" element={<CreateAppointment />} />
-          <Route
-            path="/updateAppointment/:id"
-            element={<UpdateAppointment />}
-          />
+        <Route path='/Tdashboard' element={<Tdashboard/>}></Route>{/* Setting Dashboard as the landing page */}
+        <Route path='/trainee' element={<Trainees/>}></Route>
+        <Route path='/traineecreate' element={<CreateTrainee/>}></Route>
+        <Route path='/traineeupdate/:id' element={<UpdateTrainee/>}></Route>
+        <Route path='/traineeschedule' element={<Schedule/>}></Route>
+        <Route path='/traineeprogess' element={<Prograss/>}></Route>
+        <Route path='/report' element={<Report/>}></Route>
+        <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
+        <Route path='/TaskProgress' element={<TaskProgress/>}></Route>
+        
+        <Route path="/AppTable" element={<AppTable />} />
+        <Route path="/Createappointment" element={<Createappointment />} />
+        <Route path="/Updateappointment/:id" element={<Updateappointment />} />
 
           {/* Feedback Management Routes */}
           <Route path="/feedbackDashboard" element={<FeedbackDashboard />}>
@@ -164,6 +167,7 @@ function App() {
           <Route path="/low-inventory" element={<LowInventory />} />
 
           {/* System Operation Manager Routes */}
+          <Route path="/packageDashboard" element={<PackageDashboard />} />
           <Route path="/view-packages" element={<AllPackages />} />
           <Route path="/add-package" element={<AddPackage />} />
           <Route path="/update-package/:id" element={<UpdatePackage />} />
@@ -183,6 +187,7 @@ function App() {
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/bookings" element={<BookingPackages />} />
           <Route path="/package/delete/:id" element={<DeletePackage />} />
+          <Route path="/receipt-table" element={<ReceiptTable />} />
 
           {/* Supplier Manager Routes */}
           <Route path="/supplier/add" element={<AddSupplier />} />{" "}

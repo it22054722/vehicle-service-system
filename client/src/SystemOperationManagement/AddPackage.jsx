@@ -150,7 +150,7 @@ export default function AddPackage() {
     }
 
     return (
-        <div className="container d-flex align-items-center justify-content-center min-vh-100 mt-5">
+        <div className="d-flex align-items-center justify-content-center vh-100" style={{ marginTop: '90px' }}>
             <div className="row w-100">
                 <div className="col-md-8 col-lg-6 mx-auto">
                     <div className="card border-5 shadow rounded-4 bg-light bg-opacity-75">
@@ -324,19 +324,40 @@ export default function AddPackage() {
                                     </label>
                                 </div>
 
+                                <div className="text-center">
+                                <div className="text-center" style={{ marginTop: '-10px' }}>
+                                                           
+
+
+
+
                                 <button 
-                                    type="submit" 
-                                    className="btn btn-primary w-100 py-2"
-                                    style={{
-                                        backgroundColor: '#007BFF',
-                                        color: '#fff',
-                                        fontWeight: 'bold',
-                                        borderRadius: '25px',
-                                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
-                                    }}
-                                >
-                                    Submit Package
-                                </button>
+    type="submit" 
+    className="w-100 py-2"
+    style={{
+        backgroundColor: '#28a745', // Bright green color
+        backgroundImage: 'linear-gradient(to right, #28a745, #36d27c)', // Gradient effect
+        color: '#fff',
+        fontWeight: 'bold',
+        borderRadius: '12px', // Slightly larger rounded corners
+        boxShadow: '0px 6px 10px rgba(0, 0, 0, 0.2)', // Slightly larger shadow
+        border: 'none',
+        transition: 'background-color 0.3s ease',
+        width: '100%', // Full width within its container
+        maxWidth: '200px' // Limits max width for better control
+    }}
+    onMouseOver={(e) => e.target.style.backgroundColor = '#36d27c'}
+    onMouseOut={(e) => e.target.style.backgroundColor = '#28a745'}
+>
+    Add Package
+</button>
+
+
+    
+</div>
+
+</div>
+
                             </form>
                         </div>
                     </div>
