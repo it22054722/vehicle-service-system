@@ -71,7 +71,7 @@ function CreateUser() {
 
   return (
     <div className="background d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow" style={{ width: '400px', borderRadius: '20px' }}>
+      <div className="card p-4 shadow" style={{ width: '400px', borderRadius: '20px', marginTop:'70px', overflow:"auto"}}>
         <form onSubmit={Submit}>
           <h2>Create Employee</h2>
           {error && <div className="alert alert-danger">{error}</div>}

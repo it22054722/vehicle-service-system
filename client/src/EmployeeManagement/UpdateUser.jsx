@@ -86,7 +86,7 @@ function UpdateUser() {
 
   return (
     <div className="background d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow" style={{ width: '400px', borderRadius: '20px' }}>
+      <div className="card p-4 shadow" style={{ width: '400px', borderRadius: '20px', marginTop: '70px', overflow:'auto' }}>
         <form onSubmit={Update}>
           <h2>Update Employee</h2>
           {error && <div className="alert alert-danger">{error}</div>}
