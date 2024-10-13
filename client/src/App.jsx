@@ -56,6 +56,8 @@ import AllFeedback from "./FeedbackManagment/Allfeedback";
 import Massage from "./FeedbackManagment/massage";
 import ManagerView from "./FeedbackManagment/Mangerview";
 import FeedbackSummary from "./FeedbackManagment/FeedbackSummery";
+import ManagerDashboard from './FeedbackManagment/ManagerDashboard';
+import Feedbacksort from './FeedbackManagment/Feedbacksort';
 
 /* Shared Components */
 import PackageHeader from "./ServiceRecordManagement/PackageHeader";
@@ -162,6 +164,8 @@ function App() {
           <Route path="/managerView" element={<ManagerView />} />
           <Route path="/pages/FeedbackSummary" element={<FeedbackSummary />} />
           <Route path="/feed" element={<AllFeedback />} />
+          <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          <Route path="/Feedbacksort" element={<Feedbacksort />} />
 
           {/*Inventory Management Routes */}
           <Route path="/inventory" element={<Inventory />} />

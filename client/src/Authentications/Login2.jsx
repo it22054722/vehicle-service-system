@@ -11,7 +11,7 @@ const admins = [
   { name: 'Employee Manager', password: 'paman', redirectTo: '/dashboard' },
   { name: 'Service Record Manager', password: 'akash', redirectTo: '/serviceDashboard' },
   { name: 'Trainee Cordinator', password: 'manthi', redirectTo: '/Tdashboard' },
-  { name: 'Customer Affaire Manager', password: 'amanda', redirectTo: '/managerView' },
+  { name: 'Customer Affaire Manager', password: 'amanda', redirectTo: '/ManagerDashboard' },
   { name: 'Appoinment Manager', password: 'imal', redirectTo: '/AppTable' },
   { name: 'Inventory Manager', password: 'lashan', redirectTo: '/inventoryDashboard' },
 ];
