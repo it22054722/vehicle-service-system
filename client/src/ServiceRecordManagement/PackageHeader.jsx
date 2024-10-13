@@ -10,7 +10,7 @@ const PackageHeader = () => {
 
   useEffect(() => {
     // Example: Update role dynamically if needed
-    setRole('admin'); // Set to 'admin' for admin view, or 'user' for user view
+    setRole('user'); // Set to 'admin' for admin view, or 'user' for user view
   }, []);
 
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
@@ -128,7 +128,7 @@ const PackageHeader = () => {
               <Link className="nav-link text-dark fw-bold" to="/AboutUs" style={linkStyle}>About Us</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/dashboard/allfeed" style={linkStyle}>FeedBacks</Link>
+              <Link className="nav-link text-dark fw-bold" to="/feedbackDashboard/allFeed" style={linkStyle}>FeedBacks</Link>
             </li>
 
             {/* Conditionally show "Add Package" and "Package-List" for admin */}
@@ -144,7 +144,7 @@ const PackageHeader = () => {
             )}
 
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/PINPage" style={linkStyle}>Sign In</Link>
+              <Link className="nav-link text-dark fw-bold" to="/login" style={linkStyle}>Sign In</Link>
             </li>
           </ul>
 

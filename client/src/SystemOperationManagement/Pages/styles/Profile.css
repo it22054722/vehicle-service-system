@@ -1,0 +1,51 @@
+
+.profile-card {
+  backdrop-filter: blur(10px);
+}
+
+.hover-effect {
+  transition: transform 0.2s;
+}
+
+.hover-effect:hover {
+  transform: scale(1.05);
+}
+
+.card {
+  border: 1px solid #e9ecef; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.card-title {
+  font-size: 1.2rem; /* Slightly larger font size for titles */
+}
+
+.card-text {
+  font-size: 1rem; /* Default font size for text */
+}
+
+.btn {
+  border-radius: 5px; /* Rounded buttons */
+}
+
+.modal-content {
+  border-radius: 10px; /* Rounded modal */
+}
+
+.modal-header {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; /* White text */
+  border-top-left-radius: 10px; /* Rounded corners */
+  border-top-right-radius: 10px; /* Rounded corners */
+}
+
+.modal-footer .btn {
+  border-radius: 5px; /* Rounded buttons */
+}
+
+.profile-info p {
+  margin: 0; /* Remove margin */
+  padding: 5px 0; /* Add padding */
+}
+

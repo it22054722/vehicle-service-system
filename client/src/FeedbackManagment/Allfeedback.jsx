@@ -84,7 +84,9 @@ export default function AllFeedback() {
     <div
       className="background d-flex justify-content-center align-items-center"
       style={{
+        
         minHeight: "100vh",
+        marginTop:"100px",
         backgroundImage:
           "url('https://i.pinimg.com/564x/08/2c/bb/082cbb08c144b2cbcc7883ede369a6dd.jpg')",
         backgroundSize: "cover",
@@ -93,7 +95,7 @@ export default function AllFeedback() {
       }}
     >
       {/* Main Content */}
-      <Container className="py-5">
+      <Container className="py-5"style={{width:"1500px"}}>
         <Card
           className="bg-opacity-90 p-4 shadow-lg"
           style={{
@@ -101,6 +103,8 @@ export default function AllFeedback() {
             borderRadius: "15px",
             maxWidth: "800px",
             margin: "0 auto",
+            overflow:"auto",
+            marginBottom:"150px"
           }}
         >
           {/* Header */}

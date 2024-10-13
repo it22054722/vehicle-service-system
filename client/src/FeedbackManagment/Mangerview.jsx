@@ -189,7 +189,7 @@ export default function ManageFeedback() {
 
       <Row className="justify-content-center align-items-center h-100 position-relative z-1" style={{marginTop:"100px"}}>
         <Col xs={12} md={10} lg={8}>
-          <Card className="bg-light rounded shadow-lg my-4" style={{ opacity: 0.9 }}>
+          <Card className="bg-light rounded shadow-lg my-4" style={{ opacity: 0.9,overflow:"auto" }}>
             <Card.Body>
               <Link to="/ManagerDashboard">
                 <Button
@@ -200,6 +200,7 @@ export default function ManageFeedback() {
                     transition: "all 0.3s ease",
                     fontWeight: "bold",
                     boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                    backgroundColor:"#8B0000"
                   }}
                   onMouseOver={(e) => (e.currentTarget.style.borderColor = "#6c757d")}
                   onMouseOut={(e) => (e.currentTarget.style.borderColor = "secondary")}
@@ -207,7 +208,7 @@ export default function ManageFeedback() {
                   Back to Manager Dashboard
                 </Button>
               </Link>
-              <h1 className="text-center text-uppercase text-dark mb-4">Feedback</h1>
+              <h1 className="text-center text-uppercase text-dark mb-4" style={{fontWeight:"bold"}}>Feedback</h1>
               <Form className="mb-3">
                 <Form.Group controlId="search">
                   <Form.Control
@@ -225,13 +226,14 @@ export default function ManageFeedback() {
                   variant="primary"
                   className="d-flex align-items-center"
                   style={{
-                    backgroundColor: "#dc3545",
+                    backgroundColor: "#8B0000",
                     borderColor: "#dc3545",
                     padding: "0.5rem 1rem",
                     fontWeight: "bold",
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     transition: "all 0.3s ease",
                     boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                    width:"120px"
                   }}
                   onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#c82333"}
                   onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#dc3545"}
@@ -245,7 +247,7 @@ export default function ManageFeedback() {
                   bordered
                   hover
                   className="bg-white bg-opacity-75"
-                  style={{ opacity: "0.85", borderRadius: "8px" }}
+                  style={{ opacity: "0.85", borderRadius: "8px" , marginTop:"20px"}}
                 >
                   <thead className="bg-dark text-white">
                     <tr>
@@ -266,11 +268,13 @@ export default function ManageFeedback() {
                           <td>{employee.rating}</td>
                           <td>{employee.descrip}</td>
                           <td>
-                            <Link to={`/dashboard/feedupdate/${employee._id}`}>
+                          <Link to={`/feedbackDashboard/feedUpdate/${employee._id}`}>
+
+
                               <Button
                                 variant="outline-success"
                                 className="d-flex align-items-center justify-content-center"
-                                style={{ borderRadius: "25px", transition: "all 0.3s ease", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
+                                style={{ borderRadius: "25px", transition: "all 0.3s ease", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" ,width:"70px"}}
                                 onMouseOver={(e) => e.currentTarget.style.borderColor = "#28a745"}
                                 onMouseOut={(e) => e.currentTarget.style.borderColor = "success"}
                               >
@@ -286,7 +290,7 @@ export default function ManageFeedback() {
                                 setDId(employee._id);
                                 handleDeleteUser();
                               }}
-                              style={{ borderRadius: "25px", transition: "all 0.3s ease", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
+                              style={{ borderRadius: "25px", transition: "all 0.3s ease", boxShadow: "0 2px 4px rgba(0,0,0,0.2)",width:"90px" }}
                               onMouseOver={(e) => e.currentTarget.style.borderColor = "#dc3545"}
                               onMouseOut={(e) => e.currentTarget.style.borderColor = "danger"}
                             >

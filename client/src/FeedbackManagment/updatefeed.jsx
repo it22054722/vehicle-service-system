@@ -10,26 +10,31 @@ export default function UpdateFeed() {
   const navigate = useNavigate();
   const { Id } = useParams();
 
-  useEffect(() => {
-    const fetchFeedback = async () => {
-      try {
-        const res = await fetch(`http://localhost:3001/FgetAll?itemId=${Id}`);
-        const data = await res.json();
-        if (!res.ok) {
-          console.log(data.message);
-        } else {
-          const selected = data.items.find((item) => item._id === Id);
-          if (selected) {
-            setFormData(selected);
-          }
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
 
-    fetchFeedback();
-  }, [Id]);
+  // Inside UpdateFeed component
+const { id } = useParams(); // Changed from Id to id
+
+useEffect(() => {
+  const fetchFeedback = async () => {
+    try {
+      const res = await fetch(`http://localhost:3001/FgetAll?itemId=${id}`);
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        const selected = data.items.find((item) => item._id === id);
+        if (selected) {
+          setFormData(selected);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  fetchFeedback();
+}, [id]); // Changed dependency from Id to id
+
 
   // Validation function
   const validate = () => {
@@ -85,7 +90,7 @@ export default function UpdateFeed() {
         return;
       }
       alert("Feedback updated successfully!");
-      navigate(`/Mangeview`);
+      navigate(`/managerView`);
     } catch (error) {
       setPublishError("Something went wrong");
     }
@@ -114,8 +119,9 @@ export default function UpdateFeed() {
   };
 
   return (
-    <div className="background d-flex justify-content-center align-items-center vh-100">
-      <div className="position-relative w-100 h-100">
+    <div className="m-0 mt-5">
+    <div className="background d-flex justify-content-center align-items-center  mt-100">
+      <div className="position-relative w-100 h-100 m-0">
         <img
           src="https://i.pinimg.com/originals/5b/43/2d/5b432d5fb6bfd23190f34488cbcd6d0a.jpg"
           alt="background"
@@ -127,7 +133,7 @@ export default function UpdateFeed() {
           style={{
             opacity: 0.9,
             maxWidth: "500px",
-            maxHeight: "700px",
+            maxHeight: "400px",
             margin: "auto",
             marginTop: "40px",
             overflowY: "auto",
@@ -314,6 +320,7 @@ export default function UpdateFeed() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

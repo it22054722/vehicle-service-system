@@ -9,11 +9,11 @@ const ManagerDashboard = () => {
   const navigate = useNavigate();
 
   const handleManageFeedback = () => {
-    navigate('/Mangeview');
+    navigate('/managerView');
   };
 
   const handleViewSummary = () => {
-    navigate('/pages/FeedbackSummery');
+    navigate('/pages/FeedbackSummary');
   };
 
   const styles = {

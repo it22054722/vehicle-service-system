@@ -11,10 +11,10 @@ export default function DashboardLayout() {
 
 
   return (
-    <Container fluid className="bg-light min-vh-100 p-4">
+    <Container fluid className="bg-light mx-m-auto p-4">
       <Row className="g-4">
         {/* Sidebar */}
-        <Col lg={3} className="bg-white shadow-sm mt-20 rounded p-4">
+        <Col lg={3} className="bg-white shadow-sm mt-auto rounded p-4 ">
           <Card className="border-0">
             <Card.Body className="text-center">
               <Card.Title className="mb-4">
@@ -46,7 +46,7 @@ export default function DashboardLayout() {
             <Nav.Item className="mb-3">
               <Nav.Link
                 as={Link}
-                to="/dashboard/allfeed"
+                to="/feedbackDashboard/allfeed"
                 className="text-danger fw-bold"
               >
                 <i className="bi bi-archive-fill me-2"></i>
@@ -56,7 +56,7 @@ export default function DashboardLayout() {
             <Nav.Item className="mb-3">
               <Nav.Link
                 as={Link}
-                to="/dashboard/AddFeed"
+                to="/feedbackDashboard/addFeed"
                 className="text-danger fw-bold"
               >
                 <i className="bi bi-plus-circle-fill me-2"></i>
@@ -66,7 +66,7 @@ export default function DashboardLayout() {
             <Nav.Item className="mb-3">
               <Nav.Link
                 as={Link}
-                to="/dashboard/massage"
+                to="/feedbackDashboard/massage"
                 className="text-danger fw-bold"
               >
                

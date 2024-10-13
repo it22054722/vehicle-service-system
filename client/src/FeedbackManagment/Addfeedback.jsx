@@ -120,7 +120,7 @@ export default function AddFeedback() {
       if (res.ok) {
         setPublishError(null);
         alert("Submission successful");
-        navigate("/dashboard/allfeed");
+        navigate("/feedbackDashboard/allfeed");
       }
     } catch (error) {
       setPublishError("An unexpected error occurred. Please try again.");
@@ -128,23 +128,25 @@ export default function AddFeedback() {
   };
 
   return (
-    <div className="background d-flex justify-content-center align-items-center"style={{marginTop:"30px"}}>
+    <div className="background d-flex justify-content-center align-items-center"style={{marginTop:"30px",overflow:"auto"}}>
       {/* Background Overlay */}
       <div
-        className="position-absolute w-100 h-100"
+        className="position-absolute w-100 "
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://i.pinimg.com/originals/5b/43/2d/5b432d5fb6bfd23190f34488cbcd6d0a.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: -1,
+          height:"500px"
+         
         }}
       ></div>
 
       {/* Form Container */}
       <Row className="w-100 justify-content-center px-3">
         <Col xs={12} md={10} lg={8} xl={6}>
-          <Card className="p-4 shadow-lg border-0"style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
+          <Card className="p-4 shadow-lg border-0"style={{ backgroundColor: "rgba(255, 255, 255, 0.8)",overflow:"auto" ,marginBottom:"150px",height:"400px"}}>
             <Card.Body>
               <h2 className="text-center  mb-4" style={{fontSize:"30px",fontWeight:"bold",color:'#8B0000'}}>
                 <i className="bi bi-chat-dots-fill me-2"style={{fontSize:"30px",fontWeight:"bold",color:'#8B0000'}}></i>Feedback Form

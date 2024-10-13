@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
-import { Container, Row, Col, Alert } from 'react-bootstrap'; // Import Bootstrap components
+import { Container } from 'react-bootstrap'; // Import Bootstrap components
 
 export default function Massage() {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const navigate = useNavigate();
 
-  const handlchange = (e) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
@@ -44,7 +44,7 @@ export default function Massage() {
     }
   };
 
-  // Chatbot steps with remembered contact data and booking information
+  // Chatbot steps with fixed flow
   const steps = [
     {
       id: '1',
@@ -62,12 +62,12 @@ export default function Massage() {
     {
       id: '3',
       message: 'To submit the form, type a message in the text box and click Submit.',
-      end: true,
+      trigger: 'endOrRepeat', // Added trigger to end or repeat conversation
     },
     {
       id: '4',
       message: 'Feel free to reach out for any other assistance!',
-      end: true,
+      trigger: 'endOrRepeat', // Added trigger to end or repeat conversation
     },
     {
       id: '5',
@@ -94,10 +94,20 @@ export default function Massage() {
           return `You typed: "${previousValue}". How else can I assist you?`;
         }
       },
-      trigger: '2', // Direct to the next step without returning to '2'
+      trigger: 'endOrRepeat', // After responding, direct to end or repeat options
     },
-  
-   
+    {
+      id: 'endOrRepeat',
+      options: [
+        { value: 1, label: 'Continue conversation', trigger: '2' }, // Loop back to options
+        { value: 2, label: 'End conversation', trigger: '7' }, // End chat
+      ],
+    },
+    {
+      id: '7',
+      message: 'Thank you for chatting with us!',
+      end: true,
+    },
   ];
 
   // Optional: Customize chatbot's appearance (Theme)
@@ -119,29 +129,12 @@ export default function Massage() {
         alt=""
         className="position-absolute opacity-80 inset-0 w-100 h-100 object-cover"
       />
-      <Row className="justify-content-center align-items-center">
-        <Col md={8} className="relative p-4 mb-4">
-          <div className="text-center">
-            {/* Add your heading or any other content here */}
-          </div>
-
-          <div className="text-center mt-4">
-            {/* Your form or any other content goes here */}
-            {publishError && (
-              <Alert variant="danger" className="mt-4 text-center">
-                {publishError}
-              </Alert>
-            )}
-          </div>
-        </Col>
-      </Row>
-
       {/* Centered Chatbot */}
       <div
         className="position-absolute inset-0 d-flex align-items-center justify-content-center"
-        style={{ height: '100%', overflow: 'hidden' }} // Ensure it occupies full height without scrolling
+        style={{ height: '100%', overflow:"hidden" }} // Ensure it occupies full height without scrolling
       >
-        <div style={{ marginLeft: "320px", marginBottom: "200px", maxHeight: '80%', width: '100%', overflowY: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}> {/* Center the chatbot */}
+        <div style={{ marginLeft: "320px", marginBottom: "200px", maxHeight: '450px', width: '100%', overflow: "auto", alignItems: 'center', justifyContent: 'center' }}> {/* Center the chatbot */}
           <ThemeProvider theme={theme}>
             <ChatBot steps={steps} />
           </ThemeProvider>

@@ -83,44 +83,10 @@ const FeedbackSort = () => {
 
   return (
     <Container fluid className="h-100 position-relative">
-      {/* Real-Time Statistics Section with User-Friendly Labels */}
-      <Row className="justify-content-center text-center my-4">
-        <Col xs={12} md={4}>
-          <Card className="bg-primary text-white rounded shadow-lg mb-4">
-            <Card.Body>
-              <h4>Total Feedbacks Received</h4>
-              <p>All feedback submitted by users so far:</p>
-              <h2>{totalFeedbacks}</h2>
-              <i className="fas fa-comments fa-2x"></i>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={4}>
-          <Card className="bg-success text-white rounded shadow-lg mb-4">
-            <Card.Body>
-              <h4>Number of Unique Users</h4>
-              <p>Distinct people who have submitted feedback:</p>
-              <h2>{uniquePeople}</h2>
-              <i className="fas fa-users fa-2x"></i>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={4}>
-          <Card className="bg-warning text-dark rounded shadow-lg mb-4">
-            <Card.Body>
-              <h4>Average Feedback Rating</h4>
-              <p>The average rating from all submitted feedback:</p>
-              <h2>{averageRating} / 3</h2>
-              <i className="fas fa-star fa-2x"></i>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
       {/* Search and Feedback Table Section */}
-      <Row className="justify-content-center align-items-center h-100 position-relative" style={{ marginTop: "30px" }}>
+      <Row className="justify-content-center align-items-center h-100 position-relative" style={{ marginTop: "80px"}}>
         <Col xs={12} md={10} lg={8}>
-          <Card className="bg-light rounded shadow-lg my-4">
+          <Card className="bg-light rounded shadow-lg my-4"style={{overflow :"auto"}}>
             <Card.Body>
               <h1 className="text-center text-uppercase text-dark mb-4">Feedback Filter by Vehicle ID</h1>
               <Form className="mb-3">
@@ -134,6 +100,12 @@ const FeedbackSort = () => {
                   />
                 </Form.Group>
               </Form>
+              {/* Display Total Feedbacks, Unique Users, and Average Rating */}
+              <div className="text-center mb-4">
+                <h5 className="text-dark">Total Feedbacks: {totalFeedbacks}</h5>
+                <h5 className="text-dark">Unique Users: {uniquePeople}</h5>
+                <h5 className="text-dark">Average Rating: {averageRating}</h5>
+              </div>
               <div style={{ maxHeight: "400px", overflowY: "auto" }}>
                 <Table striped bordered hover className="bg-white bg-opacity-75">
                   <thead className="bg-dark text-white">
