@@ -15,9 +15,9 @@ function Payments() {
   const [salarySummary, setSalarySummary] = useState([]);
   const [totalSalary, setTotalSalary] = useState(0);
   const [report, setReport] = useState('');
-  const [statusFilter, setStatusFilter] = useState(''); // New state for status filter
-  const [monthFilter, setMonthFilter] = useState(''); // New state for month filter
-  const [yearFilter, setYearFilter] = useState(''); // New state for year filter
+  const [statusFilter, setStatusFilter] = useState(''); 
+  const [monthFilter, setMonthFilter] = useState(''); 
+  const [yearFilter, setYearFilter] = useState(''); 
 
   useEffect(() => {
     const fetchAttendanceRecords = async () => {
@@ -300,6 +300,7 @@ function Payments() {
 
   return (
     <div style={styles.container}>
+      <br/>
       <br/>
       <br/>
       <br/>

@@ -91,6 +91,8 @@ function Users() {
                     </button>
                 </div>
 
+                <br/>
+
                 <input
                     type="text"
                     placeholder="Search users..."
