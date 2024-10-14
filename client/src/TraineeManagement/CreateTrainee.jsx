@@ -32,14 +32,30 @@ function CreateTrainee() {
     return "";
   };
 
-  const Submit = (e) => {
+  const checkTraineeID = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/trainees"); // Fetch all trainees
+      return response.data.some(trainee => trainee.trainee_id === trainee_id);
+    } catch (error) {
+      console.log("Error fetching trainee data:", error);
+      return false;
+    }
+  };
+
+  const Submit = async (e) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) {
       setError(validationError);
       return;
     }
-    setError("");
+    setError(""); // Clear existing errors
+
+    const idExists = await checkTraineeID(); // Check if trainee ID exists
+    if (idExists) {
+      setError("This trainee ID is already in the system.");
+      return; // Stop form submission if trainee ID is duplicate
+    }
 
     axios.post("http://localhost:3001/createTrainee", { trainee_id, name, age, trainee_periode, email, phone_number })
       .then(result => {
@@ -51,7 +67,7 @@ function CreateTrainee() {
           timer: 1500, // Optional: auto-close the alert after 1.5 seconds
           showConfirmButton: false // No confirm button needed
         });
-        navigate('/trainee'); // Change navigation here
+        navigate('/trainee'); // Navigate to trainee list after success
       })
       .catch(err => console.log(err));
   };

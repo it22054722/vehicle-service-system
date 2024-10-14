@@ -65,6 +65,7 @@ function Trainees() {
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
             color: "#000",
+            marginTop:"50px"
           }}
         >
           Trainee Table
@@ -76,13 +77,28 @@ function Trainees() {
             style={{
               backgroundColor: "#8B0000", // Dark red color
               color: "#fff",
+              fontSize: "1rem",
+              width:"70px"
             }}
           >
             Add +
           </Link>
+          {/* Display trainee count */}
+          <span
+            className="badge"
+            style={{
+              backgroundColor: "#8B0000", // Dark red color for the badge
+              color: "#fff",
+              fontSize: "1rem",
+              padding: "10px",
+              borderRadius: "8px",
+            }}
+          >
+            Current Trainees: {Trainees.length}
+          </span>
         </div>
 
-        <table className="table">
+        <table className="table" style={{marginTop:"10px"}}>
           <thead>
             <tr>
               <th>Trainee ID</th>
@@ -138,7 +154,7 @@ function Trainees() {
         {/* Centered Back button */}
         <div className="text-center mt-4">
           <Link
-            to="/traineedashboard"
+            to="/Tdashboard"
             className="btn btn-sm"
             style={{
               backgroundColor: "#8B0000", // Dark red color

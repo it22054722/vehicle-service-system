@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUserPlus, FaClipboardList, FaChartLine, FaSignOutAlt } from 'react-icons/fa';
 import '../App.css'; // Import your CSS file
 
-function Dashboard() {
+function Tdashboard() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -117,4 +117,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Tdashboard;
