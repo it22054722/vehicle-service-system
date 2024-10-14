@@ -270,3 +270,26 @@ body {
   }
 }
 
+.navigate-dashboard-btn {
+  background-color: #a51f2e; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Display inline */
+  font-size: 16px; /* Increase font size */
+  margin-left: 10px; /* Add some margin to the left */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.navigate-dashboard-btn:hover {
+  background-color: #b3202e; /* Darker green on hover */
+}
+
+.navigate-dashboard-btn:active {
+  background-color: #b3202e; /* Even darker green on click */
+  transform: scale(0.98); /* Slight shrink effect on click */
+}

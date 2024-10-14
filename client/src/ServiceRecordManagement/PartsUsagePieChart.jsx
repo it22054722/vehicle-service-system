@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaFacebookF, FaInstagram, FaGoogle } from 'react-icons/fa'; // Importing React Icons
-import backgroundImage from './assets/supercars.png';
-import logoImage from './assets/logo.png';
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
-const PieChartPage = () => {
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const StackedBarChartPage = () => {
   const [serviceData, setServiceData] = useState([]);
   const navigate = useNavigate();
 
@@ -20,176 +20,149 @@ const PieChartPage = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const getPartsData = () => {
+  const getStackedBarData = () => {
+    // Prepare the data for the Stacked Bar Chart
     const partsUsage = {};
+    const services = [...new Set(serviceData.map((service) => service.serviceName))]; // Get unique services
+
+    // Initialize the partsUsage structure
     serviceData.forEach((service) => {
       const part = service.parts;
       const quantity = service.quantity;
-      if (partsUsage[part]) {
-        partsUsage[part] += quantity;
-      } else {
-        partsUsage[part] = quantity;
+      const serviceName = service.serviceName;
+
+      if (!partsUsage[part]) {
+        partsUsage[part] = {};
       }
+      partsUsage[part][serviceName] = (partsUsage[part][serviceName] || 0) + quantity;
     });
 
+    // Prepare datasets for each service
+    const datasets = services.map((service) => ({
+      label: service,
+      data: Object.keys(partsUsage).map((part) => partsUsage[part][service] || 0),
+      backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`,
+    }));
+
     return {
-      labels: Object.keys(partsUsage),
-      datasets: [
-        {
-          data: Object.values(partsUsage),
-          backgroundColor: [
-            "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF",
-            "#FF9F40", "#8E44AD", "#3498DB", "#E74C3C", "#1ABC9C",
-            "#9B59B6", "#F1C40F", "#27AE60", "#D35400", "#2C3E50",
-            "#E67E22", "#C0392B", "#BDC3C7", "#34495E", "#2ECC71"
-          ],
-          hoverBackgroundColor: [
-            "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF",
-            "#FF9F40", "#8E44AD", "#3498DB", "#E74C3C", "#1ABC9C",
-            "#9B59B6", "#F1C40F", "#27AE60", "#D35400", "#2C3E50",
-            "#E67E22", "#C0392B", "#BDC3C7", "#34495E", "#2ECC71"
-          ],
-        },
-      ],
+      labels: Object.keys(partsUsage), // Part names
+      datasets: datasets, // Data per service stacked on top of each other
     };
   };
 
   const downloadPDF = () => {
-    const input = document.getElementById("pie-chart-container");
+    const input = document.getElementById("bar-chart-container");
     html2canvas(input, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("landscape", "mm", "a4");
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("landscape", "mm", "a4");
+      const imgWidth = 200;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const date = new Date().toLocaleDateString();
 
-        // Adding Header to PDF
-        const imgWidth = 120; // Further reduced width to make the chart smaller
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
-        const date = new Date().toLocaleDateString();
+      // Header
+      pdf.setFillColor(200, 200, 200);
+      pdf.rect(0, 0, 297, 60, "F");
+      pdf.setFont("Helvetica", "bold");
+      pdf.setFontSize(24);
+      pdf.text("Parts Usage Report", 20, 30);
+      pdf.setFontSize(12);
+      pdf.text(`Date: ${date}`, 250, 40);
 
-        // Header background
-        pdf.setFillColor(200, 200, 200); // Light grey background
-        pdf.rect(0, 0, 297, 60, "F");
-
-        // Set font and font size
-        pdf.setFont("Helvetica", "bold"); // Use Helvetica font for headers
-
-        // Add logo
-        pdf.addImage(logoImage, "PNG", 10, 10, 40, 40);
-
-        // Add title text with a custom font size
-        pdf.setFontSize(24); // Set font size for the title
-        pdf.setTextColor(0, 0, 0); // Black color
-        pdf.text("The Part Usage of The Services", 60, 30);
-
-        // Add the date on the right corner with smaller font size
-        pdf.setFontSize(12); // Set font size for date
-        pdf.setTextColor(0, 0, 0);
-        pdf.text(`Date: ${date}`, 250, 40);
-
-        // Adding Social Media Icons and text with a custom font size
-        pdf.setFontSize(12); // Set font size for the social media links
-        pdf.setTextColor(0, 0, 0);
-
-        // Add social media links with icons
-        pdf.textWithLink('Facebook', 60, 45, { url: 'https://facebook.com' });
-        pdf.addSvgAsImage(<FaFacebookF />, 70, 40, 10, 10); // Add Facebook icon
-        pdf.textWithLink('Instagram', 100, 45, { url: 'https://instagram.com' });
-        pdf.addSvgAsImage(<FaInstagram />, 110, 40, 10, 10); // Add Instagram icon
-        pdf.textWithLink('Google', 140, 45, { url: 'https://google.com' });
-        pdf.addSvgAsImage(<FaGoogle />, 150, 40, 10, 10); // Add Google icon
-
-        // Set font for the rest of the document
-        pdf.setFont("Helvetica", "normal"); // Use Helvetica normal for body text
-        pdf.setFontSize(14); // Set font size for the chart and other content
-
-        // Adding Chart to PDF
-        pdf.addImage(imgData, "PNG", 10, 70, imgWidth, imgHeight); // Use the new smaller width
-
-        // Save PDF
-        pdf.save("PartsUsageChart.pdf");
+      // Chart
+      pdf.addImage(imgData, "PNG", 10, 70, imgWidth, imgHeight);
+      pdf.save("PartsUsageChart.pdf");
     });
 
     Swal.fire({
-      icon: 'success',
-      title: 'Downloaded!',
-      text: 'Service table PDF downloaded successfully.',
-      confirmButtonColor: '#b3202e',
-      background: '#fff',
-      color: '#333',
+      icon: "success",
+      title: "Downloaded!",
+      text: "Service table PDF downloaded successfully.",
+      confirmButtonColor: "#b3202e",
+      background: "#fff",
+      color: "#333",
     });
-};
+  };
 
   return (
     <div
       className="container"
       style={{
-        padding: '2rem',
-        background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-        color: '#fff',
+        padding: "2rem",
+        background: "linear-gradient(135deg, #8B0000, #2E0000)",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff",
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      <h2 className="text-center my-4" style={{ color: '#fff', paddingTop: '30px', textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
-        Parts Usage Pie Chart
+      <h2 className="text-center" style={{ color: "#fff", paddingTop: "30px", textShadow: "1px 1px 2px rgba(0,0,0,0.7)" }}>
+        Parts Usage Chart
       </h2>
-      <div className="row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="col-md-6" style={{ display: 'flex', justifyContent: 'center' }}>
-          <div id="pie-chart-container" style={{ width: "450px", padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)' }}>
-            <Pie data={getPartsData()} />
-          </div>
-        </div>
-        <div className="col-md-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-          <ul style={{ listStyleType: 'none', padding: '0', fontSize: '0.9rem', color: '#fff' }}>
-            {getPartsData().labels.map((label, index) => (
-              <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                <div style={{ width: '15px', height: '15px', backgroundColor: getPartsData().datasets[0].backgroundColor[index], marginRight: '8px' }}></div>
-                {label}
-              </li>
-            ))}
-          </ul>
+
+      <div className="chart-section" style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "30px" }}>
+        <div id="bar-chart-container" style={{
+          width: '800px',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          borderRadius: '10px',
+          padding: '20px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+          border: '2px solid #a1192d',
+        }}>
+          <Bar
+            data={getStackedBarData()}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: "top",
+                },
+                title: {
+                  display: true,
+                  text: "Parts Usage across Different Services",
+                },
+              },
+              scales: {
+                x: {
+                  stacked: true,
+                },
+                y: {
+                  stacked: true,
+                  beginAtZero: true,
+                },
+              },
+            }}
+          />
         </div>
       </div>
-      <div className="text-right mt-3" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button
-          className="btn"
-          onClick={downloadPDF}
-          style={{
-            backgroundColor: '#a1192d',
-            color: '#fff',
-            borderRadius: '0.5rem',
-            marginRight: '10px',
-          }}
-        >
-          Download
-        </button>
-        <button
-          className="btn"
-          onClick={() => navigate('/Servicereports')}
-          style={{
-            backgroundColor: '#a1192d',
-            color: '#fff',
-            borderRadius: '0.5rem',
-            marginRight: '10px',
-          }}
-        >
-          Reports
-        </button>
-        <button
-          className="btn"
-          onClick={() => navigate('/serviceDashboard')}
-          style={{
-            backgroundColor: '#a1192d',
-            color: '#fff',
-            borderRadius: '0.5rem',
-          }}
-        >
-          Dashboard
-        </button>
+
+      <div className="buttons" style={{ display: 'flex', justifyContent: 'space-between', width: '80%' }}>
+        <button className="btn" onClick={downloadPDF} style={{
+          backgroundColor: '#a1192d', color: '#fff', borderRadius: '0.5rem', padding: '10px 20px',
+          border: '2px solid #fff', transition: '0.3s', cursor: 'pointer',
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#8b0000'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#a1192d'}
+        >Download PDF</button>
+        <button className="btn" onClick={() => navigate('/Servicereports')} style={{
+          backgroundColor: '#a1192d', color: '#fff', borderRadius: '0.5rem', padding: '10px 20px',
+          border: '2px solid #fff', transition: '0.3s', cursor: 'pointer',
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#8b0000'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#a1192d'}
+        >Reports</button>
+        <button className="btn" onClick={() => navigate('/serviceDashboard')} style={{
+          backgroundColor: '#a1192d', color: '#fff', borderRadius: '0.5rem', padding: '10px 20px',
+          border: '2px solid #fff', transition: '0.3s', cursor: 'pointer',
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#8b0000'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#a1192d'}
+        >Dashboard</button>
       </div>
     </div>
   );
 };
 
-export default PieChartPage;
+export default StackedBarChartPage;

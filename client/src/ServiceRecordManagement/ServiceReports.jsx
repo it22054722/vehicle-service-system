@@ -221,7 +221,6 @@ function ServiceReports() {
               </ul>
             </div>
           </div>
-
           <div className="pcard" style={{ cursor: 'pointer' }}>
             <div className="pcard">
               <h5>Total Services in List</h5>
@@ -232,7 +231,7 @@ function ServiceReports() {
           <div className="pcard" style={{ cursor: 'pointer' }}>
             {/* New card for Parts Used for Services */}
             <div className="pcard parts-used-card">
-              <h5>Parts Used for Filtered Services</h5>
+              <h5>Parts Used and the Filtered Services</h5>
               <ul className="parts-list">
                 {filteredServices.map(service => (
                   <li key={service._id}>
@@ -255,7 +254,15 @@ function ServiceReports() {
         <button id="download-pdf-btn" onClick={generatePDF} className="download-pdf-btn">
           Download PDF
         </button>
-
+        
+        {/* New button to navigate to /serviceDashboard */}
+        <button
+          onClick={() => navigate('/serviceDashboard')}
+          className="navigate-dashboard-btn"
+          style={{ marginLeft: '10px' }} // Optional style to add some spacing between buttons
+        >
+        Dashboard
+        </button>
 
         {/* Service Records Table */}
         <div className="filtered-services">
