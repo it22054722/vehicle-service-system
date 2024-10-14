@@ -7,7 +7,7 @@ import { FaEnvelope, FaLock, FaUser, FaUserShield } from 'react-icons/fa';
 
 const admins = [
   { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/packageDashboard' },
-  { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/supplier/all' },
+  { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/sdashboard' },
   { name: 'Employee Manager', password: 'paman', redirectTo: '/dashboard' },
   { name: 'Service Record Manager', password: 'akash', redirectTo: '/serviceDashboard' },
   { name: 'Trainee Cordinator', password: 'manthi', redirectTo: '/Tdashboard' },
