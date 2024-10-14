@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { FaEnvelope, FaLock, FaUser, FaUserShield } from 'react-icons/fa';
 
 const admins = [
-  { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/view-packages' },
+  { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/packagedsahboard' },
   { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/supplier/all' },
   { name: 'Employee Manager', password: 'paman', redirectTo: '/dashboard' },
   { name: 'Service Record Manager', password: 'akash', redirectTo: '/serviceDashboard' },
