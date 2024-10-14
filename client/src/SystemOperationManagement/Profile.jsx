@@ -36,7 +36,7 @@ const Profile = () => {
     const fetchUserProfile = async (userId) => {
         try {
             const token = localStorage.getItem('authToken');
-            const userResponse = await axios.get(`http://localhost:8070/api/auth/users/${userId}`, {
+            const userResponse = await axios.get(`http://localhost:3001/api/auth/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUserProfile(userResponse.data);
@@ -45,7 +45,7 @@ const Profile = () => {
             setUpdatedVehicleType(userResponse.data.vehicleType);
 
             // Fetch package details
-            const packageResponse = await axios.get(`http://localhost:8070/api/bookings/user/${userId}`, {
+            const packageResponse = await axios.get(`http://localhost:3001/api/bookings/user/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setPackageDetails(packageResponse.data);
@@ -83,7 +83,7 @@ const Profile = () => {
             try {
                 const token = localStorage.getItem('authToken');
                 const userId = getUserIdFromToken(token);
-                await axios.delete(`http://localhost:8070/api/auth/users/${userId}`, {
+                await axios.delete(`http://localhost:3001/api/auth/users/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 localStorage.removeItem('authToken');
@@ -109,7 +109,7 @@ const Profile = () => {
                 vehicleType: updatedVehicleType,
             };
 
-            await axios.put(`http://localhost:8070/api/auth/users/${userId}`, formData, {
+            await axios.put(`http://localhost:3001/api/auth/users/${userId}`, formData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -132,7 +132,7 @@ const Profile = () => {
                 newPassword,
             };
 
-            await axios.put(`http://localhost:8070/api/auth/reset-password`, formData, {
+            await axios.put(`http://localhost:3001/api/auth/reset-password`, formData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

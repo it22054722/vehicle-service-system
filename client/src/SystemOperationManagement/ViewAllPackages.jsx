@@ -474,41 +474,42 @@ const ViewAllPackages = () => {
                     <hr className="separator-line" />
                   </div>
 
-                  <div className="card-body">
-                    <h5 className="card-title">{pkg.packageName}</h5>
-                    <p className="card-text">
-                      <i className="bi bi-cash me-1"></i><strong>Price:</strong> ${pkg.price}<br />
-                      <i className="bi bi-tags me-1"></i><strong>Category:</strong> {pkg.category}<br />
-                      <i className="bi bi-clock me-1"></i><strong>Duration:</strong> {pkg.duration} hours<br />
-                      <span className="highlight">
-                        <i className="bi bi-percent me-1"></i><strong>Discount:</strong> {pkg.discount}% 
-                      </span><br />
-                      <i className="bi bi-check-circle me-1"></i><strong>Availability:</strong> {pkg.availability ? 'Available' : 'Not Available'}<br />
+                  <div className="card-body" style={{ maxHeight: "100%", overflow: "hidden" }}>
+  <h5 className="card-title">{pkg.packageName}</h5>
+  <p className="card-text">
+    <i className="bi bi-cash me-1"></i><strong>Price:</strong> ${pkg.price}<br />
+    <i className="bi bi-tags me-1"></i><strong>Category:</strong> {pkg.category}<br />
+    <i className="bi bi-clock me-1"></i><strong>Duration:</strong> {pkg.duration} hours<br />
+    <span className="highlight">
+      <i className="bi bi-percent me-1"></i><strong>Discount:</strong> {pkg.discount}% 
+    </span><br />
+    <i className="bi bi-check-circle me-1"></i><strong>Availability:</strong> {pkg.availability ? 'Available' : 'Not Available'}<br />
+    <i className="bi bi-people me-1"></i><strong>Max Customers:</strong> {pkg.maxCustomers}
+  </p>
+  <div className="text-center">
+    <Link to={`/view-package/${pkg._id}`} className="btn btn-primary me-2">
+      <i className="bi bi-eye me-1"></i> View 
+    </Link>
+    <button 
+      onClick={() => handleBookClick(pkg)} 
+      className="btn btn-primary me-2"
+      disabled={ pkg.maxCustomers === 0}
+      style={{
+        backgroundColor: "green",
+        borderColor: "green",
+      }}
+    >
+      <i className="bi bi-calendar-plus me-1"></i> Book
+    </button>
+    {/* Display "All slots are finished" if no slots left */}
+    { pkg.maxCustomers === 0 && (
+      <div className="mt-2 text-danger" style={{ overflow: "hidden", whiteSpace: "nowrap" }}>
+        All slots are finished
+      </div>
+    )}
+  </div>
+</div>
 
-                      <i className="bi bi-people me-1"></i><strong>Max Customers:</strong> {pkg.maxCustomers} {/* Added this line */}
-                      
-                    </p>
-                    <div className="text-center">
-                      <Link to={`/view-package/${pkg._id}`} className="btn btn-primary me-2">
-                        <i className="bi bi-eye me-1"></i> View 
-                      </Link>
-                      <button 
-                        onClick={() => handleBookClick(pkg)} 
-                        className="btn btn-primary me-2"
-                        disabled={ pkg.maxCustomers === 0}
-                        style={{
-                          backgroundColor: "green",
-                          borderColor: "green",
-                        }}
-                      >
-                        <i className="bi bi-calendar-plus me-1"></i> Book
-                      </button>
-                      {/* Display "All slots are finished" if no slots left */}
-                      { pkg.maxCustomers === 0 ? (
-                        <div className="mt-2 text-danger">All slots are finished</div>
-                      ) : null}
-                    </div>
-                  </div>
                 </div>
               </div>
             ))
