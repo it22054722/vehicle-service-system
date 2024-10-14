@@ -161,6 +161,7 @@ const ViewAllPackages = () => {
       setSelectedDate(date);
     }
   };
+
   const handleProceedToPayment = async () => {
     const token = localStorage.getItem('authToken');
     if (!token) {
@@ -239,7 +240,7 @@ const ViewAllPackages = () => {
         const updatedAvailability = updatedMaxCustomers > 0;
 
         // API call to update the package's maxCustomers and availability
-        await axios.put(`http://localhost:8070/package/update/${selectedPackage._id}`, {
+        await axios.put(`http://localhost:3001/package/update/${selectedPackage._id}`, {
             maxCustomers: updatedMaxCustomers,
             availability: updatedAvailability,
         }, {
@@ -265,6 +266,11 @@ const ViewAllPackages = () => {
             paymentMethod: selectedBank,
           
         };
+        
+
+      
+
+
 
         // Save receipt data to local storage
         const existingReceipts = JSON.parse(localStorage.getItem('receipts')) || [];
@@ -325,6 +331,8 @@ const ViewAllPackages = () => {
         Swal.fire('Error!', error.response ? error.response.data.message : 'An error occurred during payment.', 'error');
     }
 };
+
+ 
  
   // Helper function to extract userId from JWT token
   const getUserIdFromToken = (token) => {
