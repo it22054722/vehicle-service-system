@@ -33,7 +33,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8070/api/auth/register', {
+      const response = await axios.post('http://localhost:3001/api/auth/register', {
         username,
         email,
         password,
@@ -50,7 +50,7 @@ const Register = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const response = await axios.post('http://localhost:8070/api/auth/register', {
+      const response = await axios.post('http://localhost:3001/api/auth/register', {
         username: user.displayName,
         email: user.email,
         vehicleType,
