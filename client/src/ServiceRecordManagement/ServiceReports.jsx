@@ -107,9 +107,11 @@ function ServiceReports() {
   const generatePDF = () => {
     const input = document.getElementById('service-reports-content');
     const downloadButton = document.getElementById('download-pdf-btn');
-    
+    const dashboardbtn = document.getElementById('navigate-dashboard-btn');
     // Hide the download button
     downloadButton.style.display = 'none';
+
+    dashboardbtn.style.display = 'none';
     
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
@@ -147,6 +149,8 @@ function ServiceReports() {
 
       // Show the download button again
       downloadButton.style.display = 'block';
+
+      dashboardbtn.style.display = 'block';
     });
   };
 
@@ -257,6 +261,7 @@ function ServiceReports() {
         
         {/* New button to navigate to /serviceDashboard */}
         <button
+          id="navigate-dashboard-btn"
           onClick={() => navigate('/serviceDashboard')}
           className="navigate-dashboard-btn"
           style={{ marginLeft: '10px' }} // Optional style to add some spacing between buttons
