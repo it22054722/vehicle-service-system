@@ -128,7 +128,7 @@ const PackageHeader = () => {
               <Link className="nav-link text-dark fw-bold" to="/AboutUs" style={linkStyle}>About Us</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-bold" to="/dashboard/allfeed" style={linkStyle}>FeedBacks</Link>
+              <Link className="nav-link text-dark fw-bold" to="/feedbackDashboard/allFeed" style={linkStyle}>FeedBacks</Link>
             </li>
 
             {/* Conditionally show "Add Package" and "Package-List" for admin */}
@@ -150,9 +150,15 @@ const PackageHeader = () => {
 
           {/* Search form */}
           <form className="d-flex ms-auto">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
+    <input
+        className="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        style={{ width: '300px' }} // adjust the width as needed
+    />
+</form>
+
         </div>
       </div>
     </nav>

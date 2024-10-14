@@ -88,10 +88,17 @@ export default function FeedbackSummary() {
           <Line data={data} options={options} />
         </div>
         <Link
-          to="/dashboard/allfeed"
+          to="/ManagerDashboard"
           className="d-block text-danger text-lg font-weight-bold text-center mt-3"
         >
           Feedback Summary
+        </Link>
+        {/* New button for viewing feedbacks */}
+        <Link
+          to="/Feedbacksort"
+          className="btn btn-primary d-block text-center mt-4"
+        >
+          View Feedbacks
         </Link>
       </div>
     </div>

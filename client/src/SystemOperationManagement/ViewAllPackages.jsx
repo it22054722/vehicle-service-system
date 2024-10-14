@@ -356,88 +356,102 @@ const ViewAllPackages = () => {
   return (
     <div className="container mt-4">
       <ToastContainer />
+      
       <div className="text-center mb-5">
-        <h3 style={{ marginTop: '90px', color: 'white' }}>All Packages</h3>
+  <h3 style={{ marginTop: '90px', color: '#FFFFFF' }}>All Packages</h3>
 
-        {/* Search Bar, Sort By, and Price Range */}
-        <div className="row align-items-center justify-content-between mb-4">
-          <div className="col-md-4">
-            <div className="input-group" style={{ position: 'relative', width: '100%' }}>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search packages..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{
-                  borderRadius: '25px',
-                  border: '1px solid #ced4da',
-                  paddingRight: '40px', // Adding padding to the right for the icon
-                  backgroundColor: '#F5FFFA', // Light background color
-                  color: '#495057', // Text color
-                  height: '45px', // Increase the height for larger size
-                  top:'40%',
-                }}
-              />
-              <FontAwesomeIcon
-                icon={faSearch}
-                style={{
-                  position: 'absolute',
-                  right: '10px', // Position the icon inside the input on the right
-                  top: '35%',
-                  transform: 'translateY(-50%)', // Center the icon vertically
-                  color: '#007bff', // Color of the icon (change as needed)
-                  fontSize: '25px', // Increase the size of the icon
-                }}
-              />
-            </div>
-          </div>
-          <div className="col-md-4">
-            <select
-              className="form-select"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              style={{
-                borderRadius: '25px', // Rounded corners
-                border: '1px solid #ced4da', // Border color
-                backgroundColor: '#F5FFFA', // Light background color
-                color: '#495057', // Text color
-                padding: '10px 15px', // Padding for better spacing
-                height: '45px', // Adjust height for consistency
-                fontSize: '16px', // Font size for readability
-                transition: 'border-color 0.3s ease', // Smooth transition for border color
-              }}
-            >
-              <option value="default" style={{ color: '#888' }}>Sort By</option>
-              <option value="max-price">Max Price First</option>
-              <option value="min-price">Min Price First</option>
-            </select>
-          </div>
-          <div className="col-md-4">
-            <select
-              className="form-select"
-              value={priceRange.join(',')}
-              onChange={(e) => setPriceRange(e.target.value.split(',').map(Number))}
-              style={{
-                borderRadius: '25px', // Rounded corners
-                border: '1px solid #ced4da', // Border color
-                backgroundColor: '#F5FFFA', // Light background color
-                color: '#495057', // Text color
-                padding: '10px 15px', // Padding for better spacing
-                height: '45px', // Adjust height for consistency
-                fontSize: '16px', // Font size for readability
-                transition: 'border-color 0.3s ease', // Smooth transition for border color
-              }}
-            >
-              <option value="0,10" style={{ color: '#888' }}>Price Range: $0 - $10</option>
-              <option value="10,100">Price Range: $10 - $100</option>
-              <option value="100,500">Price Range: $100 - $500</option>
-              <option value="500,1000">Price Range: $500 - $1000</option>
-              <option value="1000,1500">Price Range: $1000 - $5000</option>
-            </select>
-          </div>
-        </div>
+  {/* Search Bar, Sort By, and Price Range */}
+  <div className="row align-items-center justify-content-center mb-4" style={{ gap: '20px', marginTop: '15px' }}>
+    {/* Search Bar */}
+    <div className="col-md-3" style={{ maxWidth: '320px', marginTop: '15px' }}>
+      <div className="input-group" style={{ position: 'relative', width: '100%' }}>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search packages..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            borderRadius: '30px',
+            border: '2px solid #FF5733', // Bold coral border
+            paddingRight: '50px',
+            paddingLeft: '20px',
+            background: 'linear-gradient(135deg, rgba(255, 218, 185, 0.9), rgba(255, 160, 122, 0.8))', // Gradient with soft peach to coral
+            color: '#C70039', // Deep red text color
+            fontWeight: '600',
+            height: '50px',
+            boxShadow: '0 6px 15px rgba(255, 87, 51, 0.6)', // Bright coral shadow
+            transition: 'all 0.3s ease-in-out',
+          }}
+        />
+        <FontAwesomeIcon
+          icon={faSearch}
+          style={{
+            position: 'absolute',
+            right: '15px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: '#FF5733',
+            fontSize: '22px',
+          }}
+        />
       </div>
+    </div>
+
+    {/* Sort By Dropdown */}
+    <div className="col-md-3" style={{ maxWidth: '320px' }}>
+      <select
+        className="form-select"
+        value={sortOption}
+        onChange={(e) => setSortOption(e.target.value)}
+        style={{
+          borderRadius: '30px',
+          border: '2px solid #33FF57', // Vivid green border
+          background: 'linear-gradient(135deg, rgba(144, 238, 144, 0.8), rgba(102, 205, 170, 0.8))', // Gradient light green to aqua
+          color: '#1E8449', // Deep green text color
+          fontWeight: '600',
+          padding: '10px 15px',
+          height: '50px',
+          fontSize: '16px',
+          boxShadow: '0 6px 15px rgba(51, 255, 87, 0.5)', // Bright green shadow
+          transition: 'all 0.3s ease-in-out',
+        }}
+      >
+        <option value="default" style={{ color: '#666' }}>Sort By</option>
+        <option value="max-price">Max Price First</option>
+        <option value="min-price">Min Price First</option>
+      </select>
+    </div>
+
+    {/* Price Range Dropdown */}
+    <div className="col-md-3" style={{ maxWidth: '320px' }}>
+      <select
+        className="form-select"
+        value={priceRange.join(',')}
+        onChange={(e) => setPriceRange(e.target.value.split(',').map(Number))}
+        style={{
+          borderRadius: '30px',
+          border: '2px solid #33C1FF', // Bright blue border
+          background: 'linear-gradient(135deg, rgba(173, 216, 230, 0.8), rgba(135, 206, 250, 0.8))', // Gradient light blue to sky blue
+          color: '#0A74DA', // Deep blue text color
+          fontWeight: '600',
+          padding: '10px 15px',
+          height: '50px',
+          fontSize: '16px',
+          boxShadow: '0 6px 15px rgba(51, 193, 255, 0.5)', // Bright blue shadow
+          transition: 'all 0.3s ease-in-out',
+        }}
+      >
+        <option value="0,10" style={{ color: '#666' }}>Price Range: $0 - $10</option>
+        <option value="10,100">Price Range: $10 - $100</option>
+        <option value="100,500">Price Range: $100 - $500</option>
+        <option value="500,1000">Price Range: $500 - $1000</option>
+        <option value="1000,1500">Price Range: $1000 - $5000</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 
       <div className="scrollable-container">
         <div className="row">

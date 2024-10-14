@@ -56,6 +56,8 @@ import AllFeedback from "./FeedbackManagment/Allfeedback";
 import Massage from "./FeedbackManagment/massage";
 import ManagerView from "./FeedbackManagment/Mangerview";
 import FeedbackSummary from "./FeedbackManagment/FeedbackSummery";
+import ManagerDashboard from './FeedbackManagment/ManagerDashboard';
+import Feedbacksort from './FeedbackManagment/Feedbacksort';
 
 /* Shared Components */
 import PackageHeader from "./ServiceRecordManagement/PackageHeader";
@@ -87,7 +89,7 @@ import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
 import Profile from "./SystemOperationManagement/Profile";
 import BookingPackages from "./SystemOperationManagement/BookingPackages";
 import PackageDashboard from "./SystemOperationManagement/PackageDashboard";
-import ReceiptTable from "./components/ReceiptTable";
+import ReceiptTable from "./SystemOperationManagement/ReceiptTable";
 //import Booking from './components/Booking';
 // import Home from "./SystemOperationManagement/Pages/Home";
 import Login2 from "./Authentications/Login2";
@@ -97,6 +99,9 @@ import AddSupplier from "./SupplierManagement/AddSupplier";
 import AllSuppliers from "./SupplierManagement/AllSuppliers";
 import UpdateSupplier from "./SupplierManagement/UpdateSupplier ";
 import DeleteSupplier from "./SupplierManagement/DeleteSupplier";
+
+//contact us
+import ContactUs from "./TraineeManagement/ContactUs";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -142,7 +147,8 @@ function App() {
         <Route path='/report' element={<Report/>}></Route>
         <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
         <Route path='/TaskProgress' element={<TaskProgress/>}></Route>
-        
+        <Route path='/contactus' element={<ContactUs/>}></Route>
+
         <Route path="/AppTable" element={<AppTable />} />
         <Route path="/Createappointment" element={<Createappointment />} />
         <Route path="/Updateappointment/:id" element={<Updateappointment />} />
@@ -158,6 +164,8 @@ function App() {
           <Route path="/managerView" element={<ManagerView />} />
           <Route path="/pages/FeedbackSummary" element={<FeedbackSummary />} />
           <Route path="/feed" element={<AllFeedback />} />
+          <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          <Route path="/Feedbacksort" element={<Feedbacksort />} />
 
           {/*Inventory Management Routes */}
           <Route path="/inventory" element={<Inventory />} />
