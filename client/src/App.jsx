@@ -99,14 +99,11 @@ import AddSupplier from "./SupplierManagement/AddSupplier";
 import AllSuppliers from "./SupplierManagement/AllSuppliers";
 import UpdateSupplier from "./SupplierManagement/UpdateSupplier ";
 import DeleteSupplier from "./SupplierManagement/DeleteSupplier";
-<<<<<<< HEAD
 import SupplierDashboard from "./SupplierManagement/SupplierDashboard";
-
-=======
 
 //contact us
 import ContactUs from "./TraineeManagement/ContactUs";
->>>>>>> 51191a4d3da1d70a8140ea73954e6ef37ef34ba2
+
 function App() {
   const [count, setCount] = useState(0);
 
