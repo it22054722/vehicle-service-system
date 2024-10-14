@@ -8,12 +8,12 @@ import { FaEnvelope, FaLock, FaUser, FaUserShield } from 'react-icons/fa';
 const admins = [
   { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/view-packages' },
   { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/supplier/all' },
-  { name: 'HR Manager', password: 'password3', redirectTo: '/admin3' },
-  { name: 'IT Support Manager', password: 'password4', redirectTo: '/admin4' },
-  { name: 'Sales Manager', password: 'password5', redirectTo: '/admin5' },
-  { name: 'Marketing Manager', password: 'password6', redirectTo: '/admin6' },
-  { name: 'Operations Manager', password: 'password7', redirectTo: '/admin7' },
-  { name: 'Product Manager', password: 'password8', redirectTo: '/admin8' },
+  { name: 'Employee Manager', password: 'paman', redirectTo: '/dashboard' },
+  { name: 'Service Record Manager', password: 'akash', redirectTo: '/serviceDashboard' },
+  { name: 'Trainee Cordinator', password: 'manthi', redirectTo: '/Tdashboard' },
+  { name: 'Customer Affaire Manager', password: 'amanda', redirectTo: '/ManagerDashboard' },
+  { name: 'Appoinment Manager', password: 'imal', redirectTo: '/AppTable' },
+  { name: 'Inventory Manager', password: 'lashan', redirectTo: '/inventoryDashboard' },
 ];
 
 const Login = () => {
@@ -149,13 +149,23 @@ const Login = () => {
               </div>
             </>
           )}
-          <button type="submit" className="btn btn-primary w-100 rounded-pill" disabled={loading}>
-            {loading ? (
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            ) : (
-              'Login'
-            )}
-          </button>
+          <button
+  type="submit"
+  className="btn w-100 rounded-pill"
+  style={{ backgroundColor: '#8B0000', color: '#fff' , fontWeight:"bold"}}
+  disabled={loading}
+>
+  {loading ? (
+    <span
+      className="spinner-border spinner-border-sm"
+      role="status"
+      aria-hidden="true"
+    ></span>
+  ) : (
+    'Login'
+  )}
+</button>
+
         </form>
       </div>
     </div>

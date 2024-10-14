@@ -46,7 +46,19 @@ function UpdateTrainee() {
     return "";
   };
 
-  const Update = (e) => {
+  const checkTraineeIDExists = (idToCheck) => {
+    return axios.get('http://localhost:3001/trainees') // Adjust the endpoint to fetch all trainees
+      .then(response => {
+        const trainees = response.data;
+        return trainees.some(trainee => trainee.trainee_id === idToCheck && trainee._id !== id); // Check if ID exists but is not the current one
+      })
+      .catch(err => {
+        console.log("Error fetching trainees:", err);
+        return false; // Assume it does not exist if there's an error
+      });
+  };
+
+  const Update = async (e) => {
     e.preventDefault();
     const validationError = validate();
     if (validationError) {
@@ -55,16 +67,28 @@ function UpdateTrainee() {
     }
     setError("");
 
+    // Check if the trainee ID already exists
+    const idExists = await checkTraineeIDExists(trainee_id);
+    if (idExists) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'This trainee ID is already added.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+      return; // Stop the update process if ID exists
+    }
+
     axios.put("http://localhost:3001/updateTrainee/" + id, { trainee_id, name, age, trainee_periode, email, phone_number })
       .then(result => {
         console.log(result);
-        
+
         // Show success message using SweetAlert2
         Swal.fire({
           title: 'Success!',
           text: 'Trainee record successfully updated.',
           icon: 'success',
-          confirmButtonText: false // No confirm button needed
+          confirmButtonText: 'OK' // Change to have a confirm button
         }).then(() => {
           navigate('/trainee');
         });
