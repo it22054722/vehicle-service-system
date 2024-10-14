@@ -115,7 +115,7 @@ const Home = () => {
           Contact us for any inquiries or to schedule your service appointment.
         </p>
         <Link
-          to="/contact"
+          to="/contactus"
           className="btn btn-primary"
           style={{ width: "max-content" }}
         >
