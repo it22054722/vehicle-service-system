@@ -28,6 +28,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import logo from '../systemoperationmanagement/assets/Levaggio.png';
 
 const API_TOKEN =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmY5NzZiNGM0YzY0YzUzM2Q3YWRkNDUiLCJpYXQiOjE3Mjc2MjY5NjcsImV4cCI6MTczMDIxODk2N30.ckM7DBV0mm5TnN3xlyCtu_Yfw9T_fQIB5AWdg4c74Cw";
 const API_URL = "http://localhost:3001/api/auth/users";
@@ -135,33 +136,60 @@ const AllUsers = () => {
 
   const handleGenerateReport = async () => {
     setReportLoading(true);
+    
     setTimeout(() => {
       const doc = new jsPDF();
+      
+      // Outline the PDF report
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      doc.setLineWidth(1);
+      doc.rect(10, 10, pageWidth - 20, pageHeight - 20); // Draw rectangle with margins
+  
+      // Add Levaggio logo
+      const imgWidth = 40;
+      const imgHeight = 40;
+      const imgX = (pageWidth - imgWidth) / 2; // Center horizontally
+      doc.addImage(logo, 'PNG', imgX, 15, imgWidth, imgHeight, undefined, 'FAST'); // Centered logo
+  
+      // Title and generated date
       doc.setFontSize(18);
-      doc.text("User Report", 14, 22);
-
+      doc.text('Levaiggo Booking Report', pageWidth / 2, 70, { align: 'center' });
+      doc.setFontSize(10);
+      const currentDate = new Date().toLocaleDateString();
+      doc.text(`Generated on: ${currentDate}`, pageWidth / 2, 80, { align: 'center' });
+  
+      // Total users and total vehicle types
+      const totalUsers = users.length;
+      const totalVehicleTypes = Object.keys(vehicleTypeData).length; // Assuming vehicleTypeData is an object where keys are vehicle types
+      doc.setFontSize(12);
+      doc.text(`Total Users: ${totalUsers}`, 14, 95);
+      doc.text(`Total Vehicle Types: ${totalVehicleTypes}`, 14, 105);
+  
+      // User Registrations by Day
       doc.setFontSize(14);
-      doc.text("User Registrations by Day", 14, 40);
-
+      doc.text("User Registrations by Day", 14, 125);
       const dayData = Object.keys(weekdayData).map((key) => [key, weekdayData[key]]);
       doc.autoTable({
-        startY: 50,
+        startY: 135,
         head: [['Day', 'Number of Users']],
         body: dayData,
       });
-
+  
+      // New page for Vehicle Type Distribution
       doc.addPage();
       doc.text("Vehicle Type Distribution", 14, 22);
-
       const vehicleDataForTable = Object.keys(vehicleTypeData).map((key) => [key, vehicleTypeData[key]]);
       doc.autoTable({
         startY: 32,
         head: [['Vehicle Type', 'Number of Users']],
         body: vehicleDataForTable,
       });
-
+  
+      // Save the PDF
       doc.save("user-report.pdf");
-
+  
+      // Reset loading state and show success alert
       setReportLoading(false);
       setAlert({
         open: true,
@@ -170,6 +198,7 @@ const AllUsers = () => {
       });
     }, 3000);
   };
+  
 
   const handleSearchChange = (event) => {
     const term = event.target.value.toLowerCase();
@@ -184,9 +213,7 @@ const AllUsers = () => {
   };
 
   return (
-    <div
-  className="d-flex justify-content-center align-items-center" 
-  style={{ height: "70vh", maxHeight: "70vh", overflowY: "auto", marginTop: "80px" }} 
+    <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh", maxHeight: "100vh", overflowY: "auto", marginTop: "80px" }} 
 >
       <div className="col-md-8">
         <Paper elevation={5} className="p-4" style={{ backgroundColor: "white", borderRadius: "10px" }}> {/* Rounded corners */}

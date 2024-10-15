@@ -85,7 +85,7 @@ const PackageDashboard = () => {
           textShadow: "3px 3px 8px rgba(0, 0, 0, 0.9)", 
           color: "#ffc857" 
         }}>
-          Package Management Dashboard
+          Package & User Management Dashboard
         </h1>
 
         <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>

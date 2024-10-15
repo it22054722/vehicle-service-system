@@ -122,7 +122,7 @@ const UpdatePackage = () => {
     };
 
     return (
-        <div className="container d-flex align-items-center justify-content-center min-vh-100 mt-5">
+        <div className="d-flex align-items-center justify-content-center vh-100" style={{ marginTop: '150px' }}>
             {loading ? (
                 <div className="spinner-border text-primary" role="status">
                     <span className="sr-only">Loading...</span>
@@ -252,7 +252,7 @@ const UpdatePackage = () => {
                                     <div className="row mb-3">
                                         <div className="col-md-6">
                                             <label htmlFor="duration" className="form-label">
-                                                <i className="bi bi-hourglass icon-color me-2"></i>Duration (hours)
+                                                <i className="bi bi-clock icon-color me-2"></i>Duration (days)
                                             </label>
                                             <input 
                                                 type="number" 
@@ -269,7 +269,7 @@ const UpdatePackage = () => {
                                         </div>
                                         <div className="col-md-6">
                                             <label htmlFor="maxCustomers" className="form-label">
-                                                <i className="bi bi-people icon-color me-2"></i>Max Customers
+                                                <i className="bi bi-person-circle icon-color me-2"></i>Max Customers
                                             </label>
                                             <input 
                                                 type="number" 
@@ -305,8 +305,12 @@ const UpdatePackage = () => {
                                     </div>
 
                                     <div className="text-center">
-                                        <button type="submit" className="btn btn-primary btn-lg">
-                                            <i className="bi bi-save me-2"></i>Save Changes
+                                        <button 
+                                            type="submit" 
+                                            className="btn btn-success btn-lg"
+                                            style={{ backgroundColor: '#28a745' }} // Custom color
+                                        >
+                                            Save Changes
                                         </button>
                                     </div>
                                 </form>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { FaTrash } from 'react-icons/fa';
 import { Pie, Bar } from 'react-chartjs-2';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import logo from '../systemoperationmanagement/assets/Levaggio.png';
 
 const ReceiptTable = () => {
     const [receipts, setReceipts] = useState([]);
@@ -44,10 +45,8 @@ const ReceiptTable = () => {
     const totalPrice = filteredReceipts.reduce((sum, receipt) => sum + parseFloat(receipt.totalPrice || 0), 0);
     const totalPackages = filteredReceipts.length;
 
-    // Get all unique package names
     const allPackages = [...new Set(receipts.map(receipt => receipt.packageName))];
 
-    // Prepare data for pie chart to show distribution of packages by count
     const packageCounts = allPackages.map(packageName => {
         const count = filteredReceipts.filter(receipt => receipt.packageName === packageName).length;
         return {
@@ -60,8 +59,8 @@ const ReceiptTable = () => {
         labels: packageCounts.map(item => item.packageName),
         datasets: [{
             data: packageCounts.map(item => item.count),
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+            backgroundColor: ['#FF6384', '#FF9F40', '#FFCD3C', '#4BC0C0', '#9966FF'],
+            hoverBackgroundColor: ['#FF6384', '#FF9F40', '#FFCD3C', '#4BC0C0', '#9966FF']
         }]
     };
 
@@ -69,50 +68,82 @@ const ReceiptTable = () => {
         labels: packageCounts.map(item => item.packageName),
         datasets: [{
             label: 'Price Range',
-            data: packageCounts.map(item => parseFloat(item.count)), // This could be adjusted depending on what you want to show
-            backgroundColor: '#36A2EB',
-            borderColor: '#36A2EB',
+            data: packageCounts.map(item => parseFloat(item.count)),
+            backgroundColor: '#FF9F40',
+            borderColor: '#FF9F40',
             borderWidth: 1,
         }]
     };
 
     const generateReport = () => {
         const doc = new jsPDF();
-        doc.setFontSize(18);
-        doc.text('Levaiggo Booking Report', 14, 20);
-        doc.setFontSize(12);
-        doc.text(`Total Packages: ${totalPackages}`, 14, 30);
-        doc.text(`Total Revenue: $${totalPrice.toFixed(2)}`, 14, 36);
-        doc.setFontSize(14);
-        doc.text('Booking Details:', 14, 46);
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const currentDate = new Date().toLocaleDateString();
 
-        const rows = filteredReceipts.map(receipt => ([
-            receipt.packageName,
-            `$${receipt.originalPrice}`,
-            `${receipt.discount}%`,
-            `$${receipt.totalPrice}`,
-            receipt.bookingDate,
-            receipt.paymentMethod,
+        // Add outline to the PDF report
+        doc.setLineWidth(1);
+        doc.rect(10, 10, pageWidth - 20, pageHeight - 20); // Draw rectangle with margins
+
+        // Add header with logo, title, and date
+        doc.setFontSize(18);
+        const imgWidth = 40;
+        const imgHeight = 40;
+        const imgX = (pageWidth - imgWidth) / 2; // Center horizontally
+        doc.addImage(logo, 'PNG', imgX, 15, imgWidth, imgHeight, undefined, 'FAST'); // Centered and rounded logo
+
+        doc.setFontSize(14);
+        doc.text('Levaiggo Booking Report', pageWidth / 2, 70, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${currentDate}`, pageWidth / 2, 80, { align: 'center' });
+
+        // Add total revenue section
+        doc.setFontSize(12);
+        doc.text('Total Revenue: $' + totalPrice.toFixed(2), 14, 95);
+
+        // Add table with booking details
+        doc.setFontSize(12);
+        doc.text('Booking Details:', 14, 110);
+        
+        const rows = filteredReceipts.map(receipt => ([ 
+            receipt.packageName, 
+            `$${receipt.originalPrice}`, 
+            `${receipt.discount}%`, 
+            `$${receipt.totalPrice}`, 
+            receipt.bookingDate, 
+            receipt.paymentMethod 
         ]));
 
         doc.autoTable({
             head: [['Package Name', 'Original Price', 'Discount', 'Total Price', 'Booking Date', 'Payment Method']],
             body: rows,
-            startY: 52,
+            startY: 115,
             theme: 'striped',
             styles: {
                 lineColor: [0, 0, 0],
-                lineWidth: 0.2
+                lineWidth: 0.1,
             },
+            margin: { left: 14, right: 14 }
         });
+
+        // Add footer with page number and signature area
+        const totalPages = doc.internal.getNumberOfPages();
+
+        for (let i = 1; i <= totalPages; i++) {
+            doc.setPage(i);
+            const pageNoText = `Page ${i} of ${totalPages}`;
+            doc.setFontSize(10);
+            doc.text(pageNoText, pageWidth / 2, pageHeight - 10, { align: 'center' });
+            doc.text('Authorized Signature: Pasindu ___________________', 14, pageHeight - 10);
+        }
 
         doc.save('Booking_Report.pdf');
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-            <div className="card shadow-lg p-4" style={{ backgroundColor: 'white', borderRadius: '10px', maxWidth: '90%' }}>
-                <h2 className="text-center mb-4" style={{ color: '#4CAF50' }}>Booking Table</h2>
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-opacity-75  style={{ minHeight: '100vh', marginTop: '80px' }}">
+            <div className="card shadow-lg p-1" style={{ backgroundColor: '#f0f8ff', borderRadius: '20px', maxWidth: '90%', border: '1px solid #ccc' }}>
+                <h2 className="text-center mb-4" style={{ color: '#333' }}>Booking Table</h2>
 
                 <div className="d-flex justify-content-between mb-3">
                     <input
@@ -124,20 +155,13 @@ const ReceiptTable = () => {
                         style={{ maxWidth: '300px' }}
                     />
                     <div>
-                        <p><strong>Total Packages:</strong> {totalPackages}</p>
-                        <p><strong>Total Revenue:</strong> ${totalPrice.toFixed(2)}</p>
+                        <p style={{ color: '#333' }}><strong>Total Packages:</strong> {totalPackages}</p>
+                        <p style={{ color: '#333' }}><strong>Total Revenue:</strong> ${totalPrice.toFixed(2)}</p>
                     </div>
                 </div>
 
-                <div className="mb-3">
-                    <button onClick={() => setShowCharts(true)} className="btn btn-success me-2">
-                        Show Charts
-                    </button>
-                    <button onClick={generateReport} className="btn btn-primary">Generate Report</button>
-                </div>
-
                 <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                    <table className="table table-striped table-hover table-bordered">
+                    <table className="table table-striped table-hover table-bordered" style={{ backgroundColor: '#fff' }}>
                         <thead className="table-dark">
                             <tr>
                                 <th className="text-end">Receipt ID</th>
@@ -161,11 +185,11 @@ const ReceiptTable = () => {
                                     <td className="text-end">{receipt.bookingDate}</td>
                                     <td className="text-end">{receipt.paymentMethod}</td>
                                     <td className="text-center">
-                                        <button
+                                        <button 
+                                            className="btn btn-danger"
                                             onClick={() => handleDelete(index)}
-                                            className="btn btn-danger btn-sm"
                                         >
-                                            <FaTrash /> Delete
+                                            <FaTrash />
                                         </button>
                                     </td>
                                 </tr>
@@ -173,36 +197,59 @@ const ReceiptTable = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-            {/* Modal for displaying charts */}
-            <Modal show={showCharts} onHide={() => setShowCharts(false)} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>Package Analysis</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
-                        <div style={{ width: '35%' }}>
-                            <h5>Package Availability</h5>
-                            <Pie data={availabilityData} />
-                        </div>
-                        <div style={{ width: '35%' }}>
-                            <h5>Overall Distribution</h5>
-                            <Pie data={availabilityData} /> {/* Updated to show counts of packages */}
-                        </div>
-                        <div style={{ width: '45%', marginTop: '20px' }}>
-                            <h5>Price Range</h5>
-                            <Bar data={minMaxPriceData} options={{
-                                responsive: true, 
-                                scales: {
-                                    x: { beginAtZero: true },
-                                    y: { beginAtZero: true }
-                                }
-                            }} />
-                        </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
+                <div className="text-center mt-4">
+                    <button 
+                        onClick={() => setShowCharts(true)} 
+                        className="btn me-2"
+                        style={{ 
+                            backgroundColor: '#FF5733',
+                            color: '#fff',
+                            width: '150px',
+                            height: '45px',
+                            border: 'none',
+                            borderRadius: '5px',
+                            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
+                            transition: 'background-color 0.3s',
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#C70039'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FF5733'}
+                    >
+                        Show Charts
+                    </button>
+                    <button 
+                        onClick={generateReport} 
+                        className="btn"
+                        style={{ 
+                            backgroundColor: '#28a745',
+                            color: '#fff',
+                            width: '150px',
+                            height: '45px',
+                            border: 'none',
+                            borderRadius: '5px',
+                            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
+                            transition: 'background-color 0.3s',
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#218838'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#28a745'}
+                    >
+                        Generate PDF
+                    </button>
+                </div>
+
+                <Modal show={showCharts} onHide={() => setShowCharts(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Charts Overview</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5 className="text-center">Package Distribution</h5>
+                        <Pie data={availabilityData} />
+                        <h5 className="text-center mt-4">Total Price Distribution</h5>
+                        <Bar data={minMaxPriceData} />
+                    </Modal.Body>
+                   
+                </Modal>
+            </div>
         </div>
     );
 };
