@@ -176,7 +176,7 @@ function App() {
           <Route path="/inventoryDashboard" element={<InventoryDashboard />} />
           <Route path="/inventoryCreate" element={<CreateItem />} />
           <Route path="/low-inventory" element={<LowInventory />} />
-          <Route path="/inventory/summary" element={<InventorySummary />} />
+          <Route path="/summary" element={<InventorySummary />} />
 
           {/* System Operation Manager Routes */}
           <Route path="/packageDashboard" element={<PackageDashboard />} />

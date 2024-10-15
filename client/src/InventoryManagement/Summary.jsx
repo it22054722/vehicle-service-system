@@ -1,13 +1,17 @@
-// InventoryManagement/Summary.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const InventorySummary = () => {
   const [summary, setSummary] = useState({
     totalItems: 0,
     outOfStockItems: 0,
+    outOfStockItemNames: [],
     mostUsedItems: [],
   });
+
+  const navigate = useNavigate(); // Initialize the navigate function
 
   useEffect(() => {
     // Fetch inventory data for summary
@@ -15,50 +19,96 @@ const InventorySummary = () => {
       .then((response) => {
         const items = response.data;
         const totalItems = items.length;
-        const outOfStockItems = items.filter(item => item.Quantity === 0).length;
 
-        // Sort items by usage (assuming you have a 'usage' field in your model)
-        const mostUsedItems = items.sort((a, b) => b.Quantity - a.Quantity).slice(0, 5); // Get top 5 most used items
+        // Calculate out of stock items and their names
+        const outOfStockItems = items.filter(item => item.Quantity === 0);
+        const outOfStockItemNames = outOfStockItems.map(item => item.ItemName); // Get names of out of stock items
 
-        setSummary({ totalItems, outOfStockItems, mostUsedItems });
+        // Filter and sort most used items with quantity greater than 10
+        const mostUsedItems = items
+          .filter(item => item.Quantity > 10) // Only include items with Quantity > 10
+          .sort((a, b) => b.Quantity - a.Quantity) // Sort by quantity in descending order
+          .slice(0, 5); // Take the top 5 most used items
+
+        setSummary({
+          totalItems,
+          outOfStockItems: outOfStockItems.length,
+          outOfStockItemNames,
+          mostUsedItems
+        });
       })
       .catch(err => console.error(err));
   }, []);
 
+  const cardData = [
+    { title: "Total Items", value: summary.totalItems },
+    { title: "Out of Stock", value: summary.outOfStockItems > 0 
+        ? summary.outOfStockItemNames.join(', ') 
+        : "No out of stock items" }, // Show names of out of stock items
+    { title: "Most Used Items", value: summary.mostUsedItems.length > 0 
+        ? summary.mostUsedItems.map(item => `${item.ItemName} - ${item.Quantity}`).join(', ') 
+        : "No items with quantity > 10" }, // Handle case when no items qualify
+  ];
+
   return (
-    <div className="container mt-4">
-      <h2 className="text-center">Inventory Summary</h2>
-      <div className="row mt-4">
-        <div className="col-md-4">
-          <div className="card text-center">
-            <div className="card-body">
-              <h5 className="card-title">Total Items</h5>
-              <p className="card-text">{summary.totalItems}</p>
-            </div>
-          </div>
+    <div
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '90px 0',
+        fontFamily: "'Poppins', sans-serif",
+      }}
+    >
+      <div style={{ padding: '4rem', color: '#f0f0f0', textAlign: 'center' }}>
+        <h1 style={{ 
+          fontSize: "3rem", 
+          marginBottom: "3rem", 
+          textShadow: "3px 3px 8px rgba(0, 0, 0, 0.9)", 
+          color: "#ffc857" 
+        }}>
+          Inventory Summary
+        </h1>
+
+        <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
+          {cardData.map((card, index) => (
+            <Box
+              key={index}
+              sx={{
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                width: "320px",
+                borderRadius: "20px",
+                padding: "25px",
+                textAlign: "center",
+                boxShadow: "0 8px 40px rgba(0, 0, 0, 0.6)",
+                marginBottom: "30px",
+                transition: "transform 0.3s",
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <Typography variant="h5" sx={{ color: "#ffc857", marginBottom: "10px" }}>
+                {card.title}
+              </Typography>
+              <Typography variant="body1" sx={{ color: "#f7f7f7" }}>
+                {card.value}
+              </Typography>
+            </Box>
+          ))}
         </div>
-        <div className="col-md-4">
-          <div className="card text-center">
-            <div className="card-body">
-              <h5 className="card-title">Out of Stock</h5>
-              <p className="card-text">{summary.outOfStockItems}</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="card text-center">
-            <div className="card-body">
-              <h5 className="card-title">Most Used Items</h5>
-              <ul className="list-group">
-                {summary.mostUsedItems.map(item => (
-                  <li key={item.ItemId} className="list-group-item">
-                    {item.ItemName} - {item.Quantity}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+
+        {/* Back Button */}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate('/inventoryDashboard')} // Navigate to the inventory dashboard
+          sx={{ marginTop: "20px", borderRadius: "10px", padding: "10px 20px" }}
+        >
+          Back to Inventory Dashboard
+        </Button>
       </div>
     </div>
   );
