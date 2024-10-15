@@ -3,16 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { FaEnvelope, FaLock, FaUser, FaUserShield } from 'react-icons/fa';
+import { FaSignInAlt } from 'react-icons/fa';
+import carImage from '../systemoperationmanagement/assets/levaggio.png';
+import backgroundImage from '../systemoperationmanagement/assets/bg4.jpg'; // New background image
 
 const admins = [
-  { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/view-packages' },
-  { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/supplier/all' },
+  { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/packageDashboard' },
+  { name: 'Supplier Manager', password: 'Dimuth', redirectTo: '/sdashboard' },
   { name: 'Employee Manager', password: 'paman', redirectTo: '/dashboard' },
   { name: 'Service Record Manager', password: 'akash', redirectTo: '/serviceDashboard' },
-  { name: 'Trainee Cordinator', password: 'manthi', redirectTo: '/Tdashboard' },
-  { name: 'Customer Affaire Manager', password: 'amanda', redirectTo: '/ManagerDashboard' },
-  { name: 'Appoinment Manager', password: 'imal', redirectTo: '/AppTable' },
+  { name: 'Trainee Coordinator', password: 'manthi', redirectTo: '/Tdashboard' },
+  { name: 'Customer Affairs Manager', password: 'amanda', redirectTo: '/ManagerDashboard' },
+  { name: 'Appointment Manager', password: 'imal', redirectTo: '/AppTable' },
   { name: 'Inventory Manager', password: 'lashan', redirectTo: '/inventoryDashboard' },
 ];
 
@@ -63,16 +65,36 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
-      <div className="card login-card shadow-lg p-4 w-100" style={{ maxWidth: '500px' }}>
-        <h2 className="text-center mb-4">Welcome Back</h2>
+    <div
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div
+        className="card shadow-lg p-4 w-100 border-0"
+        style={{
+          maxWidth: '400px',  // Minimized width
+          borderRadius: '12px',
+          backgroundColor: '#ffffff90',
+          transition: 'transform 0.3s ease',
+          overflow: 'hidden', // Ensure no scroll bars
+          marginTop: '90px'
+        }}
+      >
+        <div className="text-center mb-4">
+          <img src={carImage} alt="Levaggio" style={{ width: '120px', borderRadius: '50%' }} />
+          <h1 style={{ color: '#8B0000', fontWeight: 'bold', fontSize: '2.5rem', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>Levaggio</h1>
+          <h2 className="mb-4" style={{ color: '#8B0000', fontWeight: 'bold' }}>Welcome Back</h2>
+        </div>
         <form onSubmit={handleLogin}>
           {!isAdmin && (
             <>
               <div className="mb-3">
-                <label className="form-label">Email</label>
+                <label className="form-label">📧 Email</label>
                 <div className="input-group">
-                  <span className="input-group-text"><FaEnvelope /></span>
                   <input
                     type="email"
                     className="form-control rounded-pill"
@@ -84,9 +106,8 @@ const Login = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Password</label>
+                <label className="form-label">🔒 Password</label>
                 <div className="input-group">
-                  <span className="input-group-text"><FaLock /></span>
                   <input
                     type="password"
                     className="form-control rounded-pill"
@@ -117,9 +138,8 @@ const Login = () => {
           {isAdmin && (
             <>
               <div className="mb-3">
-                <label className="form-label">Select Admin</label>
+                <label className="form-label">👤 Select Admin</label>
                 <div className="input-group">
-                  <span className="input-group-text"><FaUserShield /></span>
                   <select
                     className="form-select rounded-pill"
                     value={selectedAdmin}
@@ -134,9 +154,8 @@ const Login = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Admin Password</label>
+                <label className="form-label">🔑 Admin Password</label>
                 <div className="input-group">
-                  <span className="input-group-text"><FaLock /></span>
                   <input
                     type="password"
                     className="form-control rounded-pill"
@@ -150,24 +169,43 @@ const Login = () => {
             </>
           )}
           <button
-  type="submit"
-  className="btn w-100 rounded-pill"
-  style={{ backgroundColor: '#8B0000', color: '#fff' , fontWeight:"bold"}}
-  disabled={loading}
->
-  {loading ? (
-    <span
-      className="spinner-border spinner-border-sm"
-      role="status"
-      aria-hidden="true"
-    ></span>
-  ) : (
-    'Login'
-  )}
-</button>
-
+            type="submit"
+            className="btn w-100 rounded-pill"
+            style={{ backgroundColor: '#8B0000', color: '#fff', fontWeight: 'bold' }}
+            disabled={loading}
+          >
+            {loading ? (
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            ) : (
+              <>
+                <FaSignInAlt /> Login
+              </>
+            )}
+          </button>
         </form>
       </div>
+
+      <style jsx>{`
+        .login-card:hover {
+          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+          background-color: #660000 !important;
+        }
+
+        .form-control:focus {
+          box-shadow: none;
+        }
+
+        .form-control:hover {
+          border-color: #8B0000;
+        }
+      `}</style>
     </div>
   );
 };

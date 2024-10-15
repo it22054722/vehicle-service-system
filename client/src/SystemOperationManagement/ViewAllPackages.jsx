@@ -19,6 +19,15 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'; 
+//import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Adjust the path as necessary
+import carImage1 from '../systemoperationmanagement/assets/bg4.jpg'; // Image 1
+import carImage2 from '../systemoperationmanagement/assets/bg6.jpg'; // Image 2
+import carImage3 from '../systemoperationmanagement/assets/bg7.jpg'; // Image 2
+import carImage4 from '../systemoperationmanagement/assets/bg8.jpg'; // Image 2
+import carImage5 from '../systemoperationmanagement/assets/bg9.jpg'; // Image 2
+
+
+const images = [carImage1, carImage2,carImage3,carImage4,carImage5];
 
 const ViewAllPackages = () => {
   const [packages, setPackages] = useState([]);
@@ -33,6 +42,21 @@ const ViewAllPackages = () => {
   const [cvv, setCvv] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [selectedBank, setSelectedBank] = useState('');
+  const [backgroundImage, setBackgroundImage] = useState(images[0]);
+
+  
+
+  
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % images.length; // Cycle through the images
+      setBackgroundImage(images[index]);
+    }, 8000); // Change every 5 seconds
+
+    // Clear the interval when component unmounts
+    return () => clearInterval(interval);
+  }, [images]);
   
   const navigate = useNavigate();
 
@@ -161,6 +185,7 @@ const ViewAllPackages = () => {
       setSelectedDate(date);
     }
   };
+
   const handleProceedToPayment = async () => {
     const token = localStorage.getItem('authToken');
     if (!token) {
@@ -239,7 +264,7 @@ const ViewAllPackages = () => {
         const updatedAvailability = updatedMaxCustomers > 0;
 
         // API call to update the package's maxCustomers and availability
-        await axios.put(`http://localhost:8070/package/update/${selectedPackage._id}`, {
+        await axios.put(`http://localhost:3001/package/update/${selectedPackage._id}`, {
             maxCustomers: updatedMaxCustomers,
             availability: updatedAvailability,
         }, {
@@ -265,6 +290,11 @@ const ViewAllPackages = () => {
             paymentMethod: selectedBank,
           
         };
+        
+
+      
+
+
 
         // Save receipt data to local storage
         const existingReceipts = JSON.parse(localStorage.getItem('receipts')) || [];
@@ -325,6 +355,8 @@ const ViewAllPackages = () => {
         Swal.fire('Error!', error.response ? error.response.data.message : 'An error occurred during payment.', 'error');
     }
 };
+
+ 
  
   // Helper function to extract userId from JWT token
   const getUserIdFromToken = (token) => {
@@ -352,13 +384,25 @@ const ViewAllPackages = () => {
     const value = e.target.value.replace(/\D/g, '').replace(/(.{2})(.{2})/, '$1/$2');
     setExpiryDate(value);
   };
+ return (
+       <div 
+       className="d-flex justify-content-center align-items-center min-vh-100" 
+       style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      padding: '90px 0', // Space between header and footer
+      }}
+         >
 
-  return (
+
+    
     <div className="container mt-4">
       <ToastContainer />
       
       <div className="text-center mb-5">
-  <h3 style={{ marginTop: '90px', color: '#FFFFFF' }}>All Packages</h3>
+   <h3 style={{ marginTop: '90px', color: '#FFFFFF' }}>All Packages</h3>
 
   {/* Search Bar, Sort By, and Price Range */}
   <div className="row align-items-center justify-content-center mb-4" style={{ gap: '20px', marginTop: '15px' }}>
@@ -466,41 +510,42 @@ const ViewAllPackages = () => {
                     <hr className="separator-line" />
                   </div>
 
-                  <div className="card-body">
-                    <h5 className="card-title">{pkg.packageName}</h5>
-                    <p className="card-text">
-                      <i className="bi bi-cash me-1"></i><strong>Price:</strong> ${pkg.price}<br />
-                      <i className="bi bi-tags me-1"></i><strong>Category:</strong> {pkg.category}<br />
-                      <i className="bi bi-clock me-1"></i><strong>Duration:</strong> {pkg.duration} hours<br />
-                      <span className="highlight">
-                        <i className="bi bi-percent me-1"></i><strong>Discount:</strong> {pkg.discount}% 
-                      </span><br />
-                      <i className="bi bi-check-circle me-1"></i><strong>Availability:</strong> {pkg.availability ? 'Available' : 'Not Available'}<br />
+                  <div className="card-body" style={{ maxHeight: "100%", overflow: "hidden" }}>
+  <h5 className="card-title">{pkg.packageName}</h5>
+  <p className="card-text">
+    <i className="bi bi-cash me-1"></i><strong>Price:</strong> ${pkg.price}<br />
+    <i className="bi bi-tags me-1"></i><strong>Category:</strong> {pkg.category}<br />
+    <i className="bi bi-clock me-1"></i><strong>Duration:</strong> {pkg.duration} hours<br />
+    <span className="highlight">
+      <i className="bi bi-percent me-1"></i><strong>Discount:</strong> {pkg.discount}% 
+    </span><br />
+    <i className="bi bi-check-circle me-1"></i><strong>Availability:</strong> {pkg.availability ? 'Available' : 'Not Available'}<br />
+    <i className="bi bi-people me-1"></i><strong>Max Customers:</strong> {pkg.maxCustomers}
+  </p>
+  <div className="text-center">
+    <Link to={`/view-package/${pkg._id}`} className="btn btn-primary me-2">
+      <i className="bi bi-eye me-1"></i> View 
+    </Link>
+    <button 
+      onClick={() => handleBookClick(pkg)} 
+      className="btn btn-primary me-2"
+      disabled={ pkg.maxCustomers === 0}
+      style={{
+        backgroundColor: "green",
+        borderColor: "green",
+      }}
+    >
+      <i className="bi bi-calendar-plus me-1"></i> Book
+    </button>
+    {/* Display "All slots are finished" if no slots left */}
+    { pkg.maxCustomers === 0 && (
+      <div className="mt-2 text-danger" style={{ overflow: "hidden", whiteSpace: "nowrap" }}>
+        All slots are finished
+      </div>
+    )}
+  </div>
+</div>
 
-                      <i className="bi bi-people me-1"></i><strong>Max Customers:</strong> {pkg.maxCustomers} {/* Added this line */}
-                      
-                    </p>
-                    <div className="text-center">
-                      <Link to={`/view-package/${pkg._id}`} className="btn btn-primary me-2">
-                        <i className="bi bi-eye me-1"></i> View 
-                      </Link>
-                      <button 
-                        onClick={() => handleBookClick(pkg)} 
-                        className="btn btn-primary me-2"
-                        disabled={ pkg.maxCustomers === 0}
-                        style={{
-                          backgroundColor: "green",
-                          borderColor: "green",
-                        }}
-                      >
-                        <i className="bi bi-calendar-plus me-1"></i> Book
-                      </button>
-                      {/* Display "All slots are finished" if no slots left */}
-                      { pkg.maxCustomers === 0 ? (
-                        <div className="mt-2 text-danger">All slots are finished</div>
-                      ) : null}
-                    </div>
-                  </div>
                 </div>
               </div>
             ))
@@ -627,6 +672,7 @@ const ViewAllPackages = () => {
                 </div>
               </div>
             </div>
+            
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -655,6 +701,7 @@ const ViewAllPackages = () => {
 
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 };

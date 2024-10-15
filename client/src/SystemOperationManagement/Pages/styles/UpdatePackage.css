@@ -40,3 +40,14 @@
     background-color: #007bff; /* Adjust color as needed */
     border-radius: 2px;
 }
+
+
+.highlight-color {
+    background-color: #ffcc00; /* Bright highlight color */
+    border: none; /* Remove default border */
+}
+
+.highlight-color:hover {
+    background-color: #e6b800; /* Darker shade on hover */
+    color: #fff; /* Change text color on hover */
+}
