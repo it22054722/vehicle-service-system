@@ -89,7 +89,7 @@ const UpdateSupplier = () => {
 
             Swal.fire({
                 icon: 'success',
-                title: '🎉 Supplier Updated Successfully!',
+                title: ' Supplier Updated Successfully!',
                 text: 'The supplier has been updated.',
                 confirmButtonText: 'OK',
                 backdrop: `
@@ -104,7 +104,7 @@ const UpdateSupplier = () => {
             });
 
             setTimeout(() => {
-                navigate("/all-suppliers");
+                navigate("/supplier/all");
             }, 2000);
         } catch (error) {
             console.error('Error updating supplier:', error);
