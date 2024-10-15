@@ -146,6 +146,11 @@ const PackageHeader = () => {
             <li className="nav-item">
               <Link className="nav-link text-dark fw-bold" to="/login" style={linkStyle}>Sign In</Link>
             </li>
+
+            
+            <li className="nav-item">
+              <Link className="nav-link text-dark fw-bold" to="/register" style={linkStyle}>Register</Link>
+           </li>
           </ul>
 
           {/* Search form */}

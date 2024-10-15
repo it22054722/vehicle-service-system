@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
-
+import carImage from '../systemoperationmanagement/assets/crossroad-car-safari-scene.jpg';
+import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Adjust the path as necessary
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -46,29 +46,36 @@ const Register = () => {
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const response = await axios.post('http://localhost:3001/api/auth/register', {
-        username: user.displayName,
-        email: user.email,
-        vehicleType,
-      });
-      Swal.fire('Success', 'Registration successful with Google', 'success');
-      navigate('/login');
-    } catch (error) {
-      Swal.fire('Error', error.message, 'error');
-    }
-  };
-
   return (
     <div 
       className="d-flex justify-content-center align-items-center min-vh-100" 
-     
+      style={{
+        backgroundImage: `url(${carImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '90px 0', // Space between header and footer
+      }}
     >
-      <div className="card shadow-lg p-4 w-100 border-0" style={{ maxWidth: '500px', borderRadius: '12px', backgroundColor: '#ffffff90' }}>
-        <h2 className="text-center mb-4" style={{ color: '#8B0000', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)' }}>
+      <div className="card shadow-lg p-4 w-100 border-0" 
+        style={{ 
+          maxWidth: '400px',  // Minimized width
+          borderRadius: '12px', 
+          backgroundColor: '#ffffff90',
+          transition: 'transform 0.3s ease',
+          overflow: 'hidden', // Ensure no scroll bars
+          marginTop:'90px'
+        }}
+      >
+        <div className="text-center mb-4">
+          <img 
+            src={logo} 
+            alt="Levaggio Logo" 
+            className="img-fluid rounded-circle" 
+            style={{ width: '80px', height: '80px', objectFit: 'cover', border: '2px solid #8B0000' }} 
+          />
+        </div>
+        <h2 className="text-center mb-3" style={{ color: '#8B0000', fontWeight: 'bold', fontSize: '1.5rem' }}>
           Create an Account
         </h2>
         <form onSubmit={handleRegister}>
@@ -129,12 +136,12 @@ const Register = () => {
           <button
             type="submit"
             className="btn btn-danger w-100 py-2 rounded-pill mb-3"
-            style={{ backgroundColor: '#8B0000', borderColor: '#8B0000', fontWeight: 'bold' }}
+            style={{ backgroundColor: '#8B0000', borderColor: '#8B0000', fontWeight: 'bold', transition: 'background-color 0.3s ease' }}
           >
             Register
           </button>
         </form>
-      
+
         <div className="text-center mt-3">
           <p className="text-muted">
             Already have an account?{' '}
