@@ -99,9 +99,11 @@ import AddSupplier from "./SupplierManagement/AddSupplier";
 import AllSuppliers from "./SupplierManagement/AllSuppliers";
 import UpdateSupplier from "./SupplierManagement/UpdateSupplier ";
 import DeleteSupplier from "./SupplierManagement/DeleteSupplier";
+import SupplierDashboard from "./SupplierManagement/SupplierDashboard";
 
 //contact us
 import ContactUs from "./TraineeManagement/ContactUs";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -201,6 +203,9 @@ function App() {
           <Route path="/supplier/add" element={<AddSupplier />} />{" "}
           <Route path="/supplier/all" element={<AllSuppliers />} />{" "}
           <Route path="/supplier/delete/:id" element={<DeleteSupplier />} />
+          <Route path="/supplier/delete/:id" element={<DeleteSupplier />} />
+          <Route path="/sdashboard" element={<SupplierDashboard />} />
+          
           <Route
             path="/supplier/update/:id"
             element={<UpdateSupplier />}

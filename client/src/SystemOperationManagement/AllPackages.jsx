@@ -20,6 +20,7 @@ import { Tooltip } from "react-tooltip"; // Import React Tooltip component
 import "./Pages/styles/AllPackages.css"; // Custom CSS for animations
 import { Pie, Bar } from "react-chartjs-2";
 import { jsPDF } from "jspdf"; // Import jsPDF for PDF generation
+import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Import logo
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -153,31 +154,47 @@ const AllPackages = () => {
         Swal.showLoading();
       },
     });
-
+  
     try {
       // Wait for 2 seconds to simulate report generation
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+  
       // Calculate the number of available and unavailable packages
       const availablePackagesCount = packages.filter((pkg) => pkg.availability)
         .length;
       const unavailablePackagesCount = packageCount - availablePackagesCount;
-
+  
       // Create a PDF document
       const doc = new jsPDF();
-
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const currentDate = new Date().toLocaleDateString();
+  
+      // Add outline to the PDF report
+      doc.setLineWidth(1);
+      doc.rect(10, 10, pageWidth - 20, pageHeight - 20); // Draw rectangle with margins
+  
+      // Add header with logo, title, and date
+      const imgWidth = 40;
+      const imgHeight = 40;
+      const imgX = (pageWidth - imgWidth) / 2; // Center horizontally
+      doc.addImage(logo, 'PNG', imgX, 15, imgWidth, imgHeight, undefined, 'FAST'); // Centered logo
+  
+      doc.setFontSize(14);
+      doc.text('Levaiggo Booking Report', pageWidth / 2, 70, { align: 'center' });
+      doc.setFontSize(10);
+      doc.text(`Generated on: ${currentDate}`, pageWidth / 2, 80, { align: 'center' });
+  
       // Title and summary
-      doc.setFontSize(18);
-      doc.text("Package Report", 10, 10);
       doc.setFontSize(12);
-      doc.text(`Total Packages: ${packageCount}`, 10, 20);
-      doc.text(`Available Packages: ${availablePackagesCount}`, 10, 30);
-      doc.text(`Unavailable Packages: ${unavailablePackagesCount}`, 10, 40);
-      doc.text("Package Details:", 10, 50);
-
+      doc.text(`Total Packages: ${packageCount}`, 10, 90);
+      doc.text(`Available Packages: ${availablePackagesCount}`, 10, 100);
+      doc.text(`Unavailable Packages: ${unavailablePackagesCount}`, 10, 110);
+      doc.text("Package Details:", 10, 120);
+  
       // Table header
       doc.autoTable({
-        startY: 60,
+        startY: 130,
         head: [
           [
             "#",
@@ -202,12 +219,20 @@ const AllPackages = () => {
         ]),
         theme: "striped",
       });
-
-      // Add any additional info (e.g., totals or other statistics) here
-
+  
+      // Add footer with page number and signature area
+      const totalPages = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        const pageNoText = `Page ${i} of ${totalPages}`;
+        doc.setFontSize(10);
+        doc.text(pageNoText, pageWidth / 2, pageHeight - 10, { align: 'center' });
+        doc.text('Authorized Signature: Pasindu ___________________', 14, pageHeight - 10);
+      }
+  
       // Save the PDF
       doc.save("package-report.pdf");
-
+  
       Swal.fire({
         icon: "success",
         title: "Report Generated",
@@ -222,7 +247,7 @@ const AllPackages = () => {
       console.error("Error generating report:", error);
     }
   };
-
+  
   return (
     <div style={{ display: "flex", height: "100vh", padding: "10px" }}>
       {/* Dashboard Sidebar */}
@@ -348,20 +373,22 @@ const AllPackages = () => {
                 </table>
               </div>
               <div className="text-center mt-4">
-                <Button
-                  onClick={() => setShowCharts(!showCharts)}
-                  variant="primary"
-                >
-                  {showCharts ? "Hide Charts" : "Show Charts"}
-                </Button>
-                <Button
-                  onClick={generateReport}
-                  variant="success"
-                  className="ms-2"
-                >
-                  Generate Report
-                </Button>
-              </div>
+  <Button
+    onClick={() => setShowCharts(!showCharts)}
+    variant="primary"
+    className="custom-button"
+  >
+    {showCharts ? "Hide Charts" : "Show Charts"}
+  </Button>
+  <Button
+    onClick={generateReport}
+    variant="success"
+    className="custom-button ms-2"
+  >
+    Generate Report
+  </Button>
+</div>
+
             </div>
           </div>
         </div>

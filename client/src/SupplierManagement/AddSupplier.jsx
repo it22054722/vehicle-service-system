@@ -115,7 +115,7 @@ export default function AddSupplier() {
     }
 
     return (
-        <div className="container d-flex align-items-center justify-content-center min-vh-100 mt-5">
+        <div className="d-flex align-items-center justify-content-center vh-100" style={{ marginTop: '90px' }}>
             <div className="row w-100">
                 <div className="col-md-8 col-lg-6 mx-auto">
                     <div className="card border-5 shadow rounded-4 bg-light bg-opacity-75">
@@ -199,30 +199,46 @@ export default function AddSupplier() {
                                 </div>
 
                                 <div className="row mb-3">
-                                    <div className="col-md-6">
-                                        <label htmlFor="partsRequired" className="form-label">
-                                            <i className="bi bi-tools icon-color me-2"></i>Parts Required
-                                        </label>
-                                        <div className="dropdown">
-                                            <button
-                                                className="btn btn-secondary dropdown-toggle form-control"
-                                                type="button"
-                                                id="dropdownParts"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            >
-                                                {partsRequired || 'Select Part'} {/* Show the selected part or default text */}
-                                            </button>
-                                            <ul className="dropdown-menu" aria-labelledby="dropdownParts">
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Engine')}><i className="bi bi-gear-fill me-2"></i>Engine</button></li>
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Transmission')}><i className="bi bi-speedometer2 me-2"></i>Transmission</button></li>
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Brakes')}><i className="bi bi-stoplights me-2"></i>Brakes</button></li>
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Suspension')}><i className="bi bi-car-front-fill me-2"></i>Suspension</button></li>
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Tires')}><i className="bi bi-circle-half me-2"></i>Tires</button></li>
-                                                <li><button className="dropdown-item" onClick={() => setPartsRequired('Battery')}><i className="bi bi-battery-full me-2"></i>Battery</button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
+                                <div className="col-md-6">
+  <label htmlFor="partsRequired" className="form-label">
+    <i className="bi bi-tools icon-color me-2"></i>Parts Required
+  </label>
+  <div className="dropdown">
+    <button
+      className="btn btn-secondary dropdown-toggle form-control"
+      type="button"
+      id="dropdownParts"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      {partsRequired || 'Select Part'} {/* Show the selected part or default text */}
+    </button>
+    <ul className="dropdown-menu" aria-labelledby="dropdownParts">
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Oil Filters')}><i className="bi bi-droplet me-2"></i>Oil Filters</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Air Filters')}><i className="bi bi-wind me-2"></i>Air Filters</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Spark Plugs')}><i className="bi bi-lightning me-2"></i>Spark Plugs</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Timing Belts/Chains')}><i className="bi bi-clock me-2"></i>Timing Belts/Chains</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Gaskets and Seals')}><i className="bi bi-wrench me-2"></i>Gaskets and Seals</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Transmission Fluid')}><i className="bi bi-sliders me-2"></i>Transmission Fluid</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Brake Pads')}><i className="bi bi-stop-circle me-2"></i>Brake Pads</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Clutch Kits')}><i className="bi bi-cup me-2"></i>Clutch Kits</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Brake Rotors/Discs')}><i className="bi bi-circle me-2"></i>Brake Rotors/Discs</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Shocks and Struts')}><i className="bi bi-shield me-2"></i>Shocks and Struts</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Bushings')}><i className="bi bi-square me-2"></i>Bushings</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Steering Rack and Pinion')}><i className="bi bi-arrow-up-right-circle me-2"></i>Steering Rack and Pinion</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Catalytic Converters')}><i className="bi bi-leaf me-2"></i>Catalytic Converters</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Exhaust Pipes')}><i className="bi bi-pipe me-2"></i>Exhaust Pipes</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Thermostats')}><i className="bi bi-thermometer-half me-2"></i>Thermostats</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Fuel Injectors')}><i className="bi bi-fuel-pump me-2"></i>Fuel Injectors</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Seats and Seat Belts')}><i className="bi bi-belt me-2"></i>Seats and Seat Belts</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Windshields and Windows')}><i className="bi bi-square-fill me-2"></i>Windshields and Windows</button></li>
+      <li><button className="dropdown-item" onClick={() => setPartsRequired('Bumpers')}><i className="bi bi-rectangle me-2"></i>Bumpers</button></li>
+    </ul>
+  </div>
+</div>
+
+                                   
 
                                     <div className="col-md-6">
                                         <label htmlFor="quantity" className="form-label">
@@ -256,9 +272,45 @@ export default function AddSupplier() {
                                     ></textarea>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary">
-                                    <i className="bi bi-plus-circle me-2"></i>Add Supplier
-                                </button>
+                                <div className="d-flex justify-content-start align-items-center mt-3">
+                                <div className="d-flex justify-content-center align-items-center mt-3">
+    <button 
+        type="submit" 
+        className="btn btn-primary me-3" 
+        style={{ 
+            width: "150px", 
+            height: "40px", 
+            borderRadius: "8px", 
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" 
+        }}
+    >
+        <i className="bi bi-plus-circle me-2"></i>Add Supplier
+    </button>
+
+    <button 
+        type="button" 
+        className="btn btn-custom" 
+        style={{ 
+            width: "200px", 
+            height: "40px", 
+            backgroundColor: "#6c757d", 
+            color: "#fff", 
+            borderColor: "#6c757d", 
+            borderRadius: "8px", 
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            transition: "all 0.3s ease"
+        }} 
+        onClick={() => navigate("/sdashboard")}
+        onMouseEnter={(e) => e.target.style.backgroundColor = "#5a6268"}
+        onMouseLeave={(e) => e.target.style.backgroundColor = "#6c757d"}
+    >
+        <i className="bi bi-speedometer2"></i> Go to Dashboard
+    </button>
+</div>
+
+</div>
+
+
                             </form>
                         </div>
                     </div>
