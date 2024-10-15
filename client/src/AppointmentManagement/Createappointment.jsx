@@ -11,22 +11,37 @@ function Createappointment() {
     "Bodywash": false,
     "Oil Change": false,
     "Engine Check": false,
+    "Hybrid Service": false,
+    "Wheel Alignment": false,
+    "Battery Services": false,
+    "Part Replacements": false,
+    "Engine Tune Ups": false,
+    "Other": false,
   });
+  const [otherService, setOtherService] = useState(""); // To store custom service
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [Phonenumber, setPhonenumber] = useState("");
   const [email, setEmail] = useState("");
-  const [bookedTimes, setBookedTimes] = useState([]);
+  const [bookedAppointments, setBookedAppointments] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
+  const [availableTimes, setAvailableTimes] = useState([]);
   const [vehicleModels, setVehicleModels] = useState([]);
+  const [totalCost, setTotalCost] = useState(0); // New state for total cost
   const navigate = useNavigate();
 
   const servicePrices = {
-    "Full Service": 100,
-    "Bodywash": 50,
-    "Oil Change": 70,
-    "Engine Check": 120,
+    "Full Service": 4000,
+    "Bodywash": 1500,
+    "Oil Change": 8000,
+    "Engine Check": 2000,
+    "Hybrid Service": 10000,
+    "Wheel Alignment": 1000,
+    "Battery Services": 2000,
+    "Part Replacements": 5000,
+    "Engine Tune Ups": 10000,
+    "Other": 0, // Custom price for 'Other' will be manually defined
   };
 
   const validate = () => {
@@ -53,11 +68,12 @@ function Createappointment() {
     return Object.keys(errors).length === 0;
   };
 
-  const fetchBookedTimes = (appointmentDate) => {
-    if (appointmentDate) {
-      axios.get(`http://localhost:3001/BookedTimes/${appointmentDate}`)
+  const fetchBookedAppointments = (date, selectedServices) => {
+    if (date && selectedServices.length > 0) {
+      axios
+        .get(`http://localhost:3001/BookedAppointments/${date}/${selectedServices.join(",")}`)
         .then((result) => {
-          setBookedTimes(result.data);
+          setBookedAppointments(result.data);
         })
         .catch((err) => console.log(err));
     }
@@ -70,40 +86,90 @@ function Createappointment() {
 
   useEffect(() => {
     fetchVehicleModels();
-    fetchBookedTimes(appointmentDate);
-  }, [appointmentDate]);
+  }, []);
+
+  useEffect(() => {
+    const selectedServices = Object.keys(serviceTypes).filter(service => serviceTypes[service]);
+    fetchBookedAppointments(appointmentDate, selectedServices);
+  }, [appointmentDate, serviceTypes]);
+
+  useEffect(() => {
+    if (appointmentDate && Object.values(serviceTypes).some(Boolean)) {
+      updateAvailableTimes();
+    }
+  }, [appointmentDate, bookedAppointments, serviceTypes]);
+
+  const isTimeSlotAvailable = (time) => {
+    return !bookedAppointments.some((appointment) => appointment.appointmentTime === time);
+  };
+
+  const updateAvailableTimes = () => {
+    const times = [];
+    for (let hour = 9; hour <= 17; hour++) {
+      const time = `${hour.toString().padStart(2, "0")}:00`;
+      if (isTimeSlotAvailable(time)) {
+        times.push(time);
+      }
+    }
+    setAvailableTimes(times);
+  };
+
+  const calculateTotalCost = () => {
+    const selectedServices = Object.keys(serviceTypes).filter(service => serviceTypes[service]);
+    const total = selectedServices.reduce((total, service) => total + servicePrices[service], 0);
+    setTotalCost(total);
+  };
+
+  useEffect(() => {
+    calculateTotalCost(); // Update total cost when services change
+  }, [serviceTypes]);
 
   const handleWhatsAppMessage = () => {
-    const message = `Appointment Details:
-    Customer Name: ${customerName}
-    Vehicle Model: ${vehicleModel}
-    Services: ${Object.keys(serviceTypes).filter(service => serviceTypes[service]).join(", ")}
-    Appointment Date: ${appointmentDate}
-    Appointment Time: ${appointmentTime}
-    Phone Number: ${Phonenumber}
+    const selectedServices = Object.keys(serviceTypes).filter(service => serviceTypes[service]);
+    const message = `Appointment Details:\n
+    Customer Name: ${customerName}\n
+    Vehicle Model: ${vehicleModel}\n
+    Services: ${selectedServices.join(", ") + (serviceTypes["Other"] && otherService ? `, ${otherService}` : "")}\n
+    Appointment Date: ${appointmentDate}\n
+    Appointment Time: ${appointmentTime}\n
+    Phone Number: ${Phonenumber}\n
+    totalCost: ${totalCost}\n
     Email: ${email}`;
 
-    
+    const whatsappNumber = "+94705225121"; // Example phone number
+    const whatsappURL = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
   };
 
   const Submit = (e) => {
     e.preventDefault();
     setErrorMessage("");
+
     if (!validate()) return;
 
     const selectedServices = Object.keys(serviceTypes).filter((service) => serviceTypes[service]);
-    const totalPrice = selectedServices.reduce((total, service) => total + servicePrices[service], 0);
+
+    if (serviceTypes["Other"] && !otherService.trim()) {
+      setErrorMessage("Please specify the 'Other' service.");
+      return;
+    }
+
+    if (!isTimeSlotAvailable(appointmentTime)) {
+      setErrorMessage("The selected time is already booked for the chosen services. Please select a different time.");
+      return;
+    }
 
     axios
       .post("http://localhost:3001/Createappointment", {
         customerName,
         vehicleModel,
-        serviceType: selectedServices,
+        serviceType: [...selectedServices, otherService].filter(Boolean),
         appointmentDate,
         appointmentTime,
         Phonenumber,
         email,
-        servicePrice: totalPrice,
+        totalCost, // Send total cost with the appointment
       })
       .then((result) => {
         handleWhatsAppMessage(); // Call the function to send the WhatsApp message
@@ -116,31 +182,16 @@ function Createappointment() {
           setErrorMessage("An error occurred while creating the appointment.");
         }
       });
-  };   
-
-  const renderAvailableTimes = () => {
-    const times = [];
-    for (let hour = 9; hour <= 17; hour++) {
-      const time = `${hour.toString().padStart(2, "0")}:00`;
-      times.push(time);
-    }
-
-    return times.map((time) => (
-      <option key={time} value={time} disabled={bookedTimes.includes(time)}>
-        {time}
-      </option>
-    ));
   };
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
       <div className="card create-user-card">
         <form onSubmit={Submit}>
-        <h2 className="text-center mb-4 appointment-heading">Create Appointment</h2>
+          <h2 className="text-center mb-4 appointment-heading">Appointment Reservation</h2>
 
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-          
-          {/* Customer Name Input */}
+
           <div className="form-group mb-3">
             <label htmlFor="customerName" className="form-label">Customer Name</label>
             <input
@@ -153,7 +204,6 @@ function Createappointment() {
             {validationErrors.customerName && <div className="text-danger">{validationErrors.customerName}</div>}
           </div>
 
-          {/* Vehicle Model Dropdown */}
           <div className="form-group mb-3">
             <label htmlFor="vehicleModel" className="form-label">Vehicle Model</label>
             <select
@@ -172,7 +222,6 @@ function Createappointment() {
             {validationErrors.vehicleModel && <div className="text-danger">{validationErrors.vehicleModel}</div>}
           </div>
 
-          {/* Service Types Checkboxes */}
           <div className="form-group mb-3">
             <label className="form-label">Service Type</label>
             <div className="service-types">
@@ -183,22 +232,29 @@ function Createappointment() {
                     className="form-check-input"
                     id={service}
                     checked={serviceTypes[service]}
-                    onChange={(e) => {
-                      setServiceTypes({
-                        ...serviceTypes,
-                        [service]: e.target.checked,
-                      });
-                    }}
+                    onChange={(e) => setServiceTypes({ ...serviceTypes, [service]: e.target.checked })}
                   />
-                  <label className="form-check-label" htmlFor={service}>
-                    {service} - ${servicePrices[service]}
+                  <label htmlFor={service} className="form-check-label">
+                    {service} - ${servicePrices[service] || "Custom"}
                   </label>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Appointment Date and Time */}
+          {serviceTypes["Other"] && (
+            <div className="form-group mb-3">
+              <label htmlFor="otherService" className="form-label">Specify Other Service</label>
+              <input
+                type="text"
+                className="form-control"
+                id="otherService"
+                value={otherService}
+                onChange={(e) => setOtherService(e.target.value)}
+              />
+            </div>
+          )}
+
           <div className="form-group mb-3">
             <label htmlFor="appointmentDate" className="form-label">Appointment Date</label>
             <input
@@ -220,16 +276,19 @@ function Createappointment() {
               onChange={(e) => setAppointmentTime(e.target.value)}
             >
               <option value="">Select a time</option>
-              {renderAvailableTimes()}
+              {availableTimes.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
             </select>
             {validationErrors.appointmentTime && <div className="text-danger">{validationErrors.appointmentTime}</div>}
           </div>
 
-          {/* Phone Number and Email */}
           <div className="form-group mb-3">
             <label htmlFor="Phonenumber" className="form-label">Phone Number</label>
             <input
-              type="text"
+              type="tel"
               className="form-control"
               id="Phonenumber"
               value={Phonenumber}
@@ -250,10 +309,22 @@ function Createappointment() {
             {validationErrors.email && <div className="text-danger">{validationErrors.email}</div>}
           </div>
 
-          {/* Submit Button */}
-          <div className="text-center">
-            <button type="submit" className="btn btn-success w-40 mt-3">Submit</button>
+          <div className="form-group mb-4">
+            <label htmlFor="totalCost" className="form-label">Total Cost</label>
+            <input
+              type="text"
+              className="form-control"
+              id="totalCost"
+              value={`$${totalCost}`}
+              readOnly
+            />
           </div>
+
+          <div className="alert alert-warning mt-3">
+              It is not possible to update or delete the appointment after 24 hours of booking.
+            </div>
+
+          <button type="submit" className="btn btn-primary w-100">Book Appointment</button>
         </form>
       </div>
     </div>

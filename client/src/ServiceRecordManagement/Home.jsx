@@ -31,7 +31,7 @@ const Home = () => {
         <div className="hero-content" style={{ marginTop: '100px', padding: '20px' }}>
           <h1>Welcome to Our Car Service Center</h1>
           <p>Book your service now for the best care of your vehicle.</p>
-          <Link to="/Createappointment" className="btn btn-primary">Book Now</Link>
+          <Link to="/Servicedetails" className="btn btn-primary">Book Now</Link>
         </div>
       </section>
 

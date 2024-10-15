@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../app.css'; 
+import '../app.css';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import Swal from 'sweetalert2'; 
-import AppointmentChart from './AppointmentChart';
+import Swal from 'sweetalert2';
 
 function AppTable() {
   const [users, setUsers] = useState([]);
@@ -16,6 +15,7 @@ function AppTable() {
     axios.get("http://localhost:3001/appointments")
       .then(result => {
         setUsers(result.data);
+        checkForReminders(result.data); // Assuming you have a function for this
       })
       .catch(err => console.log(err));
   }, []);
@@ -44,7 +44,11 @@ function AppTable() {
         axios.delete(`http://localhost:3001/Deleteappointments/${id}`)
           .then(response => {
             setUsers(users.filter(user => user._id !== id));
-            Swal.fire('Deleted!', 'User has been deleted successfully.', 'success');
+            Swal.fire(
+              'Deleted!',
+              'User has been deleted successfully.',
+              'success'
+            );
           })
           .catch(err => {
             if (err.response && err.response.data && err.response.data.message) {
@@ -74,7 +78,7 @@ function AppTable() {
     const doc = new jsPDF();
     doc.text("Vehicle Service Management Report", 20, 10);
     autoTable(doc, {
-      head: [['Customer Name', 'Vehicle Model', 'Service Type', 'Appointment Date', 'Appointment Time', 'Phone Number', 'Email']],
+      head: [['Customer Name', 'Vehicle Model', 'Service Type', 'Appointment Date', 'Appointment Time', 'Phone Number', 'Email', 'Total Cost']],
       body: filteredUsers.map(user => [
         user.customerName,
         user.vehicleModel,
@@ -82,28 +86,22 @@ function AppTable() {
         user.appointmentDate,
         user.appointmentTime,
         user.Phonenumber,
-        user.email
+        user.email,
+        `$${user.totalCost || 0}` // Ensuring totalCost is displayed with proper formatting
       ]),
     });
     doc.save("Vehicle_Service_Report.pdf");
   };
 
-  const handleSendReport = () => {
-    const Phonenumber = "Phonenumber"; // Example phone number
-    const message = 'Select the appointment details';
-    const whatsappURl = `https://web.whatsapp.com/send?phone=${Phonenumber}&text=${encodeURIComponent(message)}`;
-    window.open(whatsappURl, "_blank");
-  };
-
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="container p-4 bg-light rounded shadow">
-        <br />
-        <br />
-        <br />
-        
-        <h2 className="text-center mb-4" style={{ color: '#8B0000', fontFamily: 'Arial, sans-serif' }}><b>Appointment Management</b></h2>
-        
+      <div className="container p-4 bg-white rounded shadow">
+        <Link 
+          to="/Createappointment" 
+          className='btn mb-2' 
+          style={{ backgroundColor: '#808080', color: 'white', border: 'none' }}>
+          Create Appointment
+        </Link>
 
         <input
           type="text"
@@ -111,12 +109,11 @@ function AppTable() {
           placeholder="Search by Customer Name or Vehicle Model"
           value={searchQuery}
           onChange={handleSearch}
-          style={{ padding: '12px', fontSize: '16px' }} // Increased padding and font size
         />
-        
+
         <button 
           className="btn mb-3" 
-          style={{ backgroundColor: '#8B0000', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '5px' }} 
+          style={{ backgroundColor: '#8B0000', color: 'white', border: 'none' }} 
           onClick={generateReport}
         >
           Download Report
@@ -124,7 +121,7 @@ function AppTable() {
 
         <div className="table-responsive">
           <table className="table table-bordered table-hover">
-            <thead className="table-dark">
+            <thead>
               <tr>
                 <th>Customer Name</th>
                 <th>Vehicle Model</th>
@@ -133,6 +130,7 @@ function AppTable() {
                 <th>Appointment Time</th>
                 <th>Phone Number</th>
                 <th>Email</th>
+                <th>Total Cost</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -146,20 +144,19 @@ function AppTable() {
                   <td>{user.appointmentTime}</td>
                   <td>{user.Phonenumber}</td>
                   <td>{user.email}</td>
+                  <td>${user.totalCost || 0}</td> {/* Ensure total cost is displayed properly */}
                   <td>
                     <div className="btn-group" role="group">
                       <Link 
                         to={`/Updateappointment/${user._id}`} 
                         className="btn mb-2" 
-                        style={{ backgroundColor: '#808080', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px' }}>
+                        style={{ backgroundColor: '#808080', color: 'white', border: 'none' }}>
                         Update
                       </Link>
-
                       <button 
                         onClick={() => deleteUser(user._id)} 
                         className="btn btn-sm" 
-                        style={{ backgroundColor: '#8B0000', color: 'white', border: 'none', padding: '10px 15px', borderRadius: '5px' }}
-                      >
+                        style={{ backgroundColor: '#8B0000', color: 'white', border: 'none' }}>
                         Delete
                       </button>
                     </div>
@@ -168,7 +165,6 @@ function AppTable() {
               ))}
             </tbody>
           </table>
-          <AppointmentChart users={filteredUsers} />
         </div>
       </div>
     </div>

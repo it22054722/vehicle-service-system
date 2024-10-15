@@ -9,6 +9,7 @@ const appointmentSchema = new mongoose.Schema({
   appointmentTime: String,
   Phonenumber: String,
   email: String,
+  totalCost: String,
   createdAt: { type: Date, default: Date.now }, // Add this line
 });
 

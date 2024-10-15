@@ -1,0 +1,79 @@
+/* Ensure the page takes full height and is scrollable if needed */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.service-details-container {
+    background-image: url('/path-to-your-image.jpg'); /* Add your background image here */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    padding: 20px;
+    min-height: 110vh; /* Ensure the container takes the full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff; /* Adjust text color for readability */
+}
+
+.service-details-container h2 {
+    font-size: 2.5rem;
+}
+
+.service-details-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.service-details-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.service-details-container ul li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Slight transparency for readability */
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
+
+.service-details-container ul li h5 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+
+.service-details-container ul li p {
+    font-size: 1rem;
+    color: #080707;
+}
+
+.text-center {
+    margin-top: 20px;
+}
+
+.text-center .btn {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .service-details-container h2 {
+        font-size: 2rem;
+    }
+    
+    .service-details-container ul li h5 {
+        font-size: 1.1rem;
+    }
+    
+    .service-details-container ul li p {
+        font-size: 0.95rem;
+    }
+
+    .text-center .btn {
+        font-size: 1rem;
+    }
+}

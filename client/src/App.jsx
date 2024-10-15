@@ -42,7 +42,7 @@ import AppTable from './AppointmentManagement/AppTable';
 import Createappointment from './AppointmentManagement/Createappointment';
 import Updateappointment from './AppointmentManagement/Updateappointment';
 import AppointmentChart from './AppointmentManagement/AppointmentChart';
-
+import Servicedetails from './AppointmentManagement/Servicedetails';
 
 
 import AddFeed from "./FeedbackManagment/Addfeedback";
@@ -103,6 +103,7 @@ function App() {
         <Route path="/Createappointment" element={<Createappointment />} />
         <Route path="/Updateappointment/:id" element={<Updateappointment />} />
         <Route path="/AppointmentChart" element={<AppointmentChart />} />
+        <Route path="/Servicedetails" element={<Servicedetails />} />
 
 
 

@@ -1,55 +1,134 @@
-.create-user-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    margin-top: 50px;
-  }
-  
-  .create-user-card {
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    background-color: #ffffff;
-  }
-  
-  .form-label {
-    font-weight: bold;
-  }
-  
-  .btn {
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #28a745;
-  }
-  
-  .form-control:focus, .form-select:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
-  }
-  
-  .service-types {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .form-check-label {
-    margin-left: 5px;
-  }
-  .btn-success {
-    width: 40%;
-  }
-  
-  .background {
-    background-image: url('create.jpg'); /* Replace with the correct path */
-    background-size: cover;
-    background-position: center;
-    height: 100vh; /* Make sure it covers the full height */
+/* General Styles */
+.background {
+  background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
 }
 
 .appointment-heading {
-  color: #808080;
-  font-weight: bold; /* Optional: Keep the font bold for better visibility */
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.btn-primary {
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #155ab6;
+  border-color: #155ab6;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.form-control:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+.form-check-label {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Error Message Styling */
+.alert-danger {
+  background-color: #ffdddd;
+  color: #a94442;
+  border: 1px solid #e3b6b6;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Validation Error Styles */
+.text-danger {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #e3342f;
+}
+
+/* Appointment Card */
+.create-user-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Service Types in a 3-Column Layout */
+.service-types {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+  gap: 10px;
+}
+
+.service-types .form-check {
+  display: flex;
+  align-items: center;
+}
+
+/* Other Service Input */
+#otherService {
+  margin-top: 10px;
+}
+
+/* Responsive Styling */
+@media (max-width: 576px) {
+  .card {
+    padding: 20px;
+  }
+
+  .appointment-heading {
+    font-size: 20px;
+  }
+
+  .btn {
+    font-size: 16px;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 14px;
+  }
+
+  /* Make service types responsive by showing 2 columns on small screens */
+  .service-types {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
