@@ -71,7 +71,7 @@ function Services() {
         backgroundPosition: "center",
       }}
     >
-      <div className="w-90 rounded p-4 shadow" style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}>
+      <div className="w-90 rounded p-4 shadow" style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" ,marginTop:"50px"}}>
         <h2 className="text-center" style={{ marginBottom: '0.5rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>
           Services
         </h2>

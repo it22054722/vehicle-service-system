@@ -40,6 +40,7 @@ import Prograss from "./TraineeManagement/Prograss"
 import Report from "./TraineeManagement/Report";
 import Tdashboard from "./TraineeManagement/tDashboard";
 import TraineeLogin from "./TraineeManagement/TraineeLogin";
+import TaskProgress from './TraineeManagement/TaskProgress';
 
 /* Appointment Management Imports */
 import AppTable from "./AppointmentManagement/AppTable";
@@ -55,6 +56,8 @@ import AllFeedback from "./FeedbackManagment/Allfeedback";
 import Massage from "./FeedbackManagment/massage";
 import ManagerView from "./FeedbackManagment/Mangerview";
 import FeedbackSummary from "./FeedbackManagment/FeedbackSummery";
+import ManagerDashboard from './FeedbackManagment/ManagerDashboard';
+import Feedbacksort from './FeedbackManagment/Feedbacksort';
 
 /* Shared Components */
 import PackageHeader from "./ServiceRecordManagement/PackageHeader";
@@ -85,6 +88,8 @@ import ServicePage from "./SystemOperationManagement/ServicePage";
 import FeedbackPage from "./SystemOperationManagement/FeedbackPage";
 import Profile from "./SystemOperationManagement/Profile";
 import BookingPackages from "./SystemOperationManagement/BookingPackages";
+import PackageDashboard from "./SystemOperationManagement/PackageDashboard";
+import ReceiptTable from "./SystemOperationManagement/ReceiptTable";
 //import Booking from './components/Booking';
 // import Home from "./SystemOperationManagement/Pages/Home";
 import Login2 from "./Authentications/Login2";
@@ -94,6 +99,11 @@ import AddSupplier from "./SupplierManagement/AddSupplier";
 import AllSuppliers from "./SupplierManagement/AllSuppliers";
 import UpdateSupplier from "./SupplierManagement/UpdateSupplier ";
 import DeleteSupplier from "./SupplierManagement/DeleteSupplier";
+import SupplierDashboard from "./SupplierManagement/SupplierDashboard";
+
+//contact us
+import ContactUs from "./TraineeManagement/ContactUs";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -138,7 +148,9 @@ function App() {
         <Route path='/traineeprogess' element={<Prograss/>}></Route>
         <Route path='/report' element={<Report/>}></Route>
         <Route path='/traineelogin' element={<TraineeLogin/>}></Route>
-        
+        <Route path='/TaskProgress' element={<TaskProgress/>}></Route>
+        <Route path='/contactus' element={<ContactUs/>}></Route>
+
         <Route path="/AppTable" element={<AppTable />} />
         <Route path="/Createappointment" element={<Createappointment />} />
         <Route path="/Updateappointment/:id" element={<Updateappointment />} />
@@ -154,6 +166,8 @@ function App() {
           <Route path="/managerView" element={<ManagerView />} />
           <Route path="/pages/FeedbackSummary" element={<FeedbackSummary />} />
           <Route path="/feed" element={<AllFeedback />} />
+          <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          <Route path="/Feedbacksort" element={<Feedbacksort />} />
 
           {/*Inventory Management Routes */}
           <Route path="/inventory" element={<Inventory />} />
@@ -163,6 +177,7 @@ function App() {
           <Route path="/low-inventory" element={<LowInventory />} />
 
           {/* System Operation Manager Routes */}
+          <Route path="/packageDashboard" element={<PackageDashboard />} />
           <Route path="/view-packages" element={<AllPackages />} />
           <Route path="/add-package" element={<AddPackage />} />
           <Route path="/update-package/:id" element={<UpdatePackage />} />
@@ -182,11 +197,15 @@ function App() {
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/bookings" element={<BookingPackages />} />
           <Route path="/package/delete/:id" element={<DeletePackage />} />
+          <Route path="/receipt-table" element={<ReceiptTable />} />
 
           {/* Supplier Manager Routes */}
           <Route path="/supplier/add" element={<AddSupplier />} />{" "}
           <Route path="/supplier/all" element={<AllSuppliers />} />{" "}
           <Route path="/supplier/delete/:id" element={<DeleteSupplier />} />
+          <Route path="/supplier/delete/:id" element={<DeleteSupplier />} />
+          <Route path="/sdashboard" element={<SupplierDashboard />} />
+          
           <Route
             path="/supplier/update/:id"
             element={<UpdateSupplier />}

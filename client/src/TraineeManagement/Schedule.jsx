@@ -66,7 +66,7 @@ function Schedule() {
 
     // Check if the trainee is already scheduled for the selected date
     const existingScheduleForTrainee = schedules.find(
-      (schedule) => schedule.date === date && schedule.trainee_id._id === traineeId
+      (schedule) => schedule.date === date && schedule.trainee_id && schedule.trainee_id._id === traineeId
     );
 
     if (existingScheduleForTrainee) {
@@ -100,9 +100,13 @@ function Schedule() {
       trainee_id: traineeId
     };
 
+    // Submit new schedule and immediately add it to the displayed schedules
     axios.post('http://localhost:3001/createSchedule', newSchedule)
       .then((res) => {
+        // Add the new schedule to the state so it displays immediately
         setSchedules([...schedules, res.data]);
+
+        // Clear form fields after successful submission
         setDate('');
         setTimeSlot1('8:00 - 11:00');
         setTimeSlot2('8:00 - 11:00');
@@ -163,7 +167,7 @@ function Schedule() {
 
   return (
     <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="w-75 rounded p-2 shadow-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', fontSize: '12px', marginTop: "60px" }}>
+      <div className="w-75 rounded p-2 shadow-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', fontSize: '12px', marginTop: "250px", marginBottom:"50px" }}>
         <div className="container">
           <h2 style={{ textAlign: 'center', marginBottom: '0.5rem', marginTop: '10px', fontSize: '1.5rem', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.4)' }}>Schedule Management</h2>
           
@@ -207,18 +211,21 @@ function Schedule() {
             <label className="form-label" style={{ fontSize: '12px' }}>Task</label>
             <input type="text" className="form-control form-control-sm" value={task} onChange={(e) => setTask(e.target.value)} />
           </div>
-<br></br>
-          <button className="btn w-100 mb-2 btn-sm" style={{ backgroundColor: "#8B0000", color: "#fff", fontSize: '12px' }} onClick={handleFill}>Create Schedule</button>
-        </div>
 
-        
-        {/* Filter Section */}
-        <h3 className="mb-1" style={{ color: "#8B0000", fontSize: '14px' }}>Filter Unavailable Time Slots</h3>
+          <button className="btn btn-primary btn-sm mt-1" style={{
+              backgroundColor: "#8B0000", // Dark red color
+              color: "#fff",
+              width:"100%"
+            }} onClick={handleFill}>Fill</button>
+          <hr />
+          
+                 {/* Filter Section */}
+        <h3 className="mb-1" style={{ color: "#8B0000", fontSize: '17px', fontWeight:"bold" }}>Filter Unavailable Time Slots</h3>
           <div className="mb-1">
             <label className="form-label" style={{ fontSize: '12px' }}>Filter by Date</label>
             <div className="input-group input-group-sm">
-              <input type="date" className="form-control" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
-              <button className="btn btn-outline-dark btn-sm" style={{ fontSize: '12px' }} onClick={handleFilter}>Filter</button>
+              <input type="date" className="form-control"  value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
+              <button className="btn btn-outline-dark btn-sm" style={{ fontSize: '12px',height:"30px" }} onClick={handleFilter}>Filter</button>
             </div>
           </div>
           <ul className="list-group mb-2" style={{ fontSize: '12px' }}>
@@ -227,47 +234,51 @@ function Schedule() {
             ))}
           </ul>
 
-        {/* Schedules Section */}
-        <h4 className="mb-1" style={{ color: "#8B0000", fontSize: '14px' }}>Schedules</h4>
-          <div className="table-responsive">
-            <table className="table table-striped table-sm">
+          <hr />
+
+          {/* Display Schedules */}
+          <div>
+            <h4>Schedules</h4>
+            <table className="table table-striped">
               <thead>
                 <tr>
                   <th>Date</th>
                   <th>Trainee</th>
+                  <th>Task</th>
                   <th>Time Slot 1</th>
                   <th>Availability 1</th>
                   <th>Time Slot 2</th>
                   <th>Availability 2</th>
                   <th>Time Slot 3</th>
                   <th>Availability 3</th>
-                  <th>Task</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {schedules.map((schedule) => (
-                  <tr key={schedule._id}>
-                    <td>{schedule.date}</td>
-                    <td>{schedule.trainee_id.trainee_id}</td>
-                    <td>{schedule.timeSlot1}</td>
-                    <td>{schedule.availability1}</td>
-                    <td>{schedule.timeSlot2}</td>
-                    <td>{schedule.availability2}</td>
-                    <td>{schedule.timeSlot3}</td>
-                    <td>{schedule.availability3}</td>
-                    <td>{schedule.task}</td>
-                    <td>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDelete(schedule._id)}>Delete</button>
-                    </td>
-                  </tr>
+                  schedule.trainee_id && schedule.trainee_id._id && ( // Added check for trainee_id and its _id
+                    <tr key={schedule._id}>
+                      <td>{schedule.date}</td>
+                      <td>{schedule.trainee_id.trainee_id} - {schedule.trainee_id.name}</td>
+                      <td>{schedule.task}</td>
+                      <td>{schedule.timeSlot1}</td>
+                      <td>{schedule.availability1}</td>
+                      <td>{schedule.timeSlot2}</td>
+                      <td>{schedule.availability2}</td>
+                      <td>{schedule.timeSlot3}</td>
+                      <td>{schedule.availability3}</td>
+                      <td>
+                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(schedule._id)}>Delete</button>
+                      </td>
+                    </tr>
+                  )
                 ))}
               </tbody>
-              </table>
-           {/* Back Button */}
-    <button className="btn btn-secondary btn-sm w-20 mt-2" onClick={() => navigate('/traineedashboard')}>Back to Dashboard</button>
+            </table>
+              {/* Back Button */}
+    <button className="btn btn-secondary btn-sm  mt-2" style={{width:"150px", height:"40px"}} onClick={() => navigate('/Tdashboard')}>Back to Dashboard</button>
+          </div>
         </div>
-
       </div>
     </div>
   );

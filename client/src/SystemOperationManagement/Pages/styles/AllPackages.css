@@ -83,4 +83,27 @@
 }
 
 
+.custom-button {
+  width: 150px; /* Set a fixed width for both buttons */
+  height: 50px; /* Set a fixed height for both buttons */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  font-weight: bold; /* Optional: Make text bold */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.custom-button:first-of-type {
+  background: linear-gradient(45deg, #ff6f00, #ffcc80); /* Orange gradient */
+}
+
+.custom-button:last-of-type {
+  background: linear-gradient(45deg, #ab47bc, #e1bee7); /* Purple gradient */
+}
+
+/* Optional: Change color on hover */
+.custom-button:hover {
+  opacity: 0.9; /* Slightly transparent on hover */
+}
+
 

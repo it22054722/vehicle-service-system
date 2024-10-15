@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+// Register.js
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+
+import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Adjust the path as necessary
+//import carImage1 from '../systemoperationmanagement/assets/crossroad-car-safari-scene.jpg'; // Image 1
+import carImage2 from '../systemoperationmanagement/assets/bg1.jpg'; // Image 2
+import carImage3 from '../systemoperationmanagement/assets/bg2.jpg'; // Image 2
+import carImage4 from '../systemoperationmanagement/assets/bg3.jpeg'; // Image 2
+import carImage5 from '../systemoperationmanagement/assets/bg4.jpg'; // Image 2
+
+const images = [ carImage2,carImage3,carImage4,carImage5];
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -11,99 +21,105 @@ const Register = () => {
   const [vehicleType, setVehicleType] = useState('Car');
   const [showPassword, setShowPassword] = useState(false);
   const [usernameError, setUsernameError] = useState('');
+  const [backgroundImage, setBackgroundImage] = useState(images[0]);
   const navigate = useNavigate();
 
-  const validateUsername = (username) => {
-    const usernameRegex = /^[A-Za-z\s]+$/; // Only letters and spaces
-    return usernameRegex.test(username);
-  };
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % images.length;
+      setBackgroundImage(images[index]);
+    }, 5000); // Change image every 3 seconds
 
-  const validateEmail = (email) => {
-    // Ensure email starts with a letter, followed by letters, numbers, or specific special characters
-    const emailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;
-    return emailRegex.test(email);
-};
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []);
 
-
-  const validatePassword = (password) => {
-    return password.length >= 5 && password.length <= 10;
-  };
+  const validateUsername = (username) => /^[A-Za-z\s]+$/.test(username);
+  const validateEmail = (email) => /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/.test(email);
+  const validatePassword = (password) => password.length >= 5 && password.length <= 10;
 
   const handleUsernameChange = (e) => {
-    // Replace any non-letter or non-space characters with an empty string
     const input = e.target.value.replace(/[^a-zA-Z\s]/g, '');
     setUsername(input);
-
-    // Validate the username as the user types
-    if (!validateUsername(input)) {
-      setUsernameError('Username must only contain letters and spaces.');
-    } else {
-      setUsernameError('');
-    }
+    setUsernameError(!validateUsername(input) ? 'Username must only contain letters and spaces.' : '');
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (usernameError) {
-      Swal.fire('Error', 'Please fix the username error before submitting.', 'error');
+    if (usernameError || !validateEmail(email) || !validatePassword(password)) {
+      Swal.fire('Error', 'Please fill in all fields correctly.', 'error');
       return;
     }
-
-    if (!validateEmail(email)) {
-      Swal.fire('Error', 'Email must start with letters and end with @gmail.com.', 'error');
-      return;
-    }
-
-    if (!validatePassword(password)) {
-      Swal.fire('Error', 'Password must be between 5 and 10 characters.', 'error');
-      return;
-    }
-
     try {
       const response = await axios.post('http://localhost:3001/api/auth/register', {
         username,
         email,
         password,
-        vehicleType
+        vehicleType,
       });
       Swal.fire('Success', 'Registration successful', 'success');
-      navigate('/login'); // Redirect to login after successful registration
+      navigate('/login');
     } catch (err) {
       Swal.fire('Error', err.response?.data?.message || 'Server error', 'error');
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
-      <div className="card shadow-lg p-4 w-100 border-0 rounded-3" style={{ maxWidth: '500px' }}>
-        <h2 className="text-center mb-4 text-primary">Create an Account</h2>
+    <div 
+      className="d-flex justify-content-center align-items-center min-vh-100" 
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '90px 0', // Space between header and footer
+      }}
+    >
+      <div className="card shadow-lg p-4 w-100 border-0" 
+        style={{ 
+          maxWidth: '400px',  // Minimized width
+          borderRadius: '12px', 
+          backgroundColor: '#ffffff90',
+          transition: 'transform 0.3s ease',
+          overflow: 'hidden', // Ensure no scroll bars
+          marginTop:'90px'
+        }}
+      >
+        <div className="text-center mb-4">
+          <img 
+            src={logo} 
+            alt="Levaggio Logo" 
+            className="img-fluid rounded-circle" 
+            style={{ width: '80px', height: '80px', objectFit: 'cover', border: '2px solid #8B0000' }} 
+          />
+        </div>
+        <h2 className="text-center mb-3" style={{ color: '#8B0000', fontWeight: 'bold', fontSize: '1.5rem' }}>
+          Create an Account
+        </h2>
         <form onSubmit={handleRegister}>
           <div className="mb-3">
             <label className="form-label text-muted">Username</label>
             <input
               type="text"
-              className={`form-control border-primary ${usernameError ? 'is-invalid' : ''}`}
+              className="form-control border-danger rounded-pill"
               value={username}
               onChange={handleUsernameChange}
               required
-              placeholder="Enter a  username"
+              placeholder="Enter a username"
+              style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
             />
-            {usernameError && (
-              <div className="invalid-feedback">
-                {usernameError}
-              </div>
-            )}
+            {usernameError && <div className="text-danger">{usernameError}</div>}
           </div>
           <div className="mb-3">
             <label className="form-label text-muted">Email</label>
             <input
               type="email"
-              className="form-control border-primary"
+              className="form-control border-danger rounded-pill"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="example@gmail.com"
+              style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
             />
           </div>
           <div className="mb-3">
@@ -111,22 +127,23 @@ const Register = () => {
             <div className="input-group">
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="form-control border-primary"
+                className="form-control border-danger rounded-pill"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="5-10 characters"
+                style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
               />
-              
             </div>
           </div>
           <div className="mb-3">
             <label className="form-label text-muted">Vehicle Type</label>
             <select
-              className="form-select border-primary"
+              className="form-select border-danger rounded-pill"
               value={vehicleType}
               onChange={(e) => setVehicleType(e.target.value)}
               required
+              style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}
             >
               <option value="Car">Car</option>
               <option value="Van">Van</option>
@@ -136,16 +153,17 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary w-100 py-2"
-            style={{ backgroundColor: '#007bff', borderColor: '#007bff' }}
+            className="btn btn-danger w-100 py-2 rounded-pill mb-3"
+            style={{ backgroundColor: '#8B0000', borderColor: '#8B0000', fontWeight: 'bold', transition: 'background-color 0.3s ease' }}
           >
             Register
           </button>
         </form>
+
         <div className="text-center mt-3">
-          <p>
+          <p className="text-muted">
             Already have an account?{' '}
-            <Link to="/login" className="text-decoration-none text-primary">
+            <Link to="/login" className="text-decoration-none" style={{ color: '#8B0000' }}>
               Login here
             </Link>
           </p>
