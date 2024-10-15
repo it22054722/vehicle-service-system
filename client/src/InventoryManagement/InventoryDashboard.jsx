@@ -21,8 +21,9 @@ const InventoryDashboard = () => {
         justifyContent: 'center',
       }}>
         <Card title="Inventory" link="/inventory" />
-        <Card title="Add item" link="/inventorycreate" />
+        <Card title="Add Item" link="/inventorycreate" />
         <Card title="Low Inventory" link="/low-inventory" />
+        <Card title="Summary" link="/summary" /> {/* New Summary Card */}
       </div>
     </div>
   );

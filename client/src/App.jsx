@@ -69,6 +69,7 @@ import UpdateItem from "./InventoryManagement/UpdateItem";
 import InventoryDashboard from "./InventoryManagement/InventoryDashboard";
 import CreateItem from "./InventoryManagement/CreateItem";
 import LowInventory from "./InventoryManagement/LowInventory";
+import InventorySummary from "./InventoryManagement/Summary"; 
 
 /* System Operation Manager Components */
 import AddPackage from "./SystemOperationManagement/AddPackage";
@@ -175,6 +176,7 @@ function App() {
           <Route path="/inventoryDashboard" element={<InventoryDashboard />} />
           <Route path="/inventoryCreate" element={<CreateItem />} />
           <Route path="/low-inventory" element={<LowInventory />} />
+          <Route path="/inventory/summary" element={<InventorySummary />} />
 
           {/* System Operation Manager Routes */}
           <Route path="/packageDashboard" element={<PackageDashboard />} />
