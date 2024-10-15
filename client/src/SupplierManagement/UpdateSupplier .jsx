@@ -212,23 +212,44 @@ const UpdateSupplier = () => {
                                     </div>
 
                                     <div className="row mb-3">
-                                        <div className="col-md-6">
-                                            <label htmlFor="partsRequired" className="form-label">
-                                                <i className="bi bi-tools icon-color me-2"></i>Parts Required
-                                            </label>
-                                            <input 
-                                                type="text" 
-                                                className="form-control" 
-                                                id="partsRequired" 
-                                                name="partsRequired"
-                                                value={supplier.partsRequired}
-                                                onChange={handleInputChange} 
-                                                required
-                                            />
-                                            {errors.partsRequired && (
-                                                <div className="text-danger mt-1">{errors.partsRequired}</div>
-                                            )}
-                                        </div>
+                                    <div className="col-md-6">
+    <label htmlFor="partsRequired" className="form-label">
+        <i className="bi bi-tools icon-color me-2"></i>Parts Required
+    </label>
+    <select 
+        className="form-select" 
+        id="partsRequired" 
+        name="partsRequired"
+        value={supplier.partsRequired}
+        onChange={handleInputChange} 
+        required
+    >
+      <option value="">Select Part</option>
+<option value="Brakes">Brakes</option>
+<option value="Engine Oil">Engine Oil</option>
+<option value="Suspension">Suspension</option>
+<option value="Tires">Tires</option>
+<option value="Battery">Battery</option>
+<option value="Transmission Fluid">Transmission Fluid</option>
+<option value="Air Filter">Air Filter</option>
+<option value="Brake Fluid">Brake Fluid</option>
+<option value="Radiator">Radiator</option>
+<option value="Fuel Filter">Fuel Filter</option>
+<option value="Clutch">Clutch</option>
+<option value="Alternator">Alternator</option>
+<option value="Exhaust System">Exhaust System</option>
+<option value="Spark Plugs">Spark Plugs</option>
+<option value="Power Steering Fluid">Power Steering Fluid</option>
+<option value="Timing Belt">Timing Belt</option>
+<option value="Water Pump">Water Pump</option>
+<option value="Wiper Blades">Wiper Blades</option>
+
+    </select>
+    {errors.partsRequired && (
+        <div className="text-danger mt-1">{errors.partsRequired}</div>
+    )}
+</div>
+
 
                                         <div className="col-md-6">
                                             <label htmlFor="quantity" className="form-label">
