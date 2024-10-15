@@ -6,14 +6,12 @@ const SupplierDashboard = () => {
   const cards = [
     { title: "Add Supplier", description: "Add new supplier details.", link: "/supplier/add" },
     { title: "All Suppliers", description: "View and manage all suppliers.", link: "/supplier/all" },
-    { title: "Orders", description: "Manage and track supplier orders.", link: "/supplier/orders" },
-    { title: "Reports", description: "Generate and view supplier reports.", link: "/supplier/reports" }
   ];
 
   return (
     <div
       style={{
-        background: "linear-gradient(135deg, rgba(255, 205, 205, 0.9) 0%, rgba(179, 32, 46, 0.9) 100%)",
+       
         minHeight: "100vh",
         padding: "50px",
         display: "flex",
@@ -50,14 +48,6 @@ const SupplierDashboard = () => {
               transition: "transform 0.3s, box-shadow 0.3s",
               padding: "20px",
             }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 8px 40px rgba(0, 0, 0, 0.6)";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 6px 30px rgba(0, 0, 0, 0.4)";
-            }}
           >
             <div className="card-body">
               <h3 className="card-title" style={{ marginBottom: "20px", color: "#f7c08a" }}>
@@ -93,32 +83,7 @@ const SupplierDashboard = () => {
         ))}
       </div>
 
-      <div className="d-flex justify-content-center mt-4">
-        <Link
-          to="/supplierDetails"
-          className="btn"
-          style={{
-            backgroundColor: "#b3202e",
-            color: "#fff",
-            padding: "12px 25px",
-            borderRadius: "10px",
-            textDecoration: "none",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.5)",
-            transition: "background-color 0.3s, box-shadow 0.3s",
-            fontSize: "1.2rem",
-          }}
-          onMouseOver={(e) => {
-            e.target.style.backgroundColor = "#8c1c27";
-            e.target.style.boxShadow = "0 6px 15px rgba(0, 0, 0, 0.6)";
-          }}
-          onMouseOut={(e) => {
-            e.target.style.backgroundColor = "#b3202e";
-            e.target.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.5)";
-          }}
-        >
-          Supplier Details
-        </Link>
-      </div>
+     
     </div>
   );
 };
