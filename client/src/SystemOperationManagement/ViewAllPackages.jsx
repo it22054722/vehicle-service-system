@@ -19,6 +19,15 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'; 
+//import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Adjust the path as necessary
+import carImage1 from '../systemoperationmanagement/assets/bg4.jpg'; // Image 1
+import carImage2 from '../systemoperationmanagement/assets/bg6.jpg'; // Image 2
+import carImage3 from '../systemoperationmanagement/assets/bg7.jpg'; // Image 2
+import carImage4 from '../systemoperationmanagement/assets/bg8.jpg'; // Image 2
+import carImage5 from '../systemoperationmanagement/assets/bg9.jpg'; // Image 2
+
+
+const images = [carImage1, carImage2,carImage3,carImage4,carImage5];
 
 const ViewAllPackages = () => {
   const [packages, setPackages] = useState([]);
@@ -33,6 +42,21 @@ const ViewAllPackages = () => {
   const [cvv, setCvv] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [selectedBank, setSelectedBank] = useState('');
+  const [backgroundImage, setBackgroundImage] = useState(images[0]);
+
+  
+
+  
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % images.length; // Cycle through the images
+      setBackgroundImage(images[index]);
+    }, 8000); // Change every 5 seconds
+
+    // Clear the interval when component unmounts
+    return () => clearInterval(interval);
+  }, [images]);
   
   const navigate = useNavigate();
 
@@ -360,13 +384,25 @@ const ViewAllPackages = () => {
     const value = e.target.value.replace(/\D/g, '').replace(/(.{2})(.{2})/, '$1/$2');
     setExpiryDate(value);
   };
+ return (
+       <div 
+       className="d-flex justify-content-center align-items-center min-vh-100" 
+       style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      padding: '90px 0', // Space between header and footer
+      }}
+         >
 
-  return (
+
+    
     <div className="container mt-4">
       <ToastContainer />
       
       <div className="text-center mb-5">
-  <h3 style={{ marginTop: '90px', color: '#FFFFFF' }}>All Packages</h3>
+   <h3 style={{ marginTop: '90px', color: '#FFFFFF' }}>All Packages</h3>
 
   {/* Search Bar, Sort By, and Price Range */}
   <div className="row align-items-center justify-content-center mb-4" style={{ gap: '20px', marginTop: '15px' }}>
@@ -636,6 +672,7 @@ const ViewAllPackages = () => {
                 </div>
               </div>
             </div>
+            
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -664,6 +701,7 @@ const ViewAllPackages = () => {
 
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 };

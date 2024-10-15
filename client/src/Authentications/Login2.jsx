@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FaSignInAlt } from 'react-icons/fa';
 import carImage from '../systemoperationmanagement/assets/levaggio.png';
-import backgroundImage from '../systemoperationmanagement/assets/crossroad-car-safari-scene.jpg'; // New background image
+import backgroundImage from '../systemoperationmanagement/assets/bg4.jpg'; // New background image
 
 const admins = [
   { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/packageDashboard' },

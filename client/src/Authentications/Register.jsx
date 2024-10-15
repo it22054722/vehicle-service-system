@@ -1,11 +1,18 @@
 // Register.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import carImage from '../systemoperationmanagement/assets/crossroad-car-safari-scene.jpg';
+
 import logo from '../systemoperationmanagement/assets/Levaggio.png'; // Adjust the path as necessary
+//import carImage1 from '../systemoperationmanagement/assets/crossroad-car-safari-scene.jpg'; // Image 1
+import carImage2 from '../systemoperationmanagement/assets/bg1.jpg'; // Image 2
+import carImage3 from '../systemoperationmanagement/assets/bg2.jpg'; // Image 2
+import carImage4 from '../systemoperationmanagement/assets/bg3.jpeg'; // Image 2
+import carImage5 from '../systemoperationmanagement/assets/bg4.jpg'; // Image 2
+
+const images = [ carImage2,carImage3,carImage4,carImage5];
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -14,7 +21,18 @@ const Register = () => {
   const [vehicleType, setVehicleType] = useState('Car');
   const [showPassword, setShowPassword] = useState(false);
   const [usernameError, setUsernameError] = useState('');
+  const [backgroundImage, setBackgroundImage] = useState(images[0]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % images.length;
+      setBackgroundImage(images[index]);
+    }, 5000); // Change image every 3 seconds
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []);
 
   const validateUsername = (username) => /^[A-Za-z\s]+$/.test(username);
   const validateEmail = (email) => /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/.test(email);
@@ -50,7 +68,7 @@ const Register = () => {
     <div 
       className="d-flex justify-content-center align-items-center min-vh-100" 
       style={{
-        backgroundImage: `url(${carImage})`,
+        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
