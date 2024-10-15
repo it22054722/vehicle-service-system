@@ -1,51 +1,86 @@
-
 .profile-card {
-  backdrop-filter: blur(10px);
-}
-
-.hover-effect {
+  border-radius: 15px;
+  overflow: hidden;
   transition: transform 0.2s;
+  background: rgba(240, 241, 244, 0.8); /* Semi-transparent background */
 }
 
-.hover-effect:hover {
+.profile-card:hover {
+  transform: scale(1.02);
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  background: rgba(76, 238, 211, 0.8); 
+}
+
+.dashboard-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.dashboard-item {
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  background-color: rgba(212, 229, 232, 0.9); /* More transparency */
+  transition: box-shadow 0.2s;
+}
+
+.dashboard-item:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.settings {
+  margin-top: 20px;
+}
+
+.settings button {
+  margin-right: 10px;
+}
+
+/* New styles for buttons */
+.beautiful-btn {
+  border-radius: 25px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.beautiful-btn:hover {
+  background-color: rgba(0, 123, 255, 0.7); /* Lighten on hover */
   transform: scale(1.05);
 }
 
-.card {
-  border: 1px solid #e9ecef; /* Light border */
-  border-radius: 10px; /* Rounded corners */
-  overflow: hidden; /* Prevent overflow */
+/* Styles for input fields */
+.form-control {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent input fields */
+  transition: background-color 0.3s;
 }
 
-.card-title {
-  font-size: 1.2rem; /* Slightly larger font size for titles */
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 1); /* Solid on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a shadow on focus */
 }
 
-.card-text {
-  font-size: 1rem; /* Default font size for text */
+/* Package details styles */
+.package-details {
+  background-color: rgba(0, 123, 255, 0.1); /* Light background for package details */
+  border-radius: 10px;
+  padding: 15px;
 }
 
-.btn {
-  border-radius: 5px; /* Rounded buttons */
+.card-body {
+  padding: 15px; /* Adjust padding for the card */
 }
 
-.modal-content {
-  border-radius: 10px; /* Rounded modal */
+.icon-color {
+  color: white; /* Ensures the icons are visible on colored backgrounds */
 }
 
-.modal-header {
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white; /* White text */
-  border-top-left-radius: 10px; /* Rounded corners */
-  border-top-right-radius: 10px; /* Rounded corners */
+.dashboard-title {
+  color: #333; /* Optional: Change the title color */
 }
-
-.modal-footer .btn {
-  border-radius: 5px; /* Rounded buttons */
-}
-
-.profile-info p {
-  margin: 0; /* Remove margin */
-  padding: 5px 0; /* Add padding */
-}
-

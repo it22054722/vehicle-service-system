@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import Swal from 'sweetalert2'; // Import SweetAlert2
-import { FaUser, FaEnvelope, FaCar, FaEdit, FaTrashAlt, FaLock } from 'react-icons/fa'; // Import Font Awesome icons
-import './Pages/styles/Profile.css'; // Import custom styles
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Ensure Bootstrap JS is included
+import Swal from 'sweetalert2';
+import { FaUser, FaEnvelope, FaCar, FaEdit, FaTrashAlt, FaLock, FaCog, FaPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import './Pages/styles/Profile.css';
 
 const Profile = () => {
     const [userProfile, setUserProfile] = useState(null);
-    const [packageDetails, setPackageDetails] = useState([]);
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [updatedUsername, setUpdatedUsername] = useState('');
     const [updatedEmail, setUpdatedEmail] = useState('');
@@ -17,8 +17,9 @@ const Profile = () => {
     const [showResetPassword, setShowResetPassword] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [timeSpent, setTimeSpent] = useState(0);
-    const [timerInterval, setTimerInterval] = useState(null);
+    const [error, setError] = useState(null);
+    const [packageDetails, setPackageDetails] = useState([]);
+    const navigate = useNavigate(); // Initialize navigate for navigation
 
     const getUserIdFromToken = (token) => {
         if (!token) return null;
@@ -31,28 +32,6 @@ const Profile = () => {
             return null;
         }
     };
-
-
-    const validateUsername = (username) => {
-        const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/; // Must start with a letter, then allow letters, numbers, and spaces
-        if (regex.test(username)) {
-            setUpdatedUsername(username);
-        } else {
-            Swal.fire('Invalid Username!', 'Username must start with a letter and contain only letters, numbers, or spaces.', 'error');
-        }
-    };
-
-
-    const validateEmail = (email) => {
-        const emailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/; // Must start with a letter and be a valid Gmail
-        if (emailRegex.test(email)) {
-            setUpdatedEmail(email);
-        } else {
-            Swal.fire('Invalid Email!', 'Email must start with a letter and follow the @gmail.com format.', 'error');
-        }
-    };
-    
-    
 
     const fetchUserProfile = async (userId) => {
         try {
@@ -87,13 +66,6 @@ const Profile = () => {
             setError('No token found. Please log in.');
             setLoading(false);
         }
-
-        const interval = setInterval(() => {
-            setTimeSpent(prevTime => prevTime + 1);
-        }, 1000);
-        setTimerInterval(interval);
-
-        return () => clearInterval(interval);
     }, []);
 
     const handleDeleteAccount = async () => {
@@ -155,7 +127,6 @@ const Profile = () => {
 
         try {
             const token = localStorage.getItem('authToken');
-            const userId = getUserIdFromToken(token);
             const formData = {
                 oldPassword,
                 newPassword,
@@ -175,9 +146,14 @@ const Profile = () => {
         }
     };
 
+    const handleBookPackage = () => {
+        // Navigate to the all-packages page
+        navigate('/all-packages'); // Use navigate to redirect
+    };
+
     return (
-        <div className="container d-flex justify-content-center align-items-center vh-100">
-            <div className="card profile-card shadow-lg w-100" style={{ maxWidth: "1600px", backdropFilter: "blur(10px)", backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
+        <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
+            <div className="card profile-card shadow-lg w-100" style={{ maxWidth: "800px" }}>
                 {loading ? (
                     <div className="text-center my-5">
                         <div className="spinner-border text-primary" role="status">
@@ -190,126 +166,140 @@ const Profile = () => {
                         {error && <p className="text-danger text-center">{error}</p>}
                         {userProfile ? (
                             <>
-                                {isEditing ? (
-                                   <form onSubmit={handleUpdateProfile}>
-                                   <div className="form-group mb-3">
-                                       <label>Username</label>
-                                       <input
-                                           type="text"
-                                           className="form-control"
-                                           value={updatedUsername}
-                                           onChange={(e) => validateUsername(e.target.value)}
-                                           required
-                                       />
-                                   </div>
-                                   <div className="form-group mb-3">
-                                       <label>Email</label>
-                                       <input
-                                           type="email"
-                                           className="form-control"
-                                           value={updatedEmail}
-                                           onChange={(e) => validateEmail(e.target.value)}
-                                           required
-                                       />
-                                   </div>
-                                   <div className="form-group mb-3">
-    <label>Vehicle Type</label>
-    <select
-        className="form-control"
-        value={updatedVehicleType}
-        onChange={(e) => setUpdatedVehicleType(e.target.value)}
-        required
-    >
-        <option value="">Select Vehicle Type</option> {/* Default option */}
-        <option value="Car">Car</option>
-        <option value="Van">Van</option>
-        <option value="SUV">SUV</option>
-        <option value="Truck">Truck</option>
-    </select>
-</div>
+                                <div className="card-header bg-danger text-white text-center">
+                                    <h3>User Profile</h3>
+                                </div>
+                                <div className="card-body">
+                                    <div className="dashboard">
+                                        <h5 className="dashboard-title">Dashboard</h5>
+                                        <div className="dashboard-item">
+                                            <FaUser className="icon-color" size={30} />
+                                            <h6>{userProfile.username}</h6>
+                                        </div>
+                                        <div className="dashboard-item">
+                                            <FaEnvelope className="icon-color" size={30} />
+                                            <h6>{userProfile.email}</h6>
+                                        </div>
+                                        <div className="dashboard-item">
+                                            <FaCar className="icon-color" size={30} />
+                                            <h6>{userProfile.vehicleType}</h6>
+                                        </div>
+                                    </div>
 
-                                   <div className="d-flex justify-content-between mt-4">
-                                       <button type="button" className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
-                                       <button type="submit" className="btn btn-primary">Save Changes</button>
-                                   </div>
-                               </form>
-                               
-                                ) : (
-                                    <>
-                                        <h2 className="card-header text-center bg-primary text-white">User Profile</h2>
-                                        <div className="card-body">
-                                            <div className="row">
-                                                <div className="col-md-4 mb-3">
-                                                    <div className="card hover-effect" style={{ backgroundColor: 'rgba(255, 193, 7, 0.6)', height: '200px' }}>
-                                                        <div className="card-body text-center">
-                                                            <h5 className="card-title" style={{ fontSize: '1.5rem' }}><FaUser size={40} /></h5>
-                                                            <p className="card-text">{userProfile.username}</p>
+                                    <div className="settings mt-4">
+                                        <h5><FaCog /> Settings</h5>
+                                        <button className="btn btn-warning mx-2" onClick={() => setIsEditing(true)}><FaEdit /> Edit Profile</button>
+                                        <button className="btn btn-danger mx-2" onClick={handleDeleteAccount}><FaTrashAlt /> Delete Account</button>
+                                        <button className="btn btn-info mx-2" onClick={() => setShowResetPassword(true)}><FaLock /> Reset Password</button>
+                                        <button className="btn btn-success mx-2" onClick={handleBookPackage}><FaPlus /> Book a Package</button> {/* New Book a Package Button */}
+                                    </div>
+
+                                    {/* Edit Profile Modal */}
+                                    {isEditing && (
+                                        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                                                        <button type="button" className="btn-close" onClick={() => setIsEditing(false)} aria-label="Close"></button>
+                                                    </div>
+                                                    <form onSubmit={handleUpdateProfile}>
+                                                        <div className="modal-body">
+                                                            <div className="form-group mb-2">
+                                                                <label>Username</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control form-control-sm"
+                                                                    value={updatedUsername}
+                                                                    onChange={(e) => setUpdatedUsername(e.target.value)}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group mb-2">
+                                                                <label>Email</label>
+                                                                <input
+                                                                    type="email"
+                                                                    className="form-control form-control-sm"
+                                                                    value={updatedEmail}
+                                                                    onChange={(e) => setUpdatedEmail(e.target.value)}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group mb-2">
+                                                                <label>Vehicle Type</label>
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control form-control-sm"
+                                                                    value={updatedVehicleType}
+                                                                    onChange={(e) => setUpdatedVehicleType(e.target.value)}
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4 mb-3">
-                                                    <div className="card hover-effect" style={{ backgroundColor: 'rgba(0, 123, 255, 0.6)', height: '200px' }}>
-                                                        <div className="card-body text-center">
-                                                            <h5 className="card-title" style={{ fontSize: '1.5rem' }}><FaEnvelope size={40} /></h5>
-                                                            <p className="card-text">{userProfile.email}</p>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" onClick={() => setIsEditing(false)}>Close</button>
+                                                            <button type="submit" className="btn btn-primary">Save changes</button>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
-                                                <div className="col-md-4 mb-3">
-                                                    <div className="card hover-effect" style={{ backgroundColor: 'rgba(40, 167, 69, 0.6)', height: '200px' }}>
-                                                        <div className="card-body text-center">
-                                                            <h5 className="card-title" style={{ fontSize: '1.5rem' }}><FaCar size={40} /></h5>
-                                                            <p className="card-text">{userProfile.vehicleType}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex justify-content-center mt-2">
-                                                <button className="btn btn-warning mx-2" onClick={() => setIsEditing(true)}><FaEdit /> Edit Profile</button>
-                                                <button className="btn btn-danger mx-2" onClick={handleDeleteAccount}><FaTrashAlt /> Delete Account</button>
-                                                <button className="btn btn-info mx-2" onClick={() => setShowResetPassword(true)}><FaLock /> Reset Password</button>
-                                            </div>
-
-                                            {showResetPassword && (
-                                                <form onSubmit={handleResetPassword} className="mt-2">
-                                                    <h5>Reset Password</h5>
-                                                    <div className="form-group mb-3">
-                                                        <label>Old Password</label>
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            value={oldPassword}
-                                                            onChange={(e) => setOldPassword(e.target.value)}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="form-group mb-3">
-                                                        <label>New Password</label>
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            value={newPassword}
-                                                            onChange={(e) => setNewPassword(e.target.value)}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="d-flex justify-content-between mt-4">
-                                                        <button type="button" className="btn btn-secondary" onClick={() => setShowResetPassword(false)}>Cancel</button>
-                                                        <button type="submit" className="btn btn-primary">Reset Password</button>
-                                                    </div>
-                                                </form>
-                                            )}
-
-                                            <div className="mt-4 text-center">
-                                          
                                             </div>
                                         </div>
-                                    </>
+                                    )}
+
+                                    {/* Reset Password Modal */}
+                                    {showResetPassword && (
+                                        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                                                        <button type="button" className="btn-close" onClick={() => setShowResetPassword(false)} aria-label="Close"></button>
+                                                    </div>
+                                                    <form onSubmit={handleResetPassword}>
+                                                        <div className="modal-body">
+                                                            <div className="form-group mb-2">
+                                                                <label>Old Password</label>
+                                                                <input
+                                                                    type="password"
+                                                                    className="form-control form-control-sm"
+                                                                    value={oldPassword}
+                                                                    onChange={(e) => setOldPassword(e.target.value)}
+                                                                />
+                                                            </div>
+                                                            <div className="form-group mb-2">
+                                                                <label>New Password</label>
+                                                                <input
+                                                                    type="password"
+                                                                    className="form-control form-control-sm"
+                                                                    value={newPassword}
+                                                                    onChange={(e) => setNewPassword(e.target.value)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" onClick={() => setShowResetPassword(false)}>Close</button>
+                                                            <button type="submit" className="btn btn-primary">Reset Password</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Display Booked Packages */}
+                                {packageDetails.length > 0 && (
+                                    <div className="booked-packages mt-4">
+                                        <h5>Booked Packages</h5>
+                                        <ul className="list-group">
+                                            {packageDetails.map((pkg, index) => (
+                                                <li key={index} className="list-group-item">
+                                                    <strong>{pkg.packageName}</strong> - Price: ${pkg.price} (Total after discount: ${pkg.totalAfterDiscount}) on {pkg.appointmentDate}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 )}
                             </>
                         ) : (
-                            <p className="text-danger text-center">User profile not found.</p>
+                            <p className="text-center">No profile data found.</p>
                         )}
                     </>
                 )}

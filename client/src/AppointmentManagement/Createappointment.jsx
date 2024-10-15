@@ -110,7 +110,7 @@ function Createappointment() {
       })
       .then((result) => {
         handleWhatsAppMessage(); // Call the function to send the WhatsApp message
-        navigate("/AppTable");
+        navigate("/");
       })
       .catch((err) => {
         if (err.response && err.response.data && err.response.data.message) {
