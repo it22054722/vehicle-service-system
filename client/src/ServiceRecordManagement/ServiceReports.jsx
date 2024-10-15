@@ -87,9 +87,10 @@ function ServiceReports() {
       filtered = filtered.filter(service => service.service.toLowerCase().includes(serviceFilter.toLowerCase()));
     }
 
-    // Filter by service status
     if (serviceStatusFilter) {
-      filtered = filtered.filter(service => service.status.toLowerCase() === serviceStatusFilter.toLowerCase());
+      filtered = filtered.filter(service => 
+        service.status && service.status.toLowerCase() === serviceStatusFilter.toLowerCase()
+      );
     }
 
     setFilteredServices(filtered);
