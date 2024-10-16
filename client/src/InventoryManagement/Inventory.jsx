@@ -64,7 +64,7 @@ export default function Inventory() {
       Swal.fire("Out of stock", "This item is out of stock!", "warning");
     }
   };
-
+//generate report
   const handleGenerateReport = () => {
     const doc = new jsPDF();
     const currentDate = new Date().toLocaleDateString();
