@@ -92,7 +92,7 @@ const UpdatePackage = () => {
 
             Swal.fire({
                 icon: 'success',
-                title: '🎉 Package Updated Successfully!',
+                title: ' Package Updated Successfully!',
                 text: 'The package has been updated.',
                 confirmButtonText: 'OK',
                 backdrop: `
@@ -122,7 +122,11 @@ const UpdatePackage = () => {
     };
 
     return (
-        <div className="d-flex align-items-center justify-content-center vh-100" style={{ marginTop: '150px' }}>
+        <div className="d-flex align-items-center justify-content-center" 
+        style={{ height: 'calc(100vh + 20px)', marginTop: '90px', overflow: 'hidden' }}>
+       {/* Your content goes here */}
+
+   
             {loading ? (
                 <div className="spinner-border text-primary" role="status">
                     <span className="sr-only">Loading...</span>
@@ -286,23 +290,7 @@ const UpdatePackage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="mb-3">
-                                        <label htmlFor="termsAndConditions" className="form-label">
-                                            <i className="bi bi-file-earmark-text icon-color me-2"></i>Terms and Conditions
-                                        </label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            id="termsAndConditions" 
-                                            name="termsAndConditions"
-                                            value={pkg.termsAndConditions}
-                                            onChange={handleInputChange} 
-                                            required
-                                        />
-                                        {errors.termsAndConditions && (
-                                            <div className="text-danger mt-1">{errors.termsAndConditions}</div>
-                                        )}
-                                    </div>
+                                   
 
                                     <div className="text-center">
                                         <button 
