@@ -220,9 +220,7 @@ const AllSuppliers = () => {
                         <td>{supplier.additionalNote}</td>
                         <td>
                           <div className="btn-group">
-                            <Link to={`/view-supplier/${supplier._id}`} className="btn btn-outline-success" title="View">
-                              <FontAwesomeIcon icon={faEye} />
-                            </Link>
+                          
                             <Link to={`/supplier/update/${supplier._id}`} className="btn btn-outline-warning" title="Edit">
                               <FontAwesomeIcon icon={faPencilAlt} />
                             </Link>
@@ -254,9 +252,7 @@ const AllSuppliers = () => {
           <Bar data={chartData} />
         </Modal.Body>
         <Modal.Footer>
-        <Button
-  variant="secondary"
-  onClick={() => setShowChart(false)}
+        <Button variant="secondary" onClick={() => setShowChart(false)}
   style={{ width: 'auto', padding: '5px 10px' }}  // Adjust padding as needed
 >
   Close
