@@ -150,7 +150,11 @@ export default function AddPackage() {
     }
 
     return (
-        <div className="d-flex align-items-center justify-content-center vh-100" style={{ marginTop: '90px' }}>
+        <div className="d-flex align-items-center justify-content-center" 
+        style={{ height: 'calc(100vh + 20px)', marginTop: '90px', overflow: 'hidden' }}>
+       {/* Your content goes here */}
+
+   
             <div className="row w-100">
                 <div className="col-md-8 col-lg-6 mx-auto">
                     <div className="card border-5 shadow rounded-4 bg-light bg-opacity-75">
