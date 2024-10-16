@@ -43,7 +43,10 @@ const ViewPackage = () => {
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", marginTop: "150px" }}>
+    <div className="d-flex align-items-center justify-content-center" 
+    style={{ height: 'calc(100vh + 20px)', marginTop: '90px', overflow: 'hidden' }}>
+   {/* Your content goes here */}
+
       <div className="row w-100">
         <div className="col-md-8 col-lg-6 mx-auto"> {/* Adjust width */}
           <div className="card shadow rounded-4 bg-light bg-opacity-50"> {/* Increased transparency */}
