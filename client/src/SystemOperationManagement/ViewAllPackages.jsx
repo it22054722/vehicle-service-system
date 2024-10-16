@@ -236,7 +236,7 @@ const ViewAllPackages = () => {
         const userId = getUserIdFromToken(token);
         if (!userId) {
             Swal.fire('Error', 'Invalid token. Please log in again.', 'error');
-            navigate('/login');
+            navigate('/register');
             return;
         }
 
