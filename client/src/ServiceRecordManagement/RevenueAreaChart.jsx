@@ -7,6 +7,7 @@ import { CSSTransition } from "react-transition-group"; // Import for transition
 import './RevenueAreaChart.css'; // Import CSS styles
 
 const RevenueAreaChart = () => {
+  
   const [revenueData, setRevenueData] = useState([]);
   const [labels, setLabels] = useState([]);
   const [showChart, setShowChart] = useState(false); // State for chart visibility
@@ -49,10 +50,10 @@ const RevenueAreaChart = () => {
       {
         label: 'Total Revenue Generated (LKR)',
         data: revenueData,
-        backgroundColor: 'rgba(179, 32, 46, 0.6)',
-        borderColor: 'rgba(179, 32, 46, 1)',
+        backgroundColor: 'rgba(179, 32, 46, 0.6)', // Dark red shade for bars
+        borderColor: 'rgba(179, 32, 46, 1)', // Solid dark red for border
         borderWidth: 1,
-        hoverBackgroundColor: 'rgba(179, 32, 46, 0.8)', // Hover color change
+        hoverBackgroundColor: 'rgba(179, 32, 46, 0.8)', // Darker red on hover
       },
     ],
   };
@@ -71,6 +72,11 @@ const RevenueAreaChart = () => {
       title: {
         display: true,
         text: 'Cumulative Revenue Growth Over Days',
+        font: {
+          size: 20,
+          family: 'Poppins',
+        },
+        color: '#333',
       },
       tooltip: {
         mode: 'index',
@@ -94,12 +100,24 @@ const RevenueAreaChart = () => {
         title: {
           display: true,
           text: 'Revenue (LKR)',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+          },
+          color: '#333',
         },
       },
       x: {
         title: {
           display: true,
           text: 'Date',
+          font: {
+            family: 'Poppins',
+            size: 14,
+            weight: 'bold',
+          },
+          color: '#333',
         },
       },
     },
@@ -143,6 +161,7 @@ const RevenueAreaChart = () => {
   };
 
   return (
+    <div className="service-reports-background">
     <div className="revenue-chart-container">
       <h2 className="revenue-chart-title">
         Total Revenue Generated (LKR)
@@ -164,6 +183,7 @@ const RevenueAreaChart = () => {
       >
         Download Chart as PDF
       </button>
+    </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const MySwal = withReactContent(Swal);
 function Services() {
   const [Services, setServices] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isInProgress, setIsInProgress] = useState(false); // State for switch
+  const [isInProgress, setIsInProgress] = useState(false); 
   const navigate = useNavigate();  
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function Services() {
     toast.info("Logged out successfully!");  
   };
 
-  // Filter based on search query and switch state
+  
   const filteredServices = Services.filter(service =>
     service.vin.toLowerCase().includes(searchQuery.toLowerCase()) &&
     (isInProgress ? service.status === "in-progress" : service.status === "completed")

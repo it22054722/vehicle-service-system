@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FaSignInAlt } from 'react-icons/fa';
-import carImage from '../systemoperationmanagement/assets/levaggio.png';
-import backgroundImage from '../systemoperationmanagement/assets/bg4.jpg'; // New background image
 
 const admins = [
   { name: 'System Operation Manager', password: 'pasindu', redirectTo: '/packageDashboard' },
@@ -65,58 +63,36 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center min-vh-100"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div
-        className="card shadow-lg p-4 w-100 border-0"
-        style={{
-          maxWidth: '400px',  // Minimized width
-          borderRadius: '12px',
-          backgroundColor: '#ffffff90',
-          transition: 'transform 0.3s ease',
-          overflow: 'hidden', // Ensure no scroll bars
-          marginTop: '90px'
-        }}
-      >
+    <div className="login-background">
+      <div className="card login-card shadow-lg p-4 w-100">
         <div className="text-center mb-4">
-          <img src={carImage} alt="Levaggio" style={{ width: '120px', borderRadius: '50%' }} />
-          <h1 style={{ color: '#8B0000', fontWeight: 'bold', fontSize: '2.5rem', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>Levaggio</h1>
-          <h2 className="mb-4" style={{ color: '#8B0000', fontWeight: 'bold' }}>Welcome Back</h2>
+          <h1 className="title">Levaggio</h1>
+          <h2 className="subtitle">Welcome Back</h2>
         </div>
         <form onSubmit={handleLogin}>
           {!isAdmin && (
             <>
               <div className="mb-3">
                 <label className="form-label">📧 Email</label>
-                <div className="input-group">
-                  <input
-                    type="email"
-                    className="form-control rounded-pill"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
+                <input
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label">🔒 Password</label>
-                <div className="input-group">
-                  <input
-                    type="password"
-                    className="form-control rounded-pill"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    required
-                  />
-                </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
               </div>
             </>
           )}
@@ -139,47 +115,38 @@ const Login = () => {
             <>
               <div className="mb-3">
                 <label className="form-label">👤 Select Admin</label>
-                <div className="input-group">
-                  <select
-                    className="form-select rounded-pill"
-                    value={selectedAdmin}
-                    onChange={(e) => setSelectedAdmin(e.target.value)}
-                    required
-                  >
-                    <option value="">Select an admin...</option>
-                    {admins.map((admin, index) => (
-                      <option key={index} value={admin.name}>{admin.name}</option>
-                    ))}
-                  </select>
-                </div>
+                <select
+                  className="form-select"
+                  value={selectedAdmin}
+                  onChange={(e) => setSelectedAdmin(e.target.value)}
+                  required
+                >
+                  <option value="">Select an admin...</option>
+                  {admins.map((admin, index) => (
+                    <option key={index} value={admin.name}>{admin.name}</option>
+                  ))}
+                </select>
               </div>
               <div className="mb-3">
                 <label className="form-label">🔑 Admin Password</label>
-                <div className="input-group">
-                  <input
-                    type="password"
-                    className="form-control rounded-pill"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter admin password"
-                    required
-                  />
-                </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter admin password"
+                  required
+                />
               </div>
             </>
           )}
           <button
             type="submit"
-            className="btn w-100 rounded-pill"
-            style={{ backgroundColor: '#8B0000', color: '#fff', fontWeight: 'bold' }}
+            className="btn w-100"
             disabled={loading}
           >
             {loading ? (
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             ) : (
               <>
                 <FaSignInAlt /> Login
@@ -190,22 +157,80 @@ const Login = () => {
       </div>
 
       <style jsx>{`
-        .login-card:hover {
-          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        }
+  .login-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #8B0000, #FFFFFF); /* Dark Red and White */
+    animation: gradient-animation 5s ease infinite;
+    background-size: 200% 200%;
+  }
 
-        .btn:hover {
-          background-color: #660000 !important;
-        }
+  @keyframes gradient-animation {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
 
-        .form-control:focus {
-          box-shadow: none;
-        }
+  .login-card {
+    max-width: 400px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* Transparent white */
+    border: 1px solid rgba(139, 0, 0, 0.5); /* Slightly transparent border */
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
 
-        .form-control:hover {
-          border-color: #8B0000;
-        }
-      `}</style>
+  .title {
+    color: #b3202e;
+    font-weight: bold;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .subtitle {
+    color: #8B0000;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .form-control {
+    border-radius: 30px;
+    border: 2px solid #b3202e;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #8B0000;
+    box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+  }
+
+  .form-control:hover {
+    border-color: #b3202e;
+  }
+
+  .btn {
+    background-color: #8B0000;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #660000 !important;
+    transform: scale(1.05);
+  }
+`}</style>
+
+
+
+
     </div>
   );
 };

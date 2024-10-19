@@ -87,9 +87,10 @@ function ServiceReports() {
       filtered = filtered.filter(service => service.service.toLowerCase().includes(serviceFilter.toLowerCase()));
     }
 
-    // Filter by service status
     if (serviceStatusFilter) {
-      filtered = filtered.filter(service => service.status.toLowerCase() === serviceStatusFilter.toLowerCase());
+      filtered = filtered.filter(service => 
+        service.status && service.status.toLowerCase() === serviceStatusFilter.toLowerCase()
+      );
     }
 
     setFilteredServices(filtered);
@@ -107,9 +108,11 @@ function ServiceReports() {
   const generatePDF = () => {
     const input = document.getElementById('service-reports-content');
     const downloadButton = document.getElementById('download-pdf-btn');
-    
+    const dashboardbtn = document.getElementById('navigate-dashboard-btn');
     // Hide the download button
     downloadButton.style.display = 'none';
+
+    dashboardbtn.style.display = 'none';
     
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
@@ -147,6 +150,8 @@ function ServiceReports() {
 
       // Show the download button again
       downloadButton.style.display = 'block';
+
+      dashboardbtn.style.display = 'block';
     });
   };
 
@@ -221,7 +226,6 @@ function ServiceReports() {
               </ul>
             </div>
           </div>
-
           <div className="pcard" style={{ cursor: 'pointer' }}>
             <div className="pcard">
               <h5>Total Services in List</h5>
@@ -232,7 +236,7 @@ function ServiceReports() {
           <div className="pcard" style={{ cursor: 'pointer' }}>
             {/* New card for Parts Used for Services */}
             <div className="pcard parts-used-card">
-              <h5>Parts Used for Filtered Services</h5>
+              <h5>Parts Used and the Filtered Services</h5>
               <ul className="parts-list">
                 {filteredServices.map(service => (
                   <li key={service._id}>
@@ -255,7 +259,16 @@ function ServiceReports() {
         <button id="download-pdf-btn" onClick={generatePDF} className="download-pdf-btn">
           Download PDF
         </button>
-
+        
+        {/* New button to navigate to /serviceDashboard */}
+        <button
+          id="navigate-dashboard-btn"
+          onClick={() => navigate('/serviceDashboard')}
+          className="navigate-dashboard-btn"
+          style={{ marginLeft: '10px' }} // Optional style to add some spacing between buttons
+        >
+        Dashboard
+        </button>
 
         {/* Service Records Table */}
         <div className="filtered-services">

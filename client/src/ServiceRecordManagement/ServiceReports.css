@@ -1,23 +1,23 @@
 /* General layout */
-body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0; /* Remove default margin */
-  background-image: url('./assets/supercars.png'); /* Set background image for the body */
-  background-size: cover; /* Cover the entire background */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent repeating the image */
+.service-reports-background {
+  /* Gradient background from top left to bottom right */
+  background-image: linear-gradient(135deg, #d32f2f, #7d082b);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Service Reports Container */
 .service-reports-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: rgba(245, 247, 250, 0.9); /* Light background with transparency for contrast */
+  background-color: #fff; /* Keeps the main content area white for contrast */
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  margin-top: 90px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
+
 
 /* Title */
 .title {
@@ -270,3 +270,26 @@ body {
   }
 }
 
+.navigate-dashboard-btn {
+  background-color: #a51f2e; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Display inline */
+  font-size: 16px; /* Increase font size */
+  margin-left: 10px; /* Add some margin to the left */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.navigate-dashboard-btn:hover {
+  background-color: #b3202e; /* Darker green on hover */
+}
+
+.navigate-dashboard-btn:active {
+  background-color: #b3202e; /* Even darker green on click */
+  transform: scale(0.98); /* Slight shrink effect on click */
+}
