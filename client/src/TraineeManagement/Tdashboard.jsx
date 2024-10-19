@@ -12,7 +12,13 @@ function Tdashboard() {
   };
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center position-relative">
+    <div
+      className="d-flex vh-100 justify-content-center align-items-center position-relative"
+      style={{
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+        backdropFilter: 'blur(10px)', // Light blur effect
+      }}
+    >
       <div className="w-75 rounded p-5 shadow-lg text-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <h1 className="mb-5" style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '2.5rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', color: '#000' }}>
           Dashboard

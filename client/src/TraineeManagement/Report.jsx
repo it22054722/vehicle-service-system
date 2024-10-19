@@ -152,9 +152,15 @@ function traineereport() {
   };
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center">
+    <div
+      className="d-flex vh-100 justify-content-center align-items-center position-relative"
+      style={{
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+        backdropFilter: 'blur(10px)', // Light blur effect
+      }}
+    >
       <div className="w-75  shadow-lg rounded p-5 d-flex" style={{  backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
-        <div className="col-md-6 pe-4 report-content" id="reportContent" style={{marginTop:"50px",marginLeft:"10px"}}>
+        <div className="col-md-6 pe-4 report-content" id="reportContent" style={{marginTop:"120px",marginLeft:"10px"}}>
           <h3
             className="mb-3" style={{color: "#8B0000", fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'}}
           >
@@ -205,24 +211,12 @@ function traineereport() {
                 </ul>
               </div>
 
-              <div className="mt-4">
-                <h5 className="text-dark">Overall Performance Evaluation</h5>
-                <p
-                  className="mb-2"
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    color: "#8B0000",
-                  }}
-                >
-                  {getProgressEvaluation(tasks)}
-                </p>
-              </div>
+              
             </>
           )}
         </div>
 
-        <div className="col-md-6" style={{marginTop:"50px"}}>
+        <div className="col-md-6" style={{marginTop:"120px"}}>
           <div className="d-flex justify-content-between align-items-center mb-3">
             <button
               id="downloadButton"
@@ -261,7 +255,8 @@ function traineereport() {
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: "600",
-                  textAlign: "center"
+                  textAlign: "center",
+                  marginTop:"10px"
                 }}
               >
                 Task Progress Chart
@@ -269,6 +264,20 @@ function traineereport() {
               <Bar data={chartData} options={{ responsive: true }} />
 
               <div className="mt-3">
+              <div className="mt-4">
+                <h5 className="text-dark">Overall Performance Evaluation</h5>
+                <p
+                  className="mb-2"
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    color: "#8B0000",
+                    marginLeft:"20px"
+                  }}
+                >
+                  {getProgressEvaluation(tasks)}
+                </p>
+              </div>
         <button
           id="goBackButton"
           className="btn btn-sm btn-info"
@@ -276,10 +285,11 @@ function traineereport() {
           style={{
             borderRadius: "20px",
             padding: "10px 20px",
-            marginTop:"120px",
-            marginLeft:"420px",
+            marginTop:"100px",
+            marginLeft:"450px",
             backgroundColor: "#8B0000", // Dark red color
               color: "#fff",
+              marginBottom:"20px"
           }}
         >
           Go Back

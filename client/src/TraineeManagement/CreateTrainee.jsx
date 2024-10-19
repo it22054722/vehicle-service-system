@@ -73,7 +73,13 @@ function CreateTrainee() {
   };
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center">
+    <div
+    className="d-flex vh-100 justify-content-center align-items-center position-relative"
+    style={{
+      background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+      backdropFilter: 'blur(10px)', // Light blur effect
+    }}
+  >
       <div className="card p-4 shadow" style={{ width: '400px', height: '600px', overflowY: 'auto', borderRadius: '20px', marginTop: '75px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
         <form onSubmit={Submit}>
           <h1

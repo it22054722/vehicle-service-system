@@ -166,8 +166,14 @@ function Schedule() {
   };
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center">
-      <div className="w-75 rounded p-2 shadow-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', fontSize: '12px', marginTop: "250px", marginBottom:"50px" }}>
+<div
+      className="d-flex vh-100 justify-content-center align-items-center position-relative"
+      style={{
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+        backdropFilter: 'blur(10px)', // Light blur effect
+      }}
+    >
+      <div className="w-75 rounded p-2 shadow-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', fontSize: '12px', marginTop: "250px",height:"600px",marginBottom:"140px" }}>
         <div className="container">
           <h2 style={{ textAlign: 'center', marginBottom: '0.5rem', marginTop: '10px', fontSize: '1.5rem', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.4)' }}>Schedule Management</h2>
           

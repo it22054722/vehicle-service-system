@@ -51,7 +51,13 @@ function Trainees() {
   };
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center">
+    <div
+      className="d-flex vh-100 justify-content-center align-items-center position-relative"
+      style={{
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+        backdropFilter: 'blur(5px)', // Light blur effect
+      }}
+    >
       <div
         className="w-75 rounded p-3"
         style={{ backgroundColor: "rgba(255, 255, 255, 0.8)",marginTop:"70px" }}

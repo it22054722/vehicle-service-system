@@ -160,7 +160,13 @@ function TaskProgress() {
 
 
   return (
-    <div className="background d-flex vh-100 justify-content-center align-items-center" style={{ backgroundColor: "#f5f5f5" }}>
+    <div
+    className="d-flex vh-100 justify-content-center align-items-center position-relative"
+    style={{
+      background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',
+      backdropFilter: 'blur(10px)', // Light blur effect
+    }}
+  >
       <div className="w-75 shadow-lg rounded p-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', border: '1px solid #8B0000' }}>
         <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '2.5rem', fontWeight: 'bold', color: '#8B0000' }}>
           Select Task to View Progress of All Trainees
