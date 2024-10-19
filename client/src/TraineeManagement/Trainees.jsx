@@ -54,7 +54,7 @@ function Trainees() {
     <div className="background d-flex vh-100 justify-content-center align-items-center">
       <div
         className="w-75 rounded p-3"
-        style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.8)",marginTop:"70px" }}
       >
         <h1
           className="mb-5"
@@ -65,7 +65,7 @@ function Trainees() {
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
             color: "#000",
-            marginTop:"50px"
+            marginTop:"30px"
           }}
         >
           Trainee Table
