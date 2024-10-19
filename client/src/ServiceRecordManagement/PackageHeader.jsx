@@ -95,7 +95,7 @@ const PackageHeader = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
       <div className="container-fluid">
-        <Link className="navbar-brand fs-4 fw-bold" to="/" style={{ color: '#3498db' }}>
+        <Link className="navbar-brand fs-4 fw-bold" to="/" style={{ color: '#e60000',fontWeight:'bold' }}>
           Levaggio
         </Link>
 
