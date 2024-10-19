@@ -7,6 +7,7 @@ import { CSSTransition } from "react-transition-group"; // Import for transition
 import './RevenueAreaChart.css'; // Import CSS styles
 
 const RevenueAreaChart = () => {
+  
   const [revenueData, setRevenueData] = useState([]);
   const [labels, setLabels] = useState([]);
   const [showChart, setShowChart] = useState(false); // State for chart visibility
@@ -160,6 +161,7 @@ const RevenueAreaChart = () => {
   };
 
   return (
+    <div className="service-reports-background">
     <div className="revenue-chart-container">
       <h2 className="revenue-chart-title">
         Total Revenue Generated (LKR)
@@ -181,6 +183,7 @@ const RevenueAreaChart = () => {
       >
         Download Chart as PDF
       </button>
+    </div>
     </div>
   );
 };

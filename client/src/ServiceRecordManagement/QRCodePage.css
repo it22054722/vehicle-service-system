@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .qr-code-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, rgba(29, 29, 29, 0.8), rgba(60, 60, 60, 0.8)), url('./assets/supercars.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-container {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+  
+  .vehicle-input {
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    outline: none;
+    margin-right: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .vehicle-input::placeholder {
+    color: #ccc;
+  }
+  
+  .vehicle-input:focus {
+    box-shadow: 0 0 10px rgba(178, 32, 46, 0.7);
+  }
+  
+  .find-button {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #b3202e;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .find-button:hover {
+    background-color: #a1192d;
+    transform: scale(1.05);
+  }
+  
+  .qr-codes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .qr-code-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
+    margin: 15px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+    text-align: center;
+  }
+  
+  .qr-code-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .qr-title {
+    color: #b3202e;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .no-results {
+    text-align: center;
+    margin-top: 20px;
+    color: #fefefe;
+    font-size: 1.2rem;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .pdf-button,
+  .nav-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #b3202e;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 0 15px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .pdf-button:hover,
+  .nav-button:hover {
+    background-color: #a1192d;
+    transform: scale(1.05);
+  }
+  

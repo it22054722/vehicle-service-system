@@ -1,10 +1,20 @@
+.service-reports-background {
+  /* Gradient background from top left to bottom right */
+  background-image: linear-gradient(135deg, #d32f2f, #7d082b);
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 /* Chart Container Styles */
 .revenue-chart-container {
   max-width: 1200px; /* Set a maximum width for the chart */
   height: fit-content;
   margin: 0 auto; /* Center the container */
   padding: 20px; /* Add padding */
-  background-color: #f9f9f9; /* Light background color */
+  background: linear-gradient(135deg, #f9f9f9, #e1e1e1); /* Gradient background */
   border-radius: 10px; /* Rounded corners */
   margin-top: 100px;
   margin-bottom: 20px;
