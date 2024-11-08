@@ -334,27 +334,51 @@ export default function AddPackage() {
 
 
 
+                                <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
+    <button 
+        type="submit" 
+        className="w-100 py-2"
+        style={{
+            backgroundColor: '#28a745', // Bright green color
+            backgroundImage: 'linear-gradient(to right, #28a745, #36d27c)', // Gradient effect
+            color: '#fff',
+            fontWeight: 'bold',
+            borderRadius: '12px', // Slightly larger rounded corners
+            boxShadow: '0px 6px 10px rgba(0, 0, 0, 0.2)', // Slightly larger shadow
+            border: 'none',
+            transition: 'background-color 0.3s ease',
+            width: '100%', // Full width within its container
+            maxWidth: '200px' // Limits max width for better control
+        }}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#36d27c'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#28a745'}
+    >
+        Add Package
+    </button>
 
-                                <button 
-    type="submit" 
-    className="w-100 py-2"
-    style={{
-        backgroundColor: '#28a745', // Bright green color
-        backgroundImage: 'linear-gradient(to right, #28a745, #36d27c)', // Gradient effect
-        color: '#fff',
-        fontWeight: 'bold',
-        borderRadius: '12px', // Slightly larger rounded corners
-        boxShadow: '0px 6px 10px rgba(0, 0, 0, 0.2)', // Slightly larger shadow
-        border: 'none',
-        transition: 'background-color 0.3s ease',
-        width: '100%', // Full width within its container
-        maxWidth: '200px' // Limits max width for better control
-    }}
-    onMouseOver={(e) => e.target.style.backgroundColor = '#36d27c'}
-    onMouseOut={(e) => e.target.style.backgroundColor = '#28a745'}
->
-    Add Package
-</button>
+    <button 
+        type="button"
+        className="w-100 py-2"
+        style={{
+            backgroundColor: '#dc3545', // Bright red color for the return button
+            backgroundImage: 'linear-gradient(to right, #dc3545, #ff6b6b)', // Gradient effect
+            color: '#fff',
+            fontWeight: 'bold',
+            borderRadius: '12px', // Slightly larger rounded corners
+            boxShadow: '0px 6px 10px rgba(0, 0, 0, 0.2)', // Slightly larger shadow
+            border: 'none',
+            transition: 'background-color 0.3s ease',
+            width: '100%', // Full width within its container
+            maxWidth: '200px', // Limits max width for better control
+            marginLeft: '10px' // Adds space between the buttons
+        }}
+        onClick={() => window.location.href = '/view-packages'} // Adjust URL as needed
+        onMouseOver={(e) => e.target.style.backgroundColor = '#ff6b6b'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#dc3545'}
+    >
+        Return
+    </button>
+</div>
 
 
     
