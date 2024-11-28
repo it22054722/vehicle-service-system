@@ -196,7 +196,7 @@ const ViewAllPackages = () => {
             text: 'Please log in to proceed with payment.',
             confirmButtonText: 'Login',
         }).then(() => {
-            navigate('/login');
+            navigate('/register');
         });
         return;
     }
