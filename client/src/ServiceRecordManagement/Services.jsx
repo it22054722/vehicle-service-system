@@ -66,12 +66,12 @@ function Services() {
     <div
       className="d-flex vh-100 justify-content-center align-items-center"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',backdropFilter: 'blur(10px)',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="w-90 rounded p-4 shadow" style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" ,marginTop:"50px"}}>
+      <div className="w-90 rounded p-4 shadow" style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" ,marginTop:"100px", height:"600px"}}>
         <h2 className="text-center" style={{ marginBottom: '0.5rem', color: '#b3202e', fontFamily: "'Poppins', sans-serif", fontWeight: 'bold' }}>
           Services
         </h2>
@@ -125,7 +125,7 @@ function Services() {
 
         <br></br>
 
-        <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '290px', overflowY: 'auto' }}>
           <table className="table table-hover table-striped" style={tableStyle}>
             <thead>
               <tr style={headerStyle}>
@@ -192,6 +192,9 @@ const headerStyle = {
   backgroundColor: '#a1192d',
   color: 'white',
   textAlign: 'center',
+  position: 'sticky', // Make header sticky
+  top: 0,            // Align to top
+  zIndex: 1,        // Ensure it stays above body content
 };
 
 const rowEvenStyle = {

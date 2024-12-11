@@ -118,7 +118,7 @@ function UpdateService() {
     <div
       className="d-flex vh-100 justify-content-center align-items-center"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',backdropFilter: 'blur(10px)',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

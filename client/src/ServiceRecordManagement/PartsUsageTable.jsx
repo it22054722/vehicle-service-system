@@ -107,6 +107,7 @@ function PartsUsageTable() {
   }, [dropdownOpen]);
 
   return (
+    <div className=" vh-900 "style={{background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',backdropFilter: 'blur(10px)'}} >
     <div className="parts-usage-container">
       <h2 className="parts-usage-header" style={{marginTop:'90px'}}>
         Most Commonly Used Parts
@@ -126,7 +127,6 @@ function PartsUsageTable() {
           placeholder="End Date" 
         />
       </div>
-
       <div className="parts-usage-table">
         <table>
           <thead>
@@ -160,7 +160,9 @@ function PartsUsageTable() {
         Send the Details
       </button>
     </div>
+    </div>
   );
+  
 }
 
 export default PartsUsageTable;

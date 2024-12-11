@@ -156,9 +156,9 @@ function ServiceReports() {
   };
 
   return (
-    <div className="service-reports-background">
+    <div className=" vh-900 "style={{background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',backdropFilter: 'blur(10px)'}} >
       <div className="service-reports-container" id="service-reports-content">
-        <h2 className="title">Service Reports</h2>
+        <h2 className="htitle">Service Reports</h2>
 
         {/* Filters */}
         <div className="filters-container">

@@ -5,9 +5,16 @@ import backgroundImage from './assets/Carwash-Prague-czech-adriatech-13.jpg';
 const ServiceDashboard = () => {
   return (
     <div
+    className="vh-100 justify-content-center align-items-center"
+    style={{
+      background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.5), rgba(139, 0, 0, 0.5))',backdropFilter: 'blur(10px)',
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+  >
+    <div
       style={{
         backgroundSize: "cover",
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
         minHeight: "100vh",
         padding: "4rem",
         color: "#fff",
@@ -97,6 +104,7 @@ const ServiceDashboard = () => {
           Service Details
         </Link>
       </div>
+    </div>
     </div>
   );
 };

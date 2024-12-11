@@ -1,15 +1,16 @@
 body {
-  background-color: #f7f9fc; /* Soft background color */
-  font-family: 'Roboto', sans-serif; /* Modern font */
-  margin: 0; /* Remove default margin */
-  padding: 20px; /* Add padding to body */
+  margin: 0; /* Remove default body margin */
+  padding: 0; /* Remove default body padding */
+  height: 100vh; /* Ensure body covers full viewport height */
+  background: linear-gradient(145deg, #ff7e5f, #feb47b); /* Two-color gradient background */
+  font-family: 'Roboto', sans-serif; /* Optional, for better text styling */
 }
 
 .parts-usage-container {
   max-width: 800px; /* Max width for the container */
   margin: auto; /* Center the container */
   padding: 30px; /* Add padding */
-  background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Gradient background */
+  background: white; /* Set background color to white for container */
   border-radius: 15px; /* Rounded corners */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   position: relative; /* Positioning for dropdown */
@@ -20,6 +21,7 @@ body {
   transform: translateY(-5px); /* Lift effect on hover */
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
+
 
 .parts-usage-header {
   font-size: 28px; /* Header size */
