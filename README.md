@@ -9,11 +9,6 @@ Welcome to Levaggio, a robust Vehicle Service Management System developed to mod
 
 ---
 
-## 🎥 **Demo Video**  
-👉 [Click here to watch the demo video!](https://mysliit-my.sharepoint.com/:v:/g/personal/it22546784_my_sliit_lk/EaxrE-AIrpxGt_Fc9_DVKL4B7fPXp-_x5OQvVjzV3OLfLw?e=JhE5o9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)  
-
----
-
 ## 🛠️ **Features**
 
 ### 🚀 **Comprehensive Admin Management**  
